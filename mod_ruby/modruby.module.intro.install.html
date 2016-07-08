@@ -1,0 +1,270 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. Building and Installing</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><meta name="keywords" content="Background, Design"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.module.intro.html" title="Chapter 1. Introduction"><link rel="prev" href="mod_ruby.module.intro.html" title="Chapter 1. Introduction"><link rel="next" href="mod_ruby.module.config.html" title="Chapter 2. Configuration"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. Building and Installing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mod_ruby.module.intro.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Introduction</th><td width="20%" align="right"> <a accesskey="n" href="mod_ruby.module.config.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.intro.install"></a>2. Building and Installing</h2></div></div></div>
+
+
+
+<p>ModRuby compiles, builds, and runs on Unix-like operating systems (Linux,
+FreeBSD, Mac OS X). A lot of work has gone into making ModRuby easy to compile and
+build in general and especially on Debian/Ubuntu.</p>
+
+<p>ModRuby only works with the Apache prefork MPM, which is the traditional
+Apache backend. The debian package will require this
+(<code class="literal">apache2-mpm-prefork</code>) as a dependency. Most sites that use
+PHP or other frameworks use this backend as well. ModRuby <span class="emphasis"><em>will not
+work with the threaded (worker MPM) backend</em></span>. This is mainly because
+the Ruby VM is not reentrant, and <code class="literal">mod_ruby</code> therefore has no
+support for reentrancy as well.</p>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452375120"></a>2.1. Debian and Ubuntu</h3></div></div></div>
+
+<p>If you are using Ubuntu/Debian, you can build binary packages easily. Just
+do the following:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> apt-get install git build-essential devscripts pbuilder cmake 
+<code class="prompt">bash $</code> git clone https://github.com/mikeowens/mod_ruby
+<code class="prompt">bash $</code> cd mod_ruby
+<code class="prompt">bash $</code> sudo /usr/lib/pbuilder/pbuilder-satisfydepends
+<code class="prompt">bash $</code> fakeroot debian/rules clean
+<code class="prompt">bash $</code> dpkg-build -b
+</pre><p>
+
+And this will build the complete debian package. The resulting deb file(s) will
+be put in the above directory. For example, it produces the following on AMD 64:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> ls ../
+total 17M
+drwxr-xr-x  3 owensmk owensmk 4.0K 2009-07-27 16:27 .
+drwxr-xr-x  3 owensmk owensmk 4.0K 2009-07-28 14:35 ..
+-rw-r--r--  1 owensmk owensmk 426K 2009-07-27 16:27 mod-ruby_3.0.0-1_amd64.build
+-rw-r--r--  1 owensmk owensmk 1.9K 2009-07-27 16:27 mod-ruby_3.0.0-1_amd64.changes
+-rw-r--r--  1 owensmk owensmk 207K 2009-07-27 16:26 mod-ruby_3.0.0-1_amd64.deb
+-rw-r--r--  1 owensmk owensmk 1004 2009-07-27 16:27 mod-ruby_3.0.0-1.dsc
+-rw-r--r--  1 owensmk owensmk  16M 2009-07-27 16:25 mod-ruby_3.0.0-1.tar.gz
+-rw-r--r--  1 owensmk owensmk 337K 2009-07-27 16:26 mod-ruby-dev_3.0.0-1_amd64.deb
+drwxr-xr-x 15 owensmk owensmk 4.0K 2009-07-28 14:15 mod-ruby
+</pre><p>
+
+</p>
+
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452380608"></a>2.2. FreeBSD</h3></div></div></div>
+
+<p>ModRuby requires the following dependencies:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Apache Portable Runtime.</p></li><li class="listitem"><p>Apache Web Server source code.</p></li><li class="listitem"><p>Flex.</p></li><li class="listitem"><p>CMake. Version 2.6 or higher is required.</p></li></ul></div><p>
+
+</p>
+
+<p>Installing the prerequisites in FreeBSD is easy. You need to make sure you
+have FreeBSD ports installed however. That said, do the following as root:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> pkg_add -r wget cmake flex apache2 sqlite3
+<code class="prompt">bash $</code> cd /usr/ports/lang/ruby19 &amp;&amp; make &amp;&amp; make install
+<code class="prompt">bash $</code> cd /usr/ports/devel/apr1 &amp;&amp; make &amp;&amp; make install
+</pre><p>
+
+</p>
+
+<p>Then you can fetch the ModRuby source and build it normally, as described in
+<a class="xref" href="modruby.module.intro.install.html#modruby.module.intro.install.compiling" title="2.4. Compiling">Section 2.4, “Compiling”</a></p>
+
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452386896"></a>2.3. Mac OS X</h3></div></div></div>
+
+<p>On Max OS X you need to make sure the following are installed on your
+system:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>XCode. This is the basic build environment needed to compile and
+build everything.</p></li><li class="listitem"><p>Ruby 1.9.1. For now, the build system looks for the Ruby version
+installed by Mac Ports (located in <code class="filename">/opt</code>. This can be easily
+expanded by modifying the top-level <code class="filename">CMakeLists.txt</code> file to
+look in other places for the Ruby executable.</p></li></ul></div><p>
+
+</p>
+
+<p>If you have these, then everything should compile normally as described in
+the next section.</p>
+
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="modruby.module.intro.install.compiling"></a>2.4. Compiling</h3></div></div></div>
+
+<p>To compile from scratch, you need to get the Apache source. Download and
+extract it into <code class="filename">apache/lib/src</code>. On Debian you would do this
+as follows (from source root):
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> apt-get install apache2-prefork-dev
+</pre><p>
+
+</p>
+
+<p>Now from within the source root, you can build the project:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> cmake .
+<code class="prompt">bash $</code> make
+</pre><p>
+
+At this point, I am not sure I would recommend the <code class="literal">make
+install</code> command on other platforms because it's not been written for
+anything other than Debian. But basically you just copy
+<code class="filename">mod_ruby.so</code> to wherever your Apache modules directory
+is. Copy the <code class="filename">debian/mod_ruby.load</code> and
+<code class="filename">mod_ruby.conf</code> scripts to your module configuration
+directory (or put their contents into your main Apache configuration file). The
+copy the <code class="filename">lib/core</code> contents into your Ruby site install
+directory. That should do it.</p>
+
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452397296"></a>2.5. Development Install</h3></div></div></div>
+
+<p>To make development easier, you can run everything from the source
+distribution without having to install anything. That way, the changes you make
+as you develop can take affect immediately (sometimes requiring an Apache
+restart). You just have to symlink things to the right places. </p>
+
+<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp46818452398496"></a>2.5.1. Debian/Ubuntu</h4></div></div></div>
+
+<p>To install from your source directory, use the following symlinks:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/example /etc/apache2/sites-available/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/debian/mod_ruby.load /etc/apache2/mods-available/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/debian/mod_ruby.conf /etc/apache2/mods-available/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/apache/mod_mod_ruby.so.2.0.0 /usr/lib/apache2/modules/mod_mod_ruby.so
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/core/mod_ruby.rb /usr/lib/ruby/{1.9.x}/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/core/mod_ruby /usr/lib/ruby/{1.9.x}/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/example /var/www/mod_ruby-example
+<code class="prompt">bash $</code> mkdir /usr/share/mod_ruby
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/site /usr/share/mod_ruby/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/assets /usr/share/mod_ruby/
+</pre><p>
+
+Now enable everything:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> sudo a2enmod mod_ruby include
+<code class="prompt">bash $</code> sudo a2ensite mod_ruby-example
+<code class="prompt">bash $</code> sudo apache2ctl restart
+</pre><p>
+
+</p>
+
+</div>
+
+<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp46818452406336"></a>2.5.2. FreeBSD</h4></div></div></div>
+
+<p>To install from your source directory, use the following symlinks:
+
+</p><pre class="screen">
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/config/mod_ruby.conf /usr/local/etc/apache2/Includes/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/apache/mod_mod_ruby.so.2.0.0 /usr/local/libexec/apache22/mod_mod_ruby.so
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/core/mod_ruby.rb /usr/local/lib/ruby/1.9/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/core/mod_ruby /usr/lib/ruby/1.9/
+<code class="prompt">bash $</code> mkdir /var/www/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/example /var/www/mod_ruby-example
+<code class="prompt">bash $</code> mkdir /usr/share/mod_ruby
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/site /usr/share/mod_ruby/
+<code class="prompt">bash $</code> ln -s /{path_to}/mod_ruby/lib/assets /usr/share/mod_ruby/
+</pre><p>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452411984"></a>2.6. Configuring Apache</h3></div></div></div>
+
+<p>One the packages are installed, you need to enable
+<code class="literal">mod_mod_ruby</code> and the example site as follows:
+
+</p><pre class="screen">
+<code class="prompt">user@host $</code> sudo a2enmod mod_ruby
+<code class="prompt">user@host $</code> sudo a2ensite mod_ruby-example
+</pre><p>
+
+If you are running a stock Ubuntu Apache install, that's it! Restart Apache to
+institute the changes using <span class="command"><strong>apache2ctl restart</strong></span>.
+
+</p>
+
+<p>If you are not using the default Ubuntu Apache configuration and wish to
+configure it manually, you can modify the VHost configuration in
+<code class="filename">/etc/apache2/sites-available/mod_ruby-example</code>. The following as
+a minimal configuration to get the ModRuby module loaded and a simple site running:
+
+</p><div class="informalfigure">
+<pre class="programlisting">
+LoadModule ruby_module /usr/lib/apache2/modules/mod_ruby.so
+
+&lt;IfModule ruby_module&gt;
+AddHandler ruby-handler .rsp
+AddHandler ruby-handler .rhtml
+AddHandler ruby-script-handler .rb
+
+AddType text/html .rhtml .rb
+
+RubyDefaultHandlerModule 'modruby'
+RubyDefaultHandlerClass  'ModRuby::Handler'
+RubyDefaultHandlerMethod 'handle'
+&lt;/IfModule&gt;
+
+&lt;VirtualHost *&gt;
+  ServerName modruby.example.org
+  ServerAdmin webmaster@example.org
+  DocumentRoot "/var/www/modruby-example/content"
+
+  &lt;Directory /&gt;
+    Options Includes FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  &lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;</pre>
+</div><p>
+
+This tells Apache to load the <code class="literal">mod_ruby.so</code> module, and
+associate its handler to files with the suffixes <code class="literal">.rb</code> and
+<code class="literal">.rhtml</code>. The <code class="literal">AddType</code> directive defines
+associates these extension with <code class="literal">text/html</code> MIME types. You
+could rather associate these suffixes with system's
+<code class="filename">mime.types</code> configuration file. In this case, you would
+simply modify the appropriate line of that file as follows:
+
+</p><div class="informalfigure">
+<pre class="programlisting">
+text/html                   html htm rb rhtml
+</pre>
+</div><p>
+
+Be sure to restart Apache to make these changes take effect.
+</p>
+
+<p>It is important that you use a fully-qualified domain name in your browser
+for the example site, otherwise cookies will not work properly. By default, the
+Apache configuration file for the example site uses the domain
+<code class="literal">modruby.example.org</code>. You need to add an entry to your
+<code class="filename">/etc/hosts</code> file as follows:
+
+</p><pre class="programlisting">
+127.0.0.1       modruby.example.org
+</pre><p>
+
+</p>
+
+<p>Now you can load the example site in your browser by going to <a class="ulink" href="http://rsp.example.org/" target="_top">http://modruby.example.org</a>.</p>
+
+<p>So that's it. Everything is set up and working. Let's move on to the
+interesting stuff.</p>
+
+</div>
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="mod_ruby.module.intro.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.module.intro.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mod_ruby.module.config.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 1. Introduction </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 2. Configuration</td></tr></table></div></body></html>

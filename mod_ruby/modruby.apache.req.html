@@ -1,0 +1,1738 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. The Apache Request Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="next" href="modruby.apache.server.html" title="3. The Apache Server Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. The Apache Request Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mod_ruby.reference.apache.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apache.server.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.req"></a>2. The Apache Request Class</h2></div></div></div>
+
+
+
+<p>The Apache request is the largest data structure in the Apache module API
+and encompasses every aspect of the HTTP request, including all other associated
+data structures such as the connection, process, and server structures. It is
+primary means by which to interact with Apache.
+</p>
+
+<p>This data structure originates in the Apache API as the
+<span class="structname">request_req</span> structure (documented <a class="ulink" href="http://ci.apache.org/projects/httpd/trunk/doxygen/structrequest__rec.html" target="_top">here</a>). It
+is encapsulated, and somewhat extended in C++ form in <code class="literal">mod_rsp</code>
+by the <code class="classname">apache::Request</code> class
+(<code class="filename">request.cpp</code>). This, in turn, is then encapsulated in Ruby
+by the <code class="classname">Apache::Ruby</code> class, defined in the Ruby extension
+<code class="filename">ruby_request.cpp</code>.
+</p>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452898384"></a>2.1. Method Documentation</h3></div></div></div>
+
+<p><a class="xref" href="modruby.apache.req.html#apache_req_methods" title="Table B.1. Apache Request Methods">Table B.1, “Apache Request Methods”</a> contains the exhaustive list of
+methods, in alphabetical order. The documentation of each method follows.
+
+  </p><div class="table"><a name="apache_req_methods"></a><p class="title"><b>Table B.1. Apache Request Methods</b></p><div class="table-contents">
+    
+    <table summary="Apache Request Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"><col></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#allow_options_def" title="2.1. allow_options()">
+                <code class="function">allow_options()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#allow_overrides_def" title="2.1. allow_overrides()">
+                <code class="function">allow_overrides()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#allowed_def" title="2.1. allowed()">
+                <code class="function">allowed()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#allowed_eq_def" title="2.1. allowed=()">
+                <code class="function">allowed=()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#args_def" title="2.1. args()">
+                <code class="function">args()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#assbackwards_def" title="2.1. assbackwards()">
+                <code class="function">assbackwards()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#auth_type_def" title="2.1. auth_type()">
+                <code class="function">auth_type()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#sent_bodyct_def" title="2.1. sent_bodyct()">
+                <code class="function">sent_bodyct()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#bytes_sent_def" title="2.1. bytes_sent()">
+                <code class="function">bytes_sent()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#chunked_def" title="2.1. chunked()">
+                <code class="function">chunked()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#clength_def" title="2.1. clength()">
+                <code class="function">clength()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#connection_def" title="2.1. connection()">
+                <code class="function">connection()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#content_def" title="2.1. content()">
+                <code class="function">content()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#content_encoding_def" title="2.1. content_encoding()">
+                <code class="function">content_encoding()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#content_languages_def" title="2.1. content_languages()">
+                <code class="function">content_languages()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#content_type_def" title="2.1. content_type()">
+                <code class="function">content_type()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#default_type_def" title="2.1. default_type()">
+                <code class="function">default_type()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#discard_request_body_def" title="2.1. discard_request_body()">
+                <code class="function">discard_request_body()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#document_root_def" title="2.1. document_root()">
+                <code class="function">document_root()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#err_headers_out_def" title="2.1. err_headers_out()">
+                <code class="function">err_headers_out()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#filename_def" title="2.1. filename()">
+                <code class="function">filename()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#finalize_request_protocol_def" title="2.1. finalize_request_protocol()">
+                <code class="function">finalize_request_protocol()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#finfo_def" title="2.1. finfo()">
+                <code class="function">finfo()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#get_remote_logname_def" title="2.1. get_remote_logname()">
+                <code class="function">get_remote_logname()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#get_server_name_def" title="2.1. get_server_name()">
+                <code class="function">get_server_name()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#handler_def" title="2.1. handler()">
+                <code class="function">handler()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#header_only_def" title="2.1. header_only()">
+                <code class="function">header_only()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#headers_in_def" title="2.1. headers_in()">
+                <code class="function">headers_in()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#headers_out_def" title="2.1. headers_out()">
+                <code class="function">headers_out()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#hostname_def" title="2.1. hostname()">
+                <code class="function">hostname()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#internal_redirect_def" title="2.1. internal_redirect()">
+                <code class="function">internal_redirect()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#internal_redirect_handler_def" title="2.1. internal_redirect_handler()">
+                <code class="function">internal_redirect_handler()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#is_initial_req_def" title="2.1. is_initial_req()">
+                <code class="function">is_initial_req()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#log_def" title="2.1. log()">
+                <code class="function">log()</code>
+              </a>
+            </code>
+          </td><td>5</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#m_user_def" title="2.1. m_user()">
+                <code class="function">m_user()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#main_def" title="2.1. main()">
+                <code class="function">main()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#make_content_type_def" title="2.1. make_content_type()">
+                <code class="function">make_content_type()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#make_etag_def" title="2.1. make_etag()">
+                <code class="function">make_etag()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#meets_conditions_def" title="2.1. meets_conditions()">
+                <code class="function">meets_conditions()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#method_def" title="2.1. method()">
+                <code class="function">method()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#method_number_def" title="2.1. method_number()">
+                <code class="function">method_number()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#mtime_def" title="2.1. mtime()">
+                <code class="function">mtime()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#next_def" title="2.1. next()">
+                <code class="function">next()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#no_cache_def" title="2.1. no_cache()">
+                <code class="function">no_cache()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#no_local_copy_def" title="2.1. no_local_copy()">
+                <code class="function">no_local_copy()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#note_auth_failure_def" title="2.1. note_auth_failure()">
+                <code class="function">note_auth_failure()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#note_basic_auth_failure_def" title="2.1. note_basic_auth_failure()">
+                <code class="function">note_basic_auth_failure()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#note_digest_auth_failure_def" title="2.1. note_digest_auth_failure()">
+                <code class="function">note_digest_auth_failure()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#notes_def" title="2.1. notes()">
+                <code class="function">notes()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#out_def" title="2.1. out()">
+                <code class="function">out()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#params_def" title="2.1. params()">
+                <code class="function">params()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#parsed_uri_def" title="2.1. parsed_uri()">
+                <code class="function">parsed_uri()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#path_info_def" title="2.1. path_info()">
+                <code class="function">path_info()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#prev_def" title="2.1. prev()">
+                <code class="function">prev()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#print_def" title="2.1. print()">
+                <code class="function">print()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#proto_num_def" title="2.1. proto_num()">
+                <code class="function">proto_num()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#protocol_def" title="2.1. protocol()">
+                <code class="function">protocol()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#proxyreq_def" title="2.1. proxyreq()">
+                <code class="function">proxyreq()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#puts_def" title="2.1. puts()">
+                <code class="function">puts()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#queries_def" title="2.1. queries()">
+                <code class="function">queries()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#range_def" title="2.1. range()">
+                <code class="function">range()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#rationalize_mtime_def" title="2.1. rationalize_mtime()">
+                <code class="function">rationalize_mtime()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#read_def" title="2.1. read()">
+                <code class="function">read()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#readline_def" title="2.1. readline()">
+                <code class="function">readline()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#read_body_def" title="2.1. read_body()">
+                <code class="function">read_body()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#read_chunked_def" title="2.1. read_chunked()">
+                <code class="function">read_chunked()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#read_length_def" title="2.1. read_length()">
+                <code class="function">read_length()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#remaining_def" title="2.1. remaining()">
+                <code class="function">remaining()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#request_time_def" title="2.1. request_time()">
+                <code class="function">request_time()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#rflush_def" title="2.1. rflush()">
+                <code class="function">rflush()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#rputs_def" title="2.1. rputs()">
+                <code class="function">rputs()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#sendfile_def" title="2.1. send_file()">
+                <code class="function">send_file()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#send_error_response_def" title="2.1. send_error_response()">
+                <code class="function">send_error_response()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#server_def" title="2.1. server()">
+                <code class="function">server()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_content_length_def" title="2.1. set_content_length()">
+                <code class="function">set_content_length()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_content_type_def" title="2.1. set_content_type()">
+                <code class="function">set_content_type()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_etag_def" title="2.1. set_etag()">
+                <code class="function">set_etag()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_keepalive_def" title="2.1. set_keepalive()">
+                <code class="function">set_keepalive()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_max_content_length_def" title="2.1. set_max_content_length()">
+                <code class="function">set_max_content_length()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#set_status_def" title="2.1. set_status()">
+                <code class="function">set_status()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#setup_client_block_def" title="2.1. setup_client_block()">
+                <code class="function">setup_client_block()</code>
+              </a>
+            </code>
+          </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#should_client_block_def" title="2.1. should_client_block()">
+                <code class="function">should_client_block()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#some_auth_required_def" title="2.1. some_auth_required()">
+                <code class="function">some_auth_required()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#status_def" title="2.1. status()">
+                <code class="function">status()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#status_line_def" title="2.1. status_line()">
+                <code class="function">status_line()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#subprocess_env_def" title="2.1. subprocess_env()">
+                <code class="function">subprocess_env()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#the_request_def" title="2.1. the_request()">
+                <code class="function">the_request()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#unparsed_uri_def" title="2.1. unparsed_uri()">
+                <code class="function">unparsed_uri()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#uri_def" title="2.1. uri()">
+                <code class="function">uri()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#vlist_validator_def" title="2.1. vlist_validator()">
+                <code class="function">vlist_validator()</code>
+              </a>
+            </code>
+          </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.apache.req.html#write_def" title="2.1. write()">
+                <code class="function">write()</code>
+              </a>
+            </code>
+          </td><td>2</td></tr></tbody></table>
+  </div></div><p><br class="table-break">
+
+</p>
+
+
+<h5><a name="allow_options_def"></a>allow_options()</h5>
+<p><code class="function">allow_options()</code> returns a bitmap specifying all of
+the options set for this request (e.g. indexes, includes, sym links,
+execcgi). This corresponds to the <code class="literal">Options</code> directive for a
+given directory in the Apache configuration file, which controls which server
+features are available in a particular directory. The options bitmap in this
+case returns the the set of options governing the directory encompassing the
+current request.
+</p>
+
+<p>The possible options returned, which are defined in
+<code class="filename">httpd_core.h</code> of the Apache source, are as xfollows:
+
+</p><pre class="programlisting">
+#define OPT_NONE         0
+#define OPT_INDEXES      1
+#define OPT_INCLUDES     2
+#define OPT_SYM_LINKS    4
+#define OPT_EXECCGI      8
+#define OPT_UNSET       16
+#define OPT_INCNOEXEC   32
+#define OPT_SYM_OWNER   64
+#define OPT_MULTI      128
+#define OPT_ALL        OPT_INDEXES|OPT_INCLUDES|OPT_SYM_LINKS|OPT_EXECCGI
+</pre><p>
+
+</p>
+
+<p>More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#options" target="_top">Apache Core Features
+documentation</a>.
+
+</p>
+
+<h5><a name="allow_overrides_def"></a>allow_overrides()</h5>
+
+<p><code class="function">allow_overrides()</code> returns a bitmap describing the
+values in the governing <code class="literal">AllowOverrides</code> setting. This bitmap
+is composed of the same set of options defined in <a class="xref" href="modruby.apache.req.html#allow_options_def" title="2.1. allow_options()">Section 2.1, “allow_options()”</a>.</p>
+
+<p>From the Apache documentation:
+
+</p><div class="blockquote"><p>When the Apache finds an <code class="filename">.htaccess</code> file
+(as specified by <code class="literal">AccessFileName</code>) it needs to know which
+directives declared in that file can override earlier configuration
+directives.</p>
+
+<p>When this directive is set to <code class="literal">None</code>, then
+<code class="filename">.htaccess</code> files are completely ignored. In this case, the
+server will not even attempt to read .htaccess files in the filesystem.</p>
+
+<p>When this directive is set to <code class="literal">All</code>, then any directive
+which has the <code class="filename">.htaccess</code> <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/directive-dict.html#Context" target="_top">Context</a>
+is allowed in <code class="filename">.htaccess</code> files.</p>
+</div><p>
+
+</p>
+
+<p>
+More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#allowoverride" target="_top">Apache Core
+Features documenation</a>.
+</p>
+
+<h5><a name="allowed_def"></a>allowed()</h5>
+
+<p>
+<code class="function">allowed()</code> returns a bitvector of the allowed methods.
+</p>
+
+<p>From the Apache source documentation:
+
+</p><div class="blockquote">
+
+<p>A handler must ensure that the request method is one that it is capable of
+handling.  Generally modules should <code class="literal">DECLINE</code> (HTTP response
+code) any request methods they do not handle.  Prior to aborting the handler in
+this case, the handler should set <code class="literal">allowed</code> to the list of
+methods that it is willing to handle. This bitvector is used to construct the
+<code class="literal">Allow</code> header required for <code class="literal">OPTIONS</code> requests
+as well as <code class="literal">HTTP_METHOD_NOT_ALLOWED</code> and
+<code class="literal">HTTP_NOT_IMPLEMENTED</code> status codes.</p>
+     
+<p>Since the default handler deals with <code class="literal">OPTIONS</code>, all
+modules can usually decline to deal with it. <code class="literal">TRACE</code> is always
+allowed, modules don't need to set it explicitly.
+</p>
+     
+<p>Since the default_handler will always handle a <code class="literal">GET</code>, a
+module which does <span class="emphasis"><em>not</em></span> implement <code class="literal">GET</code>
+should probably return <code class="literal">HTTP_METHOD_NOT_ALLOWED</code>. Unfortunately
+this means that a Script <code class="literal">GET</code> handler can't be installed by
+<code class="literal">mod_actions</code>.
+</p>
+
+</div><p>
+
+The bit vector map, defined in <code class="filename">httpd.h</code>, is as follows:
+
+</p><pre class="programlisting">
+#define M_GET                   0       /** RFC 2616: HTTP */
+#define M_PUT                   1       /*  :             */
+#define M_POST                  2
+#define M_DELETE                3
+#define M_CONNECT               4
+#define M_OPTIONS               5
+#define M_TRACE                 6       /** RFC 2616: HTTP */
+#define M_PATCH                 7       /** no rfc(!)  ### remove this one? */
+#define M_PROPFIND              8       /** RFC 2518: WebDAV */
+#define M_PROPPATCH             9       /*  :               */
+#define M_MKCOL                 10
+#define M_COPY                  11
+#define M_MOVE                  12
+#define M_LOCK                  13
+#define M_UNLOCK                14      /** RFC 2518: WebDAV */
+#define M_VERSION_CONTROL       15      /** RFC 3253: WebDAV Versioning */
+#define M_CHECKOUT              16      /*  :                          */
+#define M_UNCHECKOUT            17
+#define M_CHECKIN               18
+#define M_UPDATE                19
+#define M_LABEL                 20
+#define M_REPORT                21
+#define M_MKWORKSPACE           22
+#define M_MKACTIVITY            23
+#define M_BASELINE_CONTROL      24
+#define M_MERGE                 25
+#define M_INVALID               26      /** RFC 3253: WebDAV Versioning */
+</pre><p>
+
+</p><p>To check whether a given method is support, you use bitwise
+operations. For example, to check whether the <code class="literal">PUT</code> command is
+allowed, you would do the following:
+
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+req-&gt;allowed &amp; (1 &lt;&lt; <span xmlns="" class="type">M_PUT</span>)
+</pre>
+
+</p><p>
+
+</p>
+
+<h5><a name="allowed_eq_def"></a>allowed=()</h5>
+
+<p>
+<code class="function">allowed=()</code> takes a integer value as a mitmask
+representation of all allowed methods and sets it as the handler's bitvector of
+the allowed methods.</p>
+
+<p>For example, to set the allowed options to just <code class="literal">GET</code>,
+<code class="literal">PUT</code>, <code class="literal">OPTIONS</code> and <code class="literal">TRACE</code>,
+you would do the following:
+
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+req-&gt;allowed = <span xmlns="" class="type">M_GET</span> | <span xmlns="" class="type">M_POST</span> | <span xmlns="" class="type">M_OPTIONS</span> | <span xmlns="" class="type">M_TRACE</span>
+</pre>
+
+See <a class="xref" href="modruby.apache.req.html#allowed_def" title="2.1. allowed()">Section 2.1, “allowed()”</a> for more information.
+</p>
+
+<h5><a name="args_def"></a>args()</h5>
+<p><code class="function">args()</code> returns the query args extracted from URL. You
+can then parse them with the Ruby <code class="classname">CGI</code> class.
+</p>
+
+<p>In addition to <code class="methodname">args()</code> you can use the convenience
+<code class="methodname">queries()</code> method instead, which decodes, parses and
+returns the query in the form of an APR table. See <a class="xref" href="modruby.apache.req.html#queries_def" title="2.1. queries()">Section 2.1, “queries()”</a>
+for more information.
+</p>
+
+<h5><a name="assbackwards_def"></a>assbackwards()</h5>
+<p><code class="function">assbackwards()</code> sets the handler to return an HTTP/0.9
+"simple" request (e.g. <code class="literal">GET /foo</code> with no headers).
+</p>
+
+<h5><a name="auth_type_def"></a>auth_type()</h5>
+<p><code class="function">auth_type()</code> If an authentication check was made, this
+gets set to the auth type (the values <code class="literal">"Basic"</code> or
+<code class="literal">"Digest"</code>).
+</p>
+
+<p>
+More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#authtype" target="_top">Apache Core
+Features documenation</a>.
+</p>
+
+<h5><a name="sent_bodyct_def"></a>sent_bodyct()</h5>
+<p><code class="function">sent_bodyct()</code> returns whether the byte count in
+stream is for body. It's not clear if anybody really knows what this is for. It
+indicates whether the byte count returned by
+<code class="methodname">bytes_sent()</code> refers to the size of the body. The value
+1 means it does, 0 means it does not. Exactly what it refers to in the case of 0
+is anybody's guess, as there seems to be absolutely zero documentation anywhere
+and very few uses of it in source. It may simply indicate if there is a body at
+all. Like in the case where the client request specifies headers only
+(<code class="literal">HEAD</code>), then <code class="function">sent_bodyct()</code> would be 0.
+</p>
+
+<h5><a name="bytes_sent_def"></a>bytes_sent()</h5>
+<p><code class="function">bytes_sent()</code> sends the size in bytes of the
+body. This is the number of bytes in the body sent back to the client. This
+value will be zero until some actual data is flushed (sent) to the client
+(i.e. you haven't previously called <code class="methodname">rflush()</code>).
+
+</p>
+
+<h5><a name="chunked_def"></a>chunked()</h5>
+<p><code class="function">chunked()</code> returns whether the handler is sending the
+response using chunked encoding. By default, the request will not used chunked
+encoding, which is useful if you wish to return the request back to the client
+in pieces. To employ chunked encoding, you need only call
+<code class="methodname">rflush()</code>, which will send all buffered data back to the
+client in a chunk. Each subsequent call will send another chunk. When the
+request completes, any remaining data will be sent as the last chunk.
+</p>
+
+<h5><a name="clength_def"></a>clength()</h5>
+<p><code class="function">clength()</code> returns the actual length in bytes of the
+response body. This will always be zero. The reason is that the RSP handler
+works as the content generator — it creates all of the
+content.</p>
+
+<p>Furthermore, this value is not set until the RSP handler completes,
+whereupon the content eventually passes through Apache's content length filter
+(<code class="filename">ap_content_length_filter()</code>), which then computes and set
+the content length, in turn setting the <code class="literal">Content-Length</code>
+header. Therefore, this value is for all intents and purposes useless as you
+can't set it, and it will always be zero during the handler phase.
+</p>
+
+<h5><a name="connection_def"></a>connection()</h5>
+
+<p><code class="function">connection()</code> returns the
+<code class="classname">Connection</code> object associated with this request. See <a class="xref" href="modruby.apache.connection.html" title="4. The Apache Connection Class">Section 4, “The Apache Connection Class”</a> for more information.
+</p>
+
+<h5><a name="content_def"></a>content()</h5>
+
+<p><code class="function">content()</code> provides a means to get at the request
+content, specifically for processing data in POST request. There are two ways to
+use it. The first is simply to call it, and it will return a string containing
+the entire request body.</p>
+
+<p>The second is to provide a block with a single argument. In this approach,
+<code class="methodname">content()</code> will then funnel out the request body by
+yielding 1024 bytes chunks to the block, as in the following example:
+
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+f = open(<span xmlns="" class="string">'/tmp/file.dat'</span>,<span xmlns="" class="string">'wb'</span>)
+
+<span xmlns="" class="variable-name">@request</span>.content() <span xmlns="" class="keyword">do</span> |chunk|
+  f.write(chunk)
+<span xmlns="" class="keyword">end</span>
+    
+f.close()
+</pre>
+
+This is of course a trivial example. In the case of a file upload you would have
+to parse the multipart MIME format (RFC 2388) in place, locate the file part,
+and save that to the file (this is left as an exercise for the reader). In any
+case, this latter approach makes processing large file uploads much more
+efficient, as the file can be read and written to disk in increments, rather
+than having to first be held in memory. For information on handling multi-part
+file uploads, see <a class="xref" href="modruby.apache.req.html#read_def" title="2.1. read()">Section 2.1, “read()”</a>.
+</p>
+
+<h5><a name="content_encoding_def"></a>content_encoding()</h5>
+<p><code class="function">content_encoding()</code> returns the content encoding. 
+</p>
+
+<p>
+More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/mod_mime.html#contentencoding" target="_top">Apache
+MIME Module documenation</a>.
+</p>
+
+<h5><a name="content_languages_def"></a>content_languages()</h5>
+<p><code class="function">content_languages()</code> returns an APR Array of strings
+representing content languages.
+</p>
+
+<p>
+More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/mod_mime.html#charset-lang" target="_top">Apache MIME Module
+documenation</a>.
+</p>
+
+
+<h5><a name="content_type_def"></a>content_type()</h5>
+<p><code class="function">content_type()</code> returns the content type of the
+request. This will always be "text/html" for <code class="filename">.rhtml</code> and
+<code class="filename">.rsp</code> files (assuming the administrator properly configured
+the MIME types in Apache).
+</p>
+
+<p>
+More information on this setting is available in the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/mod_mime.html" target="_top">Apache MIME Module
+documenation</a>.
+</p>
+
+<h5><a name="default_type_def"></a>default_type()</h5>
+<p><code class="function">default_type()</code> returns the default content type from
+the configuration, or <code class="literal">text/plain</code> if none is set.
+</p>
+
+<h5><a name="discard_request_body_def"></a>discard_request_body()</h5>
+
+<p><code class="function">discard_request_body()</code> returns whether the request
+body will be discarded.
+</p>
+
+<p>From the Apache source documentation:
+
+</p><div class="blockquote"><p> In HTTP/1.1, any method can have a body. However, most
+<code class="literal">GET</code> handlers wouldn't know what to do with a request body if
+they received one. This helper routine tests for and reads any message body in
+the request, simply discarding whatever it receives. We need to do this because
+failing to read the request body would cause it to be interpreted as the next
+request on a persistent connection.
+</p>
+</div><p>
+
+</p>
+
+<h5><a name="document_root_def"></a>document_root()</h5>
+
+<p><code class="function">document_root()</code> returns the document root from the
+configuration (not necessarily the active one for this request)
+
+</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>This is in to be backward compatible, but is not always accurate
+(e.g. if <code class="literal">mod_userdir</code> is enabled).  This should not be used.
+</p>
+</div><p>
+
+</p>
+
+<h5><a name="err_headers_out_def"></a>err_headers_out()</h5>
+
+<p><code class="function">err_headers_out()</code> returns an APR table containing the
+MIME headers from the response printed, even on error.
+</p>
+
+<p>While you might be wondering whether these headers are worth anything, as
+it turns out, they are. Apache requries all headers be sent to
+<code class="literal">err_headers_out</code> rather than <code class="literal">headers_out</code> if
+the response code is anything other than 200. This fact is critical to
+redirects.</p>
+
+<h5><a name="filename_def"></a>filename()</h5>
+<p><code class="function">filename()</code> returns the filename on disk corresponding
+to this response.
+</p>
+
+<h5><a name="finalize_request_protocol_def"></a>finalize_request_protocol()</h5>
+
+<p><code class="function">finalize_request_protocol()</code> is cryptic, undocumented,
+and unimportant. The Apache source say it is "Called at completion of sending
+the response. It sends the terminating protocol information." What that means, I
+don't know. If you ever rigure out what it does, right ahead and use it.
+</p>
+
+<h5><a name="finfo_def"></a>finfo()</h5>
+
+<p><code class="function">finfo()</code> returns an APR FileInfo object for the
+request file (if it exists), otherwise it setsit to zero if no such file. See
+<a class="xref" href="modruby.apr.finfo.html" title="8. The APR FileInfo Class">Section 8, “The APR FileInfo Class”</a> for information.
+</p>
+
+<h5><a name="get_remote_logname_def"></a>get_remote_logname()</h5>
+
+<p><code class="function">get_remote_logname()</code> returns the login name of the
+remote user. Undefined if it cannot be determined.
+</p>
+
+<h5><a name="get_server_name_def"></a>get_server_name()</h5>
+
+<p><code class="function">get_server_name()</code> returns return the server name from
+the request.
+</p>
+
+<h5><a name="handler_def"></a>handler()</h5>
+
+<p><code class="function">handler()</code> returns the name of the handler assigned
+this request.
+</p>
+
+<h5><a name="header_only_def"></a>header_only()</h5>
+
+<p><code class="function">header_only()</code> returns 1 if this is a
+<code class="literal">HEAD</code> request, as opposed to <code class="literal">GET</code>.
+</p>
+
+<h5><a name="headers_in_def"></a>headers_in()</h5>
+
+<p><code class="function">headers_in()</code> returns an APR table containing the MIME
+headers from the request.
+</p>
+
+<h5><a name="headers_out_def"></a>headers_out()</h5>
+
+<p><code class="function">headers_out()</code> returns an APR table containing the
+MIME headers for the reponse.
+</p>
+
+<h5><a name="hostname_def"></a>hostname()</h5>
+<p><code class="function">hostname()</code> returns host name as set by full URI or
+host.
+</p>
+
+<h5><a name="internal_redirect_def"></a>internal_redirect()</h5>
+
+<p><code class="function">internal_redirect()</code> initiates an internal redirect to
+another URI in this server
+</p>
+
+<h6><a name="idp46818453335072"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def internal_redirect(uri)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>uri</code></em>: the new uri to redirect
+to.</p></li></ul></div><p>
+</p>
+
+<h5><a name="internal_redirect_handler_def"></a>internal_redirect_handler()</h5>
+
+<p><code class="function">internal_redirect_handler()</code> is designed for things
+like actions or CGI scripts, when using <code class="literal">AddHandler</code> and you
+want to preserve the content type across an internal redirect.
+</p>
+
+<h6><a name="idp46818453340656"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def internal_redirect_handler(uri)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>uri</code></em>: the URI to replace the current
+request with.  </p></li></ul></div><p>
+</p>
+
+<h5><a name="is_initial_req_def"></a>is_initial_req()</h5>
+
+<p><code class="function">is_initial_req()</code> returns 1 is this is the main
+request or 0 if it is a subrequest.
+</p>
+
+<h5><a name="log_def"></a>log()</h5>
+<p><code class="function">log()</code> logs a message to the Apache logfile.</p>
+
+<h6><a name="idp46818453347248"></a>Definition</h6>
+
+<p>
+</p><pre class="synopsis">def log(level, message)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>level</code></em>: the log level, which can be one
+the following:
+
+</p><pre class="programlisting">
+#define APLOG_EMERG     0       /* system is unusable */
+#define APLOG_ALERT     1       /* action must be taken immediately */
+#define APLOG_CRIT      2       /* critical conditions */
+#define APLOG_ERR       3       /* error conditions */
+#define APLOG_WARNING   4       /* warning conditions */
+#define APLOG_NOTICE    5       /* normal but significant condition */
+#define APLOG_INFO      6       /* informational */
+#define APLOG_DEBUG     7       /* debug-level messages */
+</pre><p>
+
+</p>
+</li><li class="listitem"><p><em class="parameter"><code>message</code></em>: the log message text.
+</p>
+</li></ul></div><p>
+</p>
+
+<h5><a name="m_user_def"></a>m_user()</h5>
+
+<p><code class="function">m_user()</code> returns the user name, if an authentication
+check was made, otherwise it returns <code class="literal">nil</code>.
+</p>
+
+<h5><a name="main_def"></a>main()</h5>
+
+<p><code class="function">main()</code> returns the <code class="classname">Request</code>
+object corresponding to the main request. This is helpful if the current request
+is a subrequents and needs to obtain information about the original request.
+</p>
+
+<h5><a name="make_content_type_def"></a>make_content_type()</h5>
+
+<p><code class="function">make_content_type()</code> is a wrapper around the Apache
+function <code class="function">ap_make_content_type()</code>. From the Apache source
+documentation:
+
+</p><div class="blockquote"><p>Build the content-type that should be sent to the client from
+the content-type specified. The following rules are followed:
+
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+      <p>If type is <code class="literal">NULL</code>, type is set to
+      <code class="function">ap_default_type(req)</code>.</p>
+      </li><li class="listitem"><p>If charset adding is disabled, stop processing and return
+      type.</p>
+      </li><li class="listitem">
+      <p>Then, if there are no parameters on type, add the default charset
+      return type.
+      </p>
+      </li></ul></div><p>
+</p>
+</div><p>
+
+</p>
+
+<h5><a name="make_etag_def"></a>make_etag()</h5>
+
+<p><code class="function">make_etag()</code> is a wrapper around the Apache function
+<code class="function">ap_make_etag()</code>, which constructs an entity tag from the
+resource information. If it's a real file, build in some of the file
+characteristics. For more information on ETags, see the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#fileetag" target="_top">Apache Core
+documentation</a>.
+</p>
+
+<h6><a name="idp46818453367328"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def make_etag(force_weak)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>force_weak</code></em>: Force the entity tag to be
+weak — it could be modified again in as short an interval.</p></li></ul></div><p>
+</p>
+
+<h5><a name="meets_conditions_def"></a>meets_conditions()</h5>
+
+<p><code class="function">meets_conditions()</code> is a wrapper around the Apache
+function <code class="function">ap_meets_conditions()</code>. Implements condition GET
+rules for HTTP/1.1 specification. It inspects the client headers and determines
+if the response fulfills the requirements specified. It returns
+<code class="literal">OK</code> if the response fulfills the condition
+<code class="literal">GET</code> rules, some other status code otherwise.
+</p>
+
+
+<h5><a name="method_def"></a>method()</h5>
+
+<p><code class="function">method()</code> returns the request method
+(eg. <code class="literal">GET</code>, <code class="literal">HEAD</code>, <code class="literal">POST</code>,
+etc.)</p>
+
+<h5><a name="method_number_def"></a>method_number()</h5>
+
+<p><code class="function">method_number()</code> returns the method number of the
+request (e.g. <code class="literal">M_GET</code>, <code class="literal">M_POST</code>, etc. These
+method constants are documented in <a class="xref" href="modruby.rsp.global.html#rsp_global_http_constants" title="Table A.1. Apache HTTP Method Constants">Table A.1, “Apache HTTP Method Constants”</a>.</p>
+
+<h5><a name="mtime_def"></a>mtime()</h5>
+
+<p><code class="function">mtime()</code> returns the last modified time of the
+requested resource.
+</p>
+
+<h5><a name="next_def"></a>next()</h5>
+
+<p><code class="function">next()</code> returns the redirected request if this is an
+external redirect.
+</p>
+
+<h5><a name="no_cache_def"></a>no_cache()</h5>
+
+<p><code class="function">no_cache()</code> returns 1 if this response cannot be
+cached, 0 otherwise.</p>
+
+<h5><a name="no_local_copy_def"></a>no_local_copy()</h5>
+
+<p><code class="function">no_local_copy()</code> returns 1 if there is no local copy
+of this response, 0 otherwise.</p>
+
+
+<h5><a name="note_auth_failure_def"></a>note_auth_failure()</h5>
+
+<p><code class="function">note_auth_failure()</code> sets up the output headers so
+that the client knows how to authenticate itself the next time, if an
+authentication request failed. This function works for both basic and digest
+authentication.
+</p>
+
+<h5><a name="note_basic_auth_failure_def"></a>note_basic_auth_failure()</h5>
+
+<p><code class="function">note_basic_auth_failure()</code> sets up the output headers
+so that the client knows how to authenticate itself the next time, if an
+authentication request failed. This function works only for basic
+authentication.
+</p>
+
+<h5><a name="note_digest_auth_failure_def"></a>note_digest_auth_failure()</h5>
+
+<p><code class="function">note_digest_auth_failure()</code> sets up the output headers
+so that the client knows how to authenticate itself the next time, if an
+authentication request failed. This function works only for digest
+authentication
+</p>
+
+
+<h5><a name="notes_def"></a>notes()</h5>
+
+<p><code class="function">notes()</code> returns and APR table containing notes to
+pass from one module to another.
+</p>
+
+<h5><a name="out_def"></a>out()</h5>
+
+<p><code class="function">out()</code> writes a string out via the Apache
+<code class="function">ap_puts()</code>. This is an alias for the
+<code class="methodname">rputs()</code> method.
+
+</p>
+
+<h6><a name="idp46818453396736"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def out(text)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>text</code></em>: text to write out</p></li></ul></div><p>
+</p>
+
+<h5><a name="params_def"></a>params()</h5>
+<p><code class="function">params()</code> returns an APR table containing all of the
+form data posted, provided that the request method is a <code class="literal">POST</code>
+and the content type is <code class="literal">application/x-www-form-urlencoded</code>
+(not <code class="literal">multipart/form-data</code> — which is handled a different
+way). This method does a lot of work under the hood to get this data. It
+mediates the transfer, loads, decodes, and organizes the form data into the APR
+table that is returned.
+</p>
+
+<p>The APR table returned is cached, so this process is only performed on the
+first call. Subsequent calls will return the same table. If this function is
+called an a request which is not a <code class="literal">POST</code>, it will return
+<code class="literal">nil</code>.
+
+</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>By default this function currently limits the amount of data that
+can be sent to 20Mb. Larger values can be accomodated by setting them using the
+<code class="function">Request::set_max_content_length()</code> method.</p>
+</div><p>
+
+</p>
+
+<h5><a name="parsed_uri_def"></a>parsed_uri()</h5>
+
+<p><code class="function">parsed_uri()</code> This function is currently not
+implemented. In the future, it will return a Ruby object that wraps the
+<span class="structname">ap_uri_t</span> structure.
+</p>
+
+
+<h5><a name="path_info_def"></a>path_info()</h5>
+
+<p><code class="function">path_info()</code> returns the path info extracted from this
+request.
+</p>
+
+<h5><a name="prev_def"></a>prev()</h5>
+
+<p><code class="function">prev()</code> returns the previous request object if this is
+an internal redirect.
+</p>
+
+<h5><a name="print_def"></a>print()</h5>
+
+<p><code class="function">print()</code> writes a string out via the Apache
+<code class="function">ap_puts()</code>. This is an alias for the
+<code class="methodname">rputs()</code> method.
+</p>
+
+<h6><a name="idp46818453414432"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def print(text)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>text</code></em>: text to write out.</p></li></ul></div><p>
+</p>
+
+<h5><a name="proto_num_def"></a>proto_num()</h5>
+
+<p><code class="function">proto_num()</code> returns the protocol version number of protocol
+(e.g. 1.1 = 1001).
+</p>
+
+<h5><a name="protocol_def"></a>protocol()</h5>
+<p><code class="function">protocol()</code> returns the protocol string, as given to
+us, or HTTP/0.9.
+</p>
+
+<h5><a name="proxyreq_def"></a>proxyreq()</h5>
+
+<p><code class="function">proxyreq()</code> returns a proxy request (calculated during
+post read request and translate_name. Possible values
+<code class="literal">PROXYREQ_NONE</code>, <code class="literal">PROXYREQ_PROXY</code>,
+<code class="literal">PROXYREQ_REVERSE</code>, <code class="literal">PROXYREQ_RESPONSE</code>.
+
+</p>
+
+<h5><a name="puts_def"></a>puts()</h5>
+
+<p><code class="function">puts()</code> writes a string out via the Apache
+<code class="function">ap_puts()</code>. This is an alias for the
+<code class="methodname">rputs()</code> method.
+</p>
+
+<h6><a name="idp46818453427152"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def puts(text)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>text</code></em>: text to write out.</p></li></ul></div><p>
+</p>
+
+<h5><a name="queries_def"></a>queries()</h5>
+<p><code class="function">queries()</code> decodes, parses and returns the query
+arguments in the URL as an APR table. This is a convenience function provided in
+order to alleviate the need of using the Ruby CGI class. Additionally, it
+provides the standard interface of a true APR table. It is implemented in C.
+</p>
+
+<p>
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"Queries: "</span>
+queries = <span xmlns="" class="variable-name">@request</span>.queries()
+
+queries.each <span xmlns="" class="keyword">do</span> |key, value|
+  <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
+<span xmlns="" class="keyword">end</span>
+</pre>
+</p>
+
+<h5><a name="range_def"></a>range()</h5>
+
+<p><code class="function">range()</code> returns the HTTP range header value.</p>
+
+<h5><a name="rationalize_mtime_def"></a>rationalize_mtime()</h5>
+
+<p><code class="function">rationalize_mtime()</code> returns the latest rational time
+from a request/mtime pair. <code class="literal">mtime</code> is returned unless it's in
+the future, in which case we return the current time.</p>
+
+<h6><a name="idp46818453437072"></a>Definition</h6>
+<p>
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>mtime</code></em>: The last modified
+time.</p></li></ul></div><p>
+</p>
+
+
+<h5><a name="read_def"></a>read()</h5>
+
+<p><code class="function">read()</code> returns a buffer containing content of the
+request body. It takes a single argument specifying the number of bytes to
+read. It returns a buffer containing that many bytes, or whatever is left. If
+there is no content remaining, it returns <code class="literal">nil</code>.
+</p>
+
+<p><code class="function">read()</code>, along with <code class="function">readline()</code>
+are used in conjunction the the <code class="classname">RSP::Rfc2388</code>
+parser class to process multipart forms and file uploads. There is really few if
+any other reasons to use them by themselves. They basically provide the minimal
+requirements for the parser class to operate on the
+<code class="classname">Request</code> object as if it were a file. The following
+example illustrates its use:
+
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">processForm</span>()
+
+    <span xmlns="" class="variable-name">@req</span>.log(<span xmlns="" class="type">APLOG_NOTICE</span>, <span xmlns="" class="string">'file upload'</span>)
+
+    <span xmlns="" class="variable-name">@req</span>.set_content_type(<span xmlns="" class="string">'text/html'</span>)
+
+    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Get the multipart boundary
+</span>    boundary = <span xmlns="" class="variable-name">@req</span>.boundary()
+
+    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Create the parser
+</span>    parser = <span xmlns="" class="type">RSP</span>::<span xmlns="" class="type">Rfc2388</span>::<span xmlns="" class="type">Parser</span>.new()
+
+    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Parse the form. The first argument is a file-like object (supports read()
+</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">and readline()). The second argument is the multi-part form boundary that
+</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">divides the content parts.
+</span>    parser.parse(<span xmlns="" class="variable-name">@req</span>,  boundary) <span xmlns="" class="keyword">do</span> |part|
+
+      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Look for a file argument. If exists, then we have a file upload.
+</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="variable-name">nil</span>
+        
+        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Open the file
+</span>
+        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Normally, you wouldn't want to save the file using the posted filename
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">as this can be error prone (with IE and all). Typically we would use
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">the form name (part.name). But for testing it is okay we control the
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">file we are parsing.
+</span>
+        upload_file = open(<span xmlns="" class="string">"</span><span xmlns="" class="variable-name">#{part.fileName}</span><span xmlns="" class="string">"</span>, <span xmlns="" class="string">'w'</span>)
+        
+        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Read all of the data out of the content part. This ultimately operates
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">on the underlying file object (@req). By default, the content is read
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">out in 4k blocks.x
+</span>        bytes = 0
+        part.read() <span xmlns="" class="keyword">do</span> |content|
+          bytes += content.size
+          upload_file.write(content);
+        <span xmlns="" class="keyword">end</span>
+        
+        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Close
+</span>        upload_file.close()
+      <span xmlns="" class="keyword">else</span>
+        
+        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Else this is just simply content part of some kind and we will just
+</span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">store the data in the part's internal buffer.
+</span>        part.read()
+      <span xmlns="" class="keyword">end</span>
+      
+      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Print what we did
+</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="variable-name">nil</span>
+        <span xmlns="" class="variable-name">@req</span>.puts <span xmlns="" class="string">"file %-20s: %s"</span> % [part.fileName, part.contentType]
+      <span xmlns="" class="keyword">else</span>
+        <span xmlns="" class="variable-name">@req</span>.puts <span xmlns="" class="string">"%-25s: %s"</span> % [part.name, part.data]
+      <span xmlns="" class="keyword">end</span>
+    <span xmlns="" class="keyword">end</span>    
+  <span xmlns="" class="keyword">end</span>
+</pre>
+
+Note that all calls to <code class="function">read()</code> and
+<code class="function">readline()</code> are abstracted away in the parser class. This is
+because parsing is a pain, and the parser class manages all of that for you. The
+end result is that the parser feeds parsed content sections into the block
+supplied it, in the form of <code class="classname">Part</code> objects. These objects,
+like content sections, have headers and data. The headers are already
+parsed. The data is not yet read, allowing you to read it in discrete parts,
+using the same block/callback mechanism. This appraoch allows file uploads (and
+multi-part forms in general) to be handled sequentially, as a continuous stream,
+rather than all at once. This avoids having store the entire form in memory in
+order to parse/process it.</p>
+
+<p>The bottom line is that all the parsing details are abstracted away, and
+your code only has to deal with processing the incoming data. The additional
+benefit is that this approach can handle arbitrarily large files without any
+increase in memory requirements, as it does not have to store the entire form in
+memory.
+</p>
+
+<h6><a name="idp46818453447600"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def read(bytes)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>bytes</code></em>: the number of bytes of content to
+read.</p></li></ul></div><p>
+</p>
+
+<h5><a name="readline_def"></a>readline()</h5>
+
+<p><code class="function">readline()</code> reads a single line of text from the
+content of the request budy. It looks for a CRLF (<code class="literal">\r\n</code>) as
+the line terminator. If this is not found, it will return the entire request
+content.
+</p>
+
+<h5><a name="read_body_def"></a>read_body()</h5>
+
+<p><code class="function">read_body()</code> is the method for reading the
+request body (e.g. <code class="literal">REQUEST_CHUNKED_ERROR</code>).
+</p>
+
+<h5><a name="read_chunked_def"></a>read_chunked()</h5>
+
+<p><code class="function">read_chunked()</code> returns 1 if we are reading chunked
+transfer-coding
+</p>
+
+<h5><a name="read_length_def"></a>read_length()</h5>
+
+<p><code class="function">read_length()</code> returns the number of bytes that have
+been read from the request body</p>
+
+
+<h5><a name="remaining_def"></a>remaining()</h5>
+
+<p><code class="function">remaining()</code> returns the number of remaining bytes
+left to read from the request body</p>
+
+<h5><a name="request_time_def"></a>request_time()</h5>
+
+<p><code class="function">request_time()</code> returns the time when the request
+started.
+</p>
+
+<h5><a name="rflush_def"></a>rflush()</h5>
+
+<p><code class="function">rflush()</code> calls <code class="function">ap_rflush()</code>,
+which flushes all of the data for the current request to the client. Returns the
+number of bytes sent.
+</p>
+
+<h5><a name="rputs_def"></a>rputs()</h5>
+
+<p><code class="function">rputs()</code> writes a string out via the Apache
+<code class="function">ap_puts()</code>. </p>
+
+<h6><a name="idp46818453467008"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def rputs(text)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>text</code></em>: text to write out.</p></li></ul></div><p>
+</p>
+
+<h5><a name="sendfile_def"></a>send_file()</h5>
+<p><code class="function">send_file()</code> sends the full contents of a file to the
+client (using chunked encoding). When possible (on various platforms),
+<code class="function">send_file()</code> uses optimized OS system calls where available
+to send the file contents through the kernel, minimizing file copy overhead. For
+example, on Linux and BSD Apache will use the <code class="literal">sendfile (2)</code>
+system call to transfer the file contents, resulting in a "zero-copy" transfer
+— meaning that it has been optimized so that copying of the file data is
+avoided.
+</p>
+
+<h6><a name="idp46818453473344"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def sendfile(path)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>path</code></em>: full path of file send. If a
+relative path is used, it will be relative to the current working directory
+which differs based on the context in which the request is being handled. Within
+the RSP environment, the current working directory is the directory containing
+the RHTML and RSP file being processed. Otherwise it is the default working
+directory set by Apache.</p></li></ul></div><p>
+</p>
+
+
+<h5><a name="send_error_response_def"></a>send_error_response()</h5>
+<p><code class="function">send_error_response()</code> Sends back an error code back
+to client.
+</p>
+
+<h6><a name="idp46818453478464"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def send_error_response(status)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>status</code></em>: error code to send.</p></li></ul></div><p>
+</p>
+
+<h5><a name="server_def"></a>server()</h5>
+<p><code class="function">server()</code> returns the server object associated with
+this request. For more information, see <a class="xref" href="modruby.apache.server.html" title="3. The Apache Server Class">Section 3, “The Apache Server Class”</a>.
+</p>
+
+<h5><a name="set_content_length_def"></a>set_content_length()</h5>
+
+<p><code class="function">set_content_length()</code> called
+<code class="function">ap_set_content_length()</code>. This sets the content length for
+the request.
+</p>
+
+<h6><a name="idp46818453485792"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def set_content_length(length)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>length</code></em>: number of bytes in content.</p></li></ul></div><p>
+</p>
+
+
+<h5><a name="set_content_type_def"></a>set_content_type()</h5>
+<p><code class="function">set_content_type()</code> Sets the content type for this request.</p>
+
+<h6><a name="idp46818453490592"></a>Definition</h6>
+
+<p>
+
+</p><pre class="synopsis">def set_content_type(type)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>type</code></em>: string containing content type.</p></li></ul></div><p>
+</p>
+
+<h5><a name="set_etag_def"></a>set_etag()</h5>
+
+<p><code class="function">set_etag()</code> sets the ETag outgoing header. For more
+information on ETags, see the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#fileetag" target="_top">Apache Core
+documentation</a>
+</p>
+
+<h5><a name="set_keepalive_def"></a>set_keepalive()</h5>
+
+<p><code class="function">set_keepalive()</code> set the keepalive status for this
+request.</p>
+
+<h5><a name="set_max_content_length_def"></a>set_max_content_length()</h5>
+<p><code class="function">set_max_content_length()</code> sets the maximum amount of form
+data the module will accept from the client in bytes. The default is 20Mb. To
+make this unlimited, set this value to -1. If the POST form data excedes this
+amount, then <code class="methodname">params()</code> will set and error and return
+<code class="literal">nil</code>.
+</p>
+
+<h6><a name="idp46818453500560"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def set_max_content_length(byes)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>bytes</code></em>: Maximum POST form data in bytes.</p></li></ul></div><p>
+</p>
+
+<h5><a name="set_status_def"></a>set_status()</h5>
+<p><code class="function">set_status()</code> sets the HTTP status code to return
+(e.g. <code class="literal">200</code>, <code class="literal">302</code>, <code class="literal">404</code>,
+etc.</p>
+
+<h6><a name="idp46818453506592"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def set_content_status(status)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>status</code></em>: HTTP status code to return.</p></li></ul></div><p>
+</p>
+
+<h5><a name="setup_client_block_def"></a>setup_client_block()</h5>
+
+<p><code class="function">setup_client_block()</code> sets up the client to allow
+Apache to read the request body. This is usually used for processing form data
+in <code class="literal">POST</code>. If this is the case, don't worry about this, use the
+<code class="methodname">params()</code> method, which does all of the work for you.
+</p>
+
+<h6><a name="idp46818453512368"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def setup_client_block(read_policy)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>read_policy</code></em>: How the server should
+interpret a chunked transfer-encoding. This can be one of the
+following: 
+
+</p><pre class="programlisting">
+    REQUEST_NO_BODY          Send 413 error if message has any body
+    REQUEST_CHUNKED_ERROR    Send 411 error if body without Content-Length
+    REQUEST_CHUNKED_DECHUNK  If chunked, remove the chunks for me.
+</pre><p>
+
+</p></li></ul></div><p>
+</p>
+
+<h5><a name="should_client_block_def"></a>should_client_block()</h5>
+<p><code class="function">should_client_block()</code> determines if the client has
+sent any data. This also sends a 100 Continue response to HTTP/1.1 clients, so
+modules should not be called until the module is ready to read content. This is
+often used in the processing of form data. You most likely will never need to
+use this method.
+</p>
+
+<h5><a name="some_auth_required_def"></a>some_auth_required()</h5>
+
+<p><code class="function">some_auth_required()</code> determines if any authentication
+is required for the current request. It returns 1 is authentication is required,
+0 otherwise.
+</p>
+
+<h5><a name="status_def"></a>status()</h5>
+
+<p><code class="function">status()</code> returns the current HTTP status code.</p>
+
+
+<h5><a name="status_line_def"></a>status_line()</h5>
+
+<p><code class="function">status_line()</code> returns the current HTTP status line
+(text).
+</p>
+
+<h5><a name="subprocess_env_def"></a>subprocess_env()</h5>
+
+<p><code class="function">subprocess_env()</code> returns an APR table of environment
+variables passed to the subprocess, if one exists.
+</p>
+
+<h5><a name="the_request_def"></a>the_request()</h5>
+
+<p><code class="function">the_request()</code> returns the first line of actual HTTP
+request content.</p>
+
+<h5><a name="unparsed_uri_def"></a>unparsed_uri()</h5>
+<p><code class="function">unparsed_uri()</code> returns the URI without any parsing
+performed.</p>
+
+
+<h5><a name="uri_def"></a>uri()</h5>
+<p><code class="function">uri()</code> returns just the path portion of the
+URI.</p>
+
+<h5><a name="vlist_validator_def"></a>vlist_validator()</h5>
+<p><code class="function">vlist_validator()</code> returns the variant list validator
+(if negotiated).</p>
+
+<h5><a name="write_def"></a>write()</h5>
+<p><code class="function">write()</code> writes binary data directly to the socket via
+the Apache <code class="function">ap_rwrite()</code>. This is useful for then you want to
+send images or binary files directly from a controller method. Here is an
+example of sending a captcha using RMagic:
+
+<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
+require <span xmlns="" class="string">'rsp/controller'</span>
+
+require <span xmlns="" class="string">'RMagick'</span>
+
+<span xmlns="" class="keyword">class</span> <span xmlns="" class="type">Test</span> &lt; <span xmlns="" class="type">RSP</span>::<span xmlns="" class="type">Controller</span>
+
+  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">initialize</span>(environment)
+    <span xmlns="" class="keyword">super</span>
+  <span xmlns="" class="keyword">end</span>
+
+  <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Returns a PNG image containing wavy captcha text
+</span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">default</span>()
+
+    image = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">Image</span>.new(300, 50) <span xmlns="" class="keyword">do</span>
+      <span xmlns="" class="variable-name">self</span>.background_color = <span xmlns="" class="string">'#eaeaea'</span>
+    <span xmlns="" class="keyword">end</span>
+    
+    gc = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">Draw</span>.new
+    gc.gravity = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">CenterGravity</span>
+    gc.pointsize = 42
+    gc.font_family = <span xmlns="" class="string">"Helvetica"</span>
+    gc.font_weight = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">BoldWeight</span>
+    gc.stroke = <span xmlns="" class="string">'none'</span>
+    gc.annotate(image, 0, 0, 0, 0, <span xmlns="" class="string">"this is a test"</span>)
+    
+    image = image.wave(amplitude=10.0, wavelength=50.0)
+    image.format = <span xmlns="" class="string">'png'</span>
+
+    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Set the content length. We have to call to_blob() to get RMagick to
+</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">calculate file size
+</span>    data = image.to_blob()  
+    <span xmlns="" class="variable-name">@request</span>.set_content_length image.filesize
+
+    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Set the content type
+</span>    <span xmlns="" class="variable-name">@request</span>.set_content_type <span xmlns="" class="string">'image/png'</span>
+    
+    <span xmlns="" class="variable-name">@request</span>.write(data, image.filesize)
+  <span xmlns="" class="keyword">end</span>
+
+<span xmlns="" class="keyword">end</span>
+</pre>
+
+</p>
+
+<h6><a name="idp46818453534912"></a>Definition</h6>
+<p>
+
+</p><pre class="synopsis">def write(data, size)</pre><p>
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>data</code></em>: The data to write out.</p></li><li class="listitem"><p><em class="parameter"><code>size</code></em>: The size of the data in bytes.</p></li></ul></div><p>
+</p>
+
+</div>
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="mod_ruby.reference.apache.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apache.server.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix B. Apache Module Reference </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 3. The Apache Server Class</td></tr></table></div></body></html>
