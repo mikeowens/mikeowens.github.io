@@ -17,7 +17,7 @@ by the <code class="classname">Apache::Ruby</code> class, defined in the Ruby ex
 <code class="filename">ruby_request.cpp</code>.
 </p>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452898384"></a>2.1. Method Documentation</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp31"></a>2.1. Method Documentation</h3></div></div></div>
 
 <p><a class="xref" href="modruby.apache.req.html#apache_req_methods" title="Table B.1. Apache Request Methods">Table B.1, “Apache Request Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
@@ -730,8 +730,9 @@ you would do the following:
 req-&gt;allowed = <span xmlns="" class="type">M_GET</span> | <span xmlns="" class="type">M_POST</span> | <span xmlns="" class="type">M_OPTIONS</span> | <span xmlns="" class="type">M_TRACE</span>
 </pre>
 
-See <a class="xref" href="modruby.apache.req.html#allowed_def" title="2.1. allowed()">Section 2.1, “allowed()”</a> for more information.
 </p>
+
+<p>See <a class="xref" href="modruby.apache.req.html#allowed_def" title="2.1. allowed()">Section 2.1, “allowed()”</a> for more information.</p>
 
 <h5><a name="args_def"></a>args()</h5>
 <p><code class="function">args()</code> returns the query args extracted from URL. You
@@ -822,7 +823,7 @@ the entire request body.</p>
 yielding 1024 bytes chunks to the block, as in the following example:
 
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-f = open(<span xmlns="" class="string">'/tmp/file.dat'</span>,<span xmlns="" class="string">'wb'</span>)
+f = <span xmlns="" class="builtin">open</span>(<span xmlns="" class="string">'/tmp/file.dat'</span>,<span xmlns="" class="string">'wb'</span>)
 
 <span xmlns="" class="variable-name">@request</span>.content() <span xmlns="" class="keyword">do</span> |chunk|
   f.write(chunk)
@@ -831,14 +832,15 @@ f = open(<span xmlns="" class="string">'/tmp/file.dat'</span>,<span xmlns="" cla
 f.close()
 </pre>
 
-This is of course a trivial example. In the case of a file upload you would have
-to parse the multipart MIME format (RFC 2388) in place, locate the file part,
-and save that to the file (this is left as an exercise for the reader). In any
-case, this latter approach makes processing large file uploads much more
-efficient, as the file can be read and written to disk in increments, rather
-than having to first be held in memory. For information on handling multi-part
-file uploads, see <a class="xref" href="modruby.apache.req.html#read_def" title="2.1. read()">Section 2.1, “read()”</a>.
 </p>
+
+<p>This is of course a trivial example. In the case of a file upload you
+would have to parse the multipart MIME format (RFC 2388) in place, locate the
+file part, and save that to the file (this is left as an exercise for the
+reader). In any case, this latter approach makes processing large file uploads
+much more efficient, as the file can be read and written to disk in increments,
+rather than having to first be held in memory. For information on handling
+multi-part file uploads, see <a class="xref" href="modruby.apache.req.html#read_def" title="2.1. read()">Section 2.1, “read()”</a>.</p>
 
 <h5><a name="content_encoding_def"></a>content_encoding()</h5>
 <p><code class="function">content_encoding()</code> returns the content encoding. 
@@ -987,7 +989,7 @@ host.
 another URI in this server
 </p>
 
-<h6><a name="idp46818453335072"></a>Definition</h6>
+<h6><a name="idp2128"></a>Definition</h6>
 
 <p>
 
@@ -1004,7 +1006,7 @@ like actions or CGI scripts, when using <code class="literal">AddHandler</code> 
 want to preserve the content type across an internal redirect.
 </p>
 
-<h6><a name="idp46818453340656"></a>Definition</h6>
+<h6><a name="idp2139"></a>Definition</h6>
 
 <p>
 
@@ -1023,7 +1025,7 @@ request or 0 if it is a subrequest.
 <h5><a name="log_def"></a>log()</h5>
 <p><code class="function">log()</code> logs a message to the Apache logfile.</p>
 
-<h6><a name="idp46818453347248"></a>Definition</h6>
+<h6><a name="idp2152"></a>Definition</h6>
 
 <p>
 </p><pre class="synopsis">def log(level, message)</pre><p>
@@ -1094,7 +1096,7 @@ characteristics. For more information on ETags, see the <a class="ulink" href="h
 documentation</a>.
 </p>
 
-<h6><a name="idp46818453367328"></a>Definition</h6>
+<h6><a name="idp2191"></a>Definition</h6>
 
 <p>
 
@@ -1189,7 +1191,7 @@ pass from one module to another.
 
 </p>
 
-<h6><a name="idp46818453396736"></a>Definition</h6>
+<h6><a name="idp2245"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def out(text)</pre><p>
@@ -1246,7 +1248,7 @@ an internal redirect.
 <code class="methodname">rputs()</code> method.
 </p>
 
-<h6><a name="idp46818453414432"></a>Definition</h6>
+<h6><a name="idp2279"></a>Definition</h6>
 
 <p>
 
@@ -1282,7 +1284,7 @@ post read request and translate_name. Possible values
 <code class="methodname">rputs()</code> method.
 </p>
 
-<h6><a name="idp46818453427152"></a>Definition</h6>
+<h6><a name="idp2304"></a>Definition</h6>
 
 <p>
 
@@ -1319,7 +1321,7 @@ queries.each <span xmlns="" class="keyword">do</span> |key, value|
 from a request/mtime pair. <code class="literal">mtime</code> is returned unless it's in
 the future, in which case we return the current time.</p>
 
-<h6><a name="idp46818453437072"></a>Definition</h6>
+<h6><a name="idp2323"></a>Definition</h6>
 <p>
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>mtime</code></em>: The last modified
 time.</p></li></ul></div><p>
@@ -1361,7 +1363,7 @@ example illustrates its use:
 </span>    parser.parse(<span xmlns="" class="variable-name">@req</span>,  boundary) <span xmlns="" class="keyword">do</span> |part|
 
       <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Look for a file argument. If exists, then we have a file upload.
-</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="variable-name">nil</span>
+</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="constant">nil</span>
         
         <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Open the file
 </span>
@@ -1370,7 +1372,7 @@ example illustrates its use:
 </span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">the form name (part.name). But for testing it is okay we control the
 </span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">file we are parsing.
 </span>
-        upload_file = open(<span xmlns="" class="string">"</span><span xmlns="" class="variable-name">#{part.fileName}</span><span xmlns="" class="string">"</span>, <span xmlns="" class="string">'w'</span>)
+        upload_file = <span xmlns="" class="builtin">open</span>(<span xmlns="" class="string">"</span><span xmlns="" class="variable-name">#{part.fileName}</span><span xmlns="" class="string">"</span>, <span xmlns="" class="string">'w'</span>)
         
         <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Read all of the data out of the content part. This ultimately operates
 </span>        <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">on the underlying file object (@req). By default, the content is read
@@ -1391,7 +1393,7 @@ example illustrates its use:
       <span xmlns="" class="keyword">end</span>
       
       <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Print what we did
-</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="variable-name">nil</span>
+</span>      <span xmlns="" class="keyword">if</span> part.fileName != <span xmlns="" class="constant">nil</span>
         <span xmlns="" class="variable-name">@req</span>.puts <span xmlns="" class="string">"file %-20s: %s"</span> % [part.fileName, part.contentType]
       <span xmlns="" class="keyword">else</span>
         <span xmlns="" class="variable-name">@req</span>.puts <span xmlns="" class="string">"%-25s: %s"</span> % [part.name, part.data]
@@ -1400,7 +1402,9 @@ example illustrates its use:
   <span xmlns="" class="keyword">end</span>
 </pre>
 
-Note that all calls to <code class="function">read()</code> and
+</p>
+
+<p>Note that all calls to <code class="function">read()</code> and
 <code class="function">readline()</code> are abstracted away in the parser class. This is
 because parsing is a pain, and the parser class manages all of that for you. The
 end result is that the parser feeds parsed content sections into the block
@@ -1419,7 +1423,7 @@ increase in memory requirements, as it does not have to store the entire form in
 memory.
 </p>
 
-<h6><a name="idp46818453447600"></a>Definition</h6>
+<h6><a name="idp2344"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def read(bytes)</pre><p>
@@ -1477,7 +1481,7 @@ number of bytes sent.
 <p><code class="function">rputs()</code> writes a string out via the Apache
 <code class="function">ap_puts()</code>. </p>
 
-<h6><a name="idp46818453467008"></a>Definition</h6>
+<h6><a name="idp2379"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def rputs(text)</pre><p>
@@ -1496,7 +1500,7 @@ system call to transfer the file contents, resulting in a "zero-copy" transfer
 avoided.
 </p>
 
-<h6><a name="idp46818453473344"></a>Definition</h6>
+<h6><a name="idp2391"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def sendfile(path)</pre><p>
@@ -1515,7 +1519,7 @@ directory set by Apache.</p></li></ul></div><p>
 to client.
 </p>
 
-<h6><a name="idp46818453478464"></a>Definition</h6>
+<h6><a name="idp2401"></a>Definition</h6>
 
 <p>
 
@@ -1536,7 +1540,7 @@ this request. For more information, see <a class="xref" href="modruby.apache.ser
 the request.
 </p>
 
-<h6><a name="idp46818453485792"></a>Definition</h6>
+<h6><a name="idp2416"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def set_content_length(length)</pre><p>
@@ -1548,7 +1552,7 @@ the request.
 <h5><a name="set_content_type_def"></a>set_content_type()</h5>
 <p><code class="function">set_content_type()</code> Sets the content type for this request.</p>
 
-<h6><a name="idp46818453490592"></a>Definition</h6>
+<h6><a name="idp2426"></a>Definition</h6>
 
 <p>
 
@@ -1577,7 +1581,7 @@ amount, then <code class="methodname">params()</code> will set and error and ret
 <code class="literal">nil</code>.
 </p>
 
-<h6><a name="idp46818453500560"></a>Definition</h6>
+<h6><a name="idp2445"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def set_max_content_length(byes)</pre><p>
@@ -1590,7 +1594,7 @@ amount, then <code class="methodname">params()</code> will set and error and ret
 (e.g. <code class="literal">200</code>, <code class="literal">302</code>, <code class="literal">404</code>,
 etc.</p>
 
-<h6><a name="idp46818453506592"></a>Definition</h6>
+<h6><a name="idp2458"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def set_content_status(status)</pre><p>
@@ -1606,7 +1610,7 @@ in <code class="literal">POST</code>. If this is the case, don't worry about thi
 <code class="methodname">params()</code> method, which does all of the work for you.
 </p>
 
-<h6><a name="idp46818453512368"></a>Definition</h6>
+<h6><a name="idp2470"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def setup_client_block(read_policy)</pre><p>
@@ -1681,9 +1685,9 @@ send images or binary files directly from a controller method. Here is an
 example of sending a captcha using RMagic:
 
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-require <span xmlns="" class="string">'rsp/controller'</span>
+<span xmlns="" class="builtin">require</span> <span xmlns="" class="string">'rsp/controller'</span>
 
-require <span xmlns="" class="string">'RMagick'</span>
+<span xmlns="" class="builtin">require</span> <span xmlns="" class="string">'RMagick'</span>
 
 <span xmlns="" class="keyword">class</span> <span xmlns="" class="type">Test</span> &lt; <span xmlns="" class="type">RSP</span>::<span xmlns="" class="type">Controller</span>
 
@@ -1695,7 +1699,7 @@ require <span xmlns="" class="string">'RMagick'</span>
 </span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">default</span>()
 
     image = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">Image</span>.new(300, 50) <span xmlns="" class="keyword">do</span>
-      <span xmlns="" class="variable-name">self</span>.background_color = <span xmlns="" class="string">'#eaeaea'</span>
+      <span xmlns="" class="keyword">self</span>.background_color = <span xmlns="" class="string">'#eaeaea'</span>
     <span xmlns="" class="keyword">end</span>
     
     gc = <span xmlns="" class="type">Magick</span>::<span xmlns="" class="type">Draw</span>.new
@@ -1725,7 +1729,7 @@ require <span xmlns="" class="string">'RMagick'</span>
 
 </p>
 
-<h6><a name="idp46818453534912"></a>Definition</h6>
+<h6><a name="idp2510"></a>Definition</h6>
 <p>
 
 </p><pre class="synopsis">def write(data, size)</pre><p>

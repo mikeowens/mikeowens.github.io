@@ -2,7 +2,7 @@
 
 
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452659136"></a>2.1. The Request Class</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp23"></a>2.1. The Request Class</h3></div></div></div>
 
 <p>The <code class="classname">Apache::Request</code> class is the principal class
 you will use to do most of the low-level work, as it contains the most common
@@ -29,9 +29,9 @@ which we will look at later.</p>
 <span xmlns="" class="keyword">class</span> <span xmlns="" class="type">Request</span>
 
   <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">setCookie</span>( name, value,
-                 days=0, minutes=0, path=<span xmlns="" class="variable-name">nil</span> )
+                 days=0, minutes=0, path=<span xmlns="" class="constant">nil</span> )
       
-    path = <span xmlns="" class="string">'/'</span> <span xmlns="" class="keyword">if</span> path == <span xmlns="" class="variable-name">nil</span>
+    path = <span xmlns="" class="string">'/'</span> <span xmlns="" class="keyword">if</span> path == <span xmlns="" class="constant">nil</span>
 
     cookieString = <span xmlns="" class="string">"%s=%s;path=%s;domain=.%s"</span> 
     cookieString = cookieString % [name, value, path, domainName()]
@@ -45,27 +45,29 @@ which we will look at later.</p>
     <span xmlns="" class="keyword">end</span>
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Append this cookie to the array
-</span>    <span xmlns="" class="variable-name">self</span>.headers_out.add(<span xmlns="" class="string">'Set-Cookie'</span>, cookieString)
+</span>    <span xmlns="" class="keyword">self</span>.headers_out.add(<span xmlns="" class="string">'Set-Cookie'</span>, cookieString)
   <span xmlns="" class="keyword">end</span>
 
   <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Redirect the client to url.
 </span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">redirect</span>(url)
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Set the Apache req.status
-</span>    <span xmlns="" class="variable-name">self</span>.set_status(302)
+</span>    <span xmlns="" class="keyword">self</span>.set_status(302)
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Also set it in the headers, just in case
-</span>    <span xmlns="" class="variable-name">self</span>.headers_out[<span xmlns="" class="string">'Status'</span>]   = <span xmlns="" class="string">"302"</span>
-    <span xmlns="" class="variable-name">self</span>.headers_out[<span xmlns="" class="string">'Location'</span>] = url
+</span>    <span xmlns="" class="keyword">self</span>.headers_out[<span xmlns="" class="string">'Status'</span>]   = <span xmlns="" class="string">"302"</span>
+    <span xmlns="" class="keyword">self</span>.headers_out[<span xmlns="" class="string">'Location'</span>] = url
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">This will terminate subsequent request processing
-</span>    <span xmlns="" class="keyword">raise</span> <span xmlns="" class="type">ModRuby</span>::<span xmlns="" class="type">Redirect</span>.new(url)
+</span>    <span xmlns="" class="builtin">raise</span> <span xmlns="" class="type">ModRuby</span>::<span xmlns="" class="type">Redirect</span>.new(url)
   <span xmlns="" class="keyword">end</span>
 
 <span xmlns="" class="keyword">end</span>
 </pre>
 
-Look at <code class="methodname">setCookie()</code>. Cookies are stored in the
+</p>
+
+<p>Look at <code class="methodname">setCookie()</code>. Cookies are stored in the
 <code class="varname">@headers_out</code> member, which is where all HTTP headers are
 stored. This is an <code class="classname">APR::Table</code> object. All cookie values
 are stored in a list associated with the key "Set-Cookie". Similarly, the
@@ -157,12 +159,15 @@ illustrates this:
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
 &lt;%
 <span xmlns="" class="variable-name">@request</span>.cgi.each <span xmlns="" class="keyword">do</span> |key, value|
-  puts <span xmlns="" class="string">"%20s: %s"</span> % [key, value]
+  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"%20s: %s"</span> % [key, value]
 <span xmlns="" class="keyword">end</span>
-%&gt;
+<span xmlns="" class="string">%&gt;
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/cgi.rhtml" target="_top">http/cgi.rhtml</a>. It
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/cgi.rhtml" target="_top">http/cgi.rhtml</a>. It
 yields the following:
 
 </p><pre class="programlisting">
@@ -207,7 +212,7 @@ request (whether there are cookies are not, etc.).
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452695600"></a>2.2. Queries and Parameters</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp24"></a>2.2. Queries and Parameters</h3></div></div></div>
 
 <p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
 <code class="varname">@request.params</code>, both of which are APR tables in the
@@ -218,27 +223,30 @@ tables just like a Ruby hash:
 &lt;form name=<span xmlns="" class="string">"input"</span> action=<span xmlns="" class="string">"post.rhtml?queryarg=junior+mints"</span> method=<span xmlns="" class="string">"post"</span>&gt;
 &lt;input type=<span xmlns="" class="string">"text"</span> name=<span xmlns="" class="string">"text"</span> value=<span xmlns="" class="string">"jujifruit"</span>&gt;
 &lt;input type=<span xmlns="" class="string">"submit"</span> value=<span xmlns="" class="string">"Submit"</span>&gt;
-&lt;/form&gt;
+&lt;<span xmlns="" class="string">/form&gt;
 
 &lt;pre&gt;
 &lt;%
-puts <span xmlns="" class="string">"Queries: "</span>
-queries = <span xmlns="" class="variable-name">@request</span>.queries()
+puts "Queries: "
+queries = @request.queries()
 
-queries.each <span xmlns="" class="keyword">do</span> |key, value|
-  puts <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
-<span xmlns="" class="keyword">end</span>
+queries.each do |key, value|
+  puts "  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">" 
+end
 
-puts <span xmlns="" class="string">"Params: "</span>
-params = <span xmlns="" class="variable-name">@request</span>.params
+puts "Params: "
+params = @request.params
 
-params.each <span xmlns="" class="keyword">do</span> |key, value|
-  puts <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
-<span xmlns="" class="keyword">end</span>
+params.each do |key, value|
+  puts "  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">" 
+end
 %&gt;
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/post.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/post.rhtml" target="_top">
 http/post.rhtml</a>. Click the <code class="literal">Submit</code> button. It yields
 the following:
 
@@ -278,7 +286,7 @@ it.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452708224"></a>2.3. Cookies</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp25"></a>2.3. Cookies</h3></div></div></div>
 
 <p>The <code class="classname">Apache::Request</code> class provides some convenience
 methods for cookie handling via the <code class="methodname">cookie()</code>,
@@ -320,14 +328,17 @@ virtual host the request is running under. By default, the
 <span xmlns="" class="variable-name">@request</span>.setCookie(<span xmlns="" class="string">'mo'</span>,    <span xmlns="" class="variable-name">@request</span>.cookie(<span xmlns="" class="string">'moe'</span>).to_i + 1)
 <span xmlns="" class="variable-name">@request</span>.setCookie(<span xmlns="" class="string">'curly'</span>, <span xmlns="" class="variable-name">@request</span>.cookie(<span xmlns="" class="string">'curly'</span>).to_i + 1)
 
-puts <span xmlns="" class="string">"Cookies: "</span>
+<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"Cookies: "</span>
 <span xmlns="" class="variable-name">@request</span>.cookies.each <span xmlns="" class="keyword">do</span> |key, value|
-  puts <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
+  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
 <span xmlns="" class="keyword">end</span>
-%&gt;
+<span xmlns="" class="string">%&gt;
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/cookies.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/cookies.rhtml" target="_top">
 http/cookies.rhtml</a>. Click the <code class="literal">Submit</code> button and then
 refresh your browser once. It yields the following:
 
@@ -356,7 +367,7 @@ for sure or bank on.</p></div>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452727920"></a>2.4. Redirection</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp26"></a>2.4. Redirection</h3></div></div></div>
 
 <p>Redirection can be done in two ways: external or internal. An external
 redirect is done by sending the client an HTTP 302 response and providing the
@@ -367,11 +378,15 @@ Google, you can do this in your view as follows:
 &lt;%
 <span xmlns="" class="variable-name">@request</span>.headers[<span xmlns="" class="string">'status'</span>]   = <span xmlns="" class="string">"302"</span>
 <span xmlns="" class="variable-name">@request</span>.headers[<span xmlns="" class="string">'location'</span>] = <span xmlns="" class="string">"http://www.google.com"</span>
-%&gt;
+<span xmlns="" class="string">%&gt;
+</span>
 </pre>
 
-The <code class="classname">Apache::Request</code> class will do this for you however by
-simply calling <code class="methodname">@request.redirect(url)</code>.</p>
+</p>
+
+<p>The <code class="classname">Apache::Request</code> class will do this for you
+however by simply calling
+<code class="methodname">@request.redirect(url)</code>.</p>
 
 <p>Internal redirects are done using the
 <code class="methodname">Apache::Request::internal_redirect()</code>. This causes
@@ -395,19 +410,19 @@ via <code class="methodname">@request.prev.err_headers_out()</code>.</p>
 <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@request</span>.queries[<span xmlns="" class="string">'type'</span>] == <span xmlns="" class="string">'internal'</span>
   <span xmlns="" class="variable-name">@request</span>.internal_redirect(<span xmlns="" class="string">'/redirected.rhtml'</span>)
 <span xmlns="" class="keyword">end</span>
-%&gt;
+<span xmlns="" class="string">%&gt;
 
-&lt;pre&gt;
-<span xmlns="" class="type">Click</span> &lt;a href=<span xmlns="" class="string">"redirect.rhtml?type=internal"</span>&gt;here&lt;/a&gt; <span xmlns="" class="keyword">for</span> internal redirect.
-<span xmlns="" class="type">Click</span> &lt;a href=<span xmlns="" class="string">"redirect.rhtml?type=external"</span>&gt;here&lt;/a&gt; <span xmlns="" class="keyword">for</span> external redirect.
+&lt;pre&gt;</span>
+<span xmlns="" class="type">Click</span> &lt;a href=<span xmlns="" class="string">"redirect.rhtml?type=internal"</span>&gt;here&lt;<span xmlns="" class="string">/a&gt; for internal redirect.
+Click &lt;a href="redirect.rhtml?type=external"&gt;here&lt;/</span>a&gt; <span xmlns="" class="keyword">for</span> external redirect.
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/redirect.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/redirect.rhtml" target="_top">
 http/redirect.rhtml</a>. The internal redirect goes to
 <code class="filename">redirected.rhtml</code>, and the external redirect to
-<code class="literal">www.ubuntu.com</code>.
-
-</p>
+<code class="literal">www.ubuntu.com</code>.</p>
 
 <p>Which method is preferable depends on what you are trying to do. If you
 have a request that will take a while and you want to put up a progress bar,
@@ -427,7 +442,7 @@ messy code. Consider the following example:
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
   <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">ensureAuthorized</span>()    
 
-    <span xmlns="" class="keyword">return</span> <span xmlns="" class="variable-name">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="variable-name">nil</span>
+    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="constant">nil</span>
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Else we are not authoized. Redirect to the FB authorization page.
 </span>
@@ -436,7 +451,7 @@ messy code. Consider the following example:
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Indicates that we are not authorized and we need to stop further
 </span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">processing of this request.
-</span>    <span xmlns="" class="keyword">return</span> <span xmlns="" class="variable-name">false</span>
+</span>    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">false</span>
 
   <span xmlns="" class="keyword">end</span>
 
@@ -444,12 +459,12 @@ messy code. Consider the following example:
 </span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">graph</span>(path)
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Make sure out FB accessToken is valid
-</span>    <span xmlns="" class="keyword">if</span> ensureAuthorized() == <span xmlns="" class="variable-name">false</span>
+</span>    <span xmlns="" class="keyword">if</span> ensureAuthorized() == <span xmlns="" class="constant">false</span>
 
       <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Oops. Return false and hope that the caller knows what to do to properly
 </span>      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">handle this error case ... and the caller aboe it, and above it ... all
 </span>      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">the way up the stack.
-</span>      <span xmlns="" class="keyword">return</span> <span xmlns="" class="variable-name">false</span>
+</span>      <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">false</span>
     <span xmlns="" class="keyword">end</span>
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Code we would run if ensureAuthorized() succeeds
@@ -459,8 +474,10 @@ messy code. Consider the following example:
   <span xmlns="" class="keyword">end</span>
 </pre>
 
-Here we have a method that needs to check whether we have the requisite access
-token from Facebook in order to proceed. It calls
+</p>
+
+<p>Here we have a method that needs to check whether we have the requisite
+access token from Facebook in order to proceed. It calls
 <code class="methodname">ensureAuthorized()</code> to make this check. Well, if that
 method sees that we are not authorized, the way to go about it is to send a
 chunk of Javascript back to cause the browser to redirect, and then
@@ -488,7 +505,7 @@ can rewrite our previous example as follows:
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
   <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">ensureAuthorized</span>()    
 
-    <span xmlns="" class="keyword">return</span> <span xmlns="" class="variable-name">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="variable-name">nil</span>
+    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="constant">nil</span>
 
     <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Else we are not authoized. Redirect to the FB authorization page.
 </span>
@@ -517,12 +534,14 @@ can rewrite our previous example as follows:
   <span xmlns="" class="keyword">end</span>
 </pre>
 
-Much simpler. Now our edge case is handled here and nobody else has to know
-about it or code for it.</p>
+</p>
+
+<p>Much simpler. Now our edge case is handled here and nobody else has to
+know about it or code for it.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452744544"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp27"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div>
 
 <p>Within the context of RHTML and Ruby script pages, the content generated
 is collected in an output buffer managed by the handler handling the request. By
@@ -553,16 +572,19 @@ method. Consider the following example:
 <pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
 <span xmlns="" class="type">Theoretically</span>, this should show up <span xmlns="" class="keyword">in</span> the content.
 &lt;%
-puts <span xmlns="" class="string">'This should as well'</span>
+<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">'This should as well'</span>
 
 <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">But is won't because of this:
 </span><span xmlns="" class="variable-name">@request</span>.out.reopen(<span xmlns="" class="string">''</span>, <span xmlns="" class="string">'a'</span>)
-%&gt;
+<span xmlns="" class="string">%&gt;
 
-<span xmlns="" class="type">Only</span> this should render on a page.
+Only this should render on a page.
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/clearbuffer.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/clearbuffer.rhtml" target="_top">
 http/clearbuffer.rhtml</a>. Only the content after the call to
 <code class="methodname">StringIO::reopen()</code> is rendered.
 </p>
@@ -585,10 +607,13 @@ buffer and go directly to Apache. Consider the following example:
 &lt;%
 <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">'This was sent through Apache I/O'</span>
 <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">'&lt;hr&gt;'</span>
-%&gt;
+<span xmlns="" class="string">%&gt;
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/bypassbuffer.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/bypassbuffer.rhtml" target="_top">
 http/bypassbuffer.rhtml</a>. The Apache I/O content comes first, followed by
 the page content.
 </p>
@@ -634,16 +659,18 @@ consider the following example:
 
 <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"\n/etc/group:\n"</span>
 <span xmlns="" class="variable-name">@request</span>.send_file(<span xmlns="" class="string">'/etc/group'</span>)
-%&gt;
+<span xmlns="" class="string">%&gt;
+</span>
 </pre>
 
-This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/sendfile.rhtml" target="_top">
+</p>
+
+<p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/sendfile.rhtml" target="_top">
 http/sendfile.rhtml</a>. The <code class="filename">/etc/passwd</code> and
 <code class="filename">/etc/group</code> files make it, but
 <code class="filename">/etc/shadow</code> does not, because Apache is not running under a
 priviledged account (at least it better not be! — if you do see the
-contents, you may need to get a SysAdmin).
-</p>
+contents, you may need to get a SysAdmin).</p>
 
 <p>So to recap, the normal standard output in the framework is collected in a
 page buffer which is flushed after the request completes. This buffer is
@@ -657,7 +684,7 @@ method.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452769648"></a>2.7. Logging</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp28"></a>2.7. Logging</h3></div></div></div>
 
 <p>ModRuby provides access to native Apache logging via the
 <code class="methodname">Apache::Request::log()</code>, which takes two arguments. The

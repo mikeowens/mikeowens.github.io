@@ -9,7 +9,7 @@ override variables within various scopes (or contexts) within the configuration
 file. In this section we will explores these ideas and their
 implications.</p>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452531600"></a>2.1. Configuration Contexts</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17"></a>2.1. Configuration Contexts</h3></div></div></div>
 
 <p>In Apache terms, there are basically two configuration contexts: server
 configuration and directory configuration. That is, you can specify
@@ -79,7 +79,7 @@ can then be overridden by directory level settings.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452541536"></a>2.2. Configuration Variables</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19"></a>2.2. Configuration Variables</h3></div></div></div>
 
 <p>ModRuby provides a way for you to store you own configuration variables.
 You use the <code class="varname">RubyConfig</code> directive to do so. It takes two
@@ -125,7 +125,7 @@ For all requests within the <code class="filename">/fruity</code> location, the 
 for the <code class="filename">/var/www/mysite/sheedip</code> directory. Thus directory
 contexts always complement and override server contexts.</p>
  
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp46818452547488"></a>2.2.1. Configuration Variables for Handlers</h4></div></div></div>
+<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp18"></a>2.2.1. Configuration Variables for Handlers</h4></div></div></div>
 
 <p>As touched upon earlier, there is also a way for you to set specific
 configuration variables for framework handlers. For example, say you wanted to
@@ -173,11 +173,13 @@ within Ruby, you would just do the following:
 gem_path = <span xmlns="" class="variable-name">@request</span>.notes()[<span xmlns="" class="string">'GEM_PATH'</span>]
 </pre>
 
-APR tables are given full treatment in <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a>.</p>
+</p>
+
+<p>APR tables are given full treatment in <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a>.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452554432"></a>2.3. Environmental Variables</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp20"></a>2.3. Environmental Variables</h3></div></div></div>
 
 <p>The last feature in configuration is setting environmental variables. You
 can do this using the <code class="varname">RubyEnv</code> directory which works

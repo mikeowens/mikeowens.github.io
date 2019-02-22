@@ -6,9 +6,9 @@ body
 {
   background-color: white;
   margin: 40px auto;
-  width: 800px;
-  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.9em;
+  width: 960px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
   line-height: 1.2;
 }
 
@@ -233,10 +233,12 @@ tt
   text-align: center;
 }
 
-.author
+.author,
+p.releaseinfo,
+p.copyright
 { 
   font-size: 1em;
-  margin: 0;
+  margin: 20px;
 } 
 
 .license
@@ -517,8 +519,8 @@ tt
 {
   font-size: 0.8em;
   line-height: 1.4em;
-  background-color: #B6D291;
-  color: #444;
+  background-color: #222222;
+  color: #ffffff;
   padding: 20px 0px 20px 20px;
   margin:  15px 0px 15px 20px;
 
@@ -534,7 +536,7 @@ tt
 
 .prompt
 {
-  color: #444444;
+  color: #aaaaff;
   font-weight: bold;
 }
 

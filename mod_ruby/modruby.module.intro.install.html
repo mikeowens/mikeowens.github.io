@@ -14,7 +14,7 @@ work with the threaded (worker MPM) backend</em></span>. This is mainly because
 the Ruby VM is not reentrant, and <code class="literal">mod_ruby</code> therefore has no
 support for reentrancy as well.</p>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452375120"></a>2.1. Debian and Ubuntu</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6"></a>2.1. Debian and Ubuntu</h3></div></div></div>
 
 <p>If you are using Ubuntu/Debian, you can build binary packages easily. Just
 do the following:
@@ -49,7 +49,7 @@ drwxr-xr-x 15 owensmk owensmk 4.0K 2009-07-28 14:15 mod-ruby
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452380608"></a>2.2. FreeBSD</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7"></a>2.2. FreeBSD</h3></div></div></div>
 
 <p>ModRuby requires the following dependencies:
 
@@ -73,7 +73,7 @@ have FreeBSD ports installed however. That said, do the following as root:
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452386896"></a>2.3. Mac OS X</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8"></a>2.3. Mac OS X</h3></div></div></div>
 
 <p>On Max OS X you need to make sure the following are installed on your
 system:
@@ -122,14 +122,14 @@ directory. That should do it.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452397296"></a>2.5. Development Install</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp11"></a>2.5. Development Install</h3></div></div></div>
 
 <p>To make development easier, you can run everything from the source
 distribution without having to install anything. That way, the changes you make
 as you develop can take affect immediately (sometimes requiring an Apache
 restart). You just have to symlink things to the right places. </p>
 
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp46818452398496"></a>2.5.1. Debian/Ubuntu</h4></div></div></div>
+<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp9"></a>2.5.1. Debian/Ubuntu</h4></div></div></div>
 
 <p>To install from your source directory, use the following symlinks:
 
@@ -158,7 +158,7 @@ Now enable everything:
 
 </div>
 
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp46818452406336"></a>2.5.2. FreeBSD</h4></div></div></div>
+<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp10"></a>2.5.2. FreeBSD</h4></div></div></div>
 
 <p>To install from your source directory, use the following symlinks:
 
@@ -180,10 +180,10 @@ Now enable everything:
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp46818452411984"></a>2.6. Configuring Apache</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp12"></a>2.6. Configuring Apache</h3></div></div></div>
 
-<p>One the packages are installed, you need to enable
-<code class="literal">mod_mod_ruby</code> and the example site as follows:
+<p>Once the packages are installed, you need to enable
+<code class="literal">mod_ruby</code> and the example site as follows:
 
 </p><pre class="screen">
 <code class="prompt">user@host $</code> sudo a2enmod mod_ruby
