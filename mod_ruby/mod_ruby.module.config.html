@@ -289,7 +289,7 @@ within XHTML, XML, etc. where the angle brackets can cause problems.</p>
 Hello World. This is &lt;%=ModRuby.name%&gt;
 </pre><p>
 
-If you don’t already have the page loaded, you this <a class="ulink" href="http://www.modruby.org/doc/examples/helloworld.rhtml" target="_top">link</a> and look at the
+If you don’t already have the page loaded, you this <a class="ulink" href="http://modruby.example.org/doc/examples/helloworld.rhtml" target="_top">link</a> and look at the
 result. Simple enough.</p>
 
 <p>RHTML allows you to embed Ruby code in text and run it in the order that
@@ -532,29 +532,23 @@ works in the next section.</p>
   
 <p>An access handler implements the 
 <a class="ulink" href="https://ci.apache.org/projects/httpd/trunk/doxygen/group__APACHE__CORE__REQ.html#ga2a9dc3af1fbed52e36fc9e9386e4f919" target="_top">
-Apache ap_hook_check_access_ex handler</a>.  This is a special 
-handler that inspects the request headers or request body and
-makes an authentication and authorization decision.  This handler
-is run before other handlers and is a nice method to separate
-authentication code from content.
-</p>
-<p>
-If the user
-passes the checks, nothing happens and the RubyHandler or any other
-handler is run.  This is also compatible with any other content handlers
-like mod_cgi, mod_dir, mod_autoindex, etc.
-</p>
+Apache ap_hook_check_access_ex handler</a>.  This is a special handler that
+inspects the request headers or request body and makes an authentication and
+authorization decision.  This handler is run before other handlers and is a nice
+method to separate authentication code from content.</p>
 
-<p>
-If the user fails your authentication/authorization check, the error
-response can be an HTTP 401 Unauthorized response to request
-Basic auth or OAuth2 bearer tokens.  Or something more simple like a
-redirect to an authentication system.
-</p>
+<p>If the user passes the checks, nothing happens and the RubyHandler or any
+other handler is run.  This is also compatible with any other content handlers
+like <code class="literal">mod_cgi</code>, <code class="literal">mod_dir</code>,
+<code class="literal">mod_autoindex</code>, etc.</p>
 
-<p>
-Here's an Apache config example for setting up a Framework Handler
-that is used as an Access Handler:
+<p>If the user fails your authentication/authorization check, the error
+response can be an HTTP 401 Unauthorized response to request Basic auth or
+OAuth2 bearer tokens. Or something more simple like a redirect to an
+authentication system.</p>
+
+<p>Here is an Apache config example for setting up a Framework Handler that
+is used as an Access Handler:
 
 </p><pre class="programlisting">
 RubyHandlerDeclare ACCESS_TEST
@@ -581,7 +575,9 @@ RubyHandlerMethod  DECLINED check_access
 </p>
 
 <p>
+
 some pseudocode that might be used as access_test.rb:
+
 </p>
 
 <pre class="programlisting">
@@ -599,12 +595,10 @@ module AccessTest
 end
 </pre>
 
-<p>
-In some cases, you might want to exclude some paths from authentication, like
-assets.  Since you can't remove a RubyAccessHandler, we can set a 
-new one that does nothing but return.  It's lightweight, and doesn't add 
-the extra overhead of authentication.
-</p>
+<p>In some cases, you might want to exclude some paths from authentication,
+like assets. Since you can’t remove a <code class="literal">RubyAccessHandler</code>, we
+can set a new one that does nothing but return. It’s lightweight, and doesn't
+add the extra overhead of authentication.</p>
 
 <pre class="programlisting">
 module Declined
