@@ -2,7 +2,7 @@
 
 
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp23"></a>2.1. The Request Class</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp24"></a>2.1. The Request Class</h3></div></div></div>
 
 <p>The <code class="classname">Apache::Request</code> class is the principal class
 you will use to do most of the low-level work, as it contains the most common
@@ -212,7 +212,7 @@ request (whether there are cookies are not, etc.).
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp24"></a>2.2. Queries and Parameters</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp25"></a>2.2. Queries and Parameters</h3></div></div></div>
 
 <p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
 <code class="varname">@request.params</code>, both of which are APR tables in the
@@ -286,7 +286,7 @@ it.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp25"></a>2.3. Cookies</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp26"></a>2.3. Cookies</h3></div></div></div>
 
 <p>The <code class="classname">Apache::Request</code> class provides some convenience
 methods for cookie handling via the <code class="methodname">cookie()</code>,
@@ -367,7 +367,7 @@ for sure or bank on.</p></div>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp26"></a>2.4. Redirection</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp27"></a>2.4. Redirection</h3></div></div></div>
 
 <p>Redirection can be done in two ways: external or internal. An external
 redirect is done by sending the client an HTTP 302 response and providing the
@@ -422,7 +422,7 @@ Click &lt;a href="redirect.rhtml?type=external"&gt;here&lt;/</span>a&gt; <span x
 <p>This example is in <a class="ulink" href="http://www.modruby.org/doc/examples/redirect.rhtml" target="_top">
 http/redirect.rhtml</a>. The internal redirect goes to
 <code class="filename">redirected.rhtml</code>, and the external redirect to
-<code class="literal">www.ubuntu.com</code>.</p>
+<code class="literal">www.devuan.org</code>.</p>
 
 <p>Which method is preferable depends on what you are trying to do. If you
 have a request that will take a while and you want to put up a progress bar,
@@ -541,7 +541,7 @@ know about it or code for it.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp27"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp28"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div>
 
 <p>Within the context of RHTML and Ruby script pages, the content generated
 is collected in an output buffer managed by the handler handling the request. By
@@ -684,7 +684,7 @@ method.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp28"></a>2.7. Logging</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp29"></a>2.7. Logging</h3></div></div></div>
 
 <p>ModRuby provides access to native Apache logging via the
 <code class="methodname">Apache::Request::log()</code>, which takes two arguments. The

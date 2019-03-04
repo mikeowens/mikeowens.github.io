@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 2. Configuration</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.html" title="ModRuby"><link rel="prev" href="modruby.module.intro.install.html" title="2. Building and Installing"><link rel="next" href="modruby.module.config.contexts.html" title="2. Variables and Contexts"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">Chapter 2. Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.intro.install.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.config.contexts.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="mod_ruby.module.config"></a>Chapter 2. Configuration</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="mod_ruby.module.config.html#modruby.module.config.handlers">1. Handlers</a></span></dt><dd><dl><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp13">1.1. Script Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp14">1.2. RHTML Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp15">1.3. Framework Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp16">1.4. Summary</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.config.contexts.html">2. Variables and Contexts</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp17">2.1. Configuration Contexts</a></span></dt><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp19">2.2. Configuration Variables</a></span></dt><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp20">2.3. Environmental Variables</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.config.merging.html">3. Directory and Variable Merging</a></span></dt><dt><span class="sect1"><a href="modruby.module.config.conclusion.html">4. Conclusion</a></span></dt></dl></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 2. Configuration</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.html" title="ModRuby"><link rel="prev" href="modruby.module.intro.install.html" title="2. Building and Installing"><link rel="next" href="modruby.module.config.contexts.html" title="2. Variables and Contexts"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">Chapter 2. Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.intro.install.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.config.contexts.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="mod_ruby.module.config"></a>Chapter 2. Configuration</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="mod_ruby.module.config.html#modruby.module.config.handlers">1. Handlers</a></span></dt><dd><dl><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp13">1.1. Script Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp14">1.2. RHTML Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp15">1.3. Framework Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp16">1.4. Access Handlers</a></span></dt><dt><span class="sect2"><a href="mod_ruby.module.config.html#idp17">1.5. Summary</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.config.contexts.html">2. Variables and Contexts</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp18">2.1. Configuration Contexts</a></span></dt><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp20">2.2. Configuration Variables</a></span></dt><dt><span class="sect2"><a href="modruby.module.config.contexts.html#idp21">2.3. Environmental Variables</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.config.merging.html">3. Directory and Variable Merging</a></span></dt><dt><span class="sect1"><a href="modruby.module.config.conclusion.html">4. Conclusion</a></span></dt></dl></div>
 
 
 
@@ -502,7 +502,7 @@ outside. This just keeps us from having to repeat ourselves, as
 we’ve already done in the <code class="varname">Files</code> directive. This approach is
 just a little cleaner. Either way, we are just associating the specific file
 extension <code class="filename">.dip</code> to <code class="function">ruby-handler</code> —
-that’s the point here, and you can do that however you like.<a href="#ftn.idp457" class="footnote"><sup class="footnote"><a name="idp457"></a>[1]</sup></a>
+that’s the point here, and you can do that however you like.<a href="#ftn.idp458" class="footnote"><sup class="footnote"><a name="idp458"></a>[1]</sup></a>
 Next is phase 2, where we weld the <code class="function">ruby-handler</code> to the
 <code class="literal">SHEEPDIP</code> framework handler using the
 <code class="varname">RubyHandler</code> directive. The <code class="varname">RubyHandler</code>
@@ -528,7 +528,95 @@ works in the next section.</p>
 
 </div>
 
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16"></a>1.4. Summary</h3></div></div></div>
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16"></a>1.4. Access Handlers</h3></div></div></div>
+  
+<p>An access handler implements the 
+<a class="ulink" href="https://ci.apache.org/projects/httpd/trunk/doxygen/group__APACHE__CORE__REQ.html#ga2a9dc3af1fbed52e36fc9e9386e4f919" target="_top">
+Apache ap_hook_check_access_ex handler</a>.  This is a special 
+handler that inspects the request headers or request body and
+makes an authentication and authorization decision.  This handler
+is run before other handlers and is a nice method to separate
+authentication code from content.
+</p>
+<p>
+If the user
+passes the checks, nothing happens and the RubyHandler or any other
+handler is run.  This is also compatible with any other content handlers
+like mod_cgi, mod_dir, mod_autoindex, etc.
+</p>
+
+<p>
+If the user fails your authentication/authorization check, the error
+response can be an HTTP 401 Unauthorized response to request
+Basic auth or OAuth2 bearer tokens.  Or something more simple like a
+redirect to an authentication system.
+</p>
+
+<p>
+Here's an Apache config example for setting up a Framework Handler
+that is used as an Access Handler:
+
+</p><pre class="programlisting">
+RubyHandlerDeclare ACCESS_TEST
+RubyHandlerModule  ACCESS_TEST "/var/www/html/access_test.rb"
+RubyHandlerClass   ACCESS_TEST AccessTest::Handler
+RubyHandlerMethod  ACCESS_TEST check_access
+
+&lt;Directory "/var/www/cgi-bin"&gt;
+  RubyAccessHandler ACCESS_TEST
+&lt;/Directory&gt;
+&lt;Directory "/var/www/html"&gt;
+  RubyAccessHandler ACCESS_TEST
+&lt;/Directory&gt;
+
+RubyHandlerDeclare DECLINED
+RubyHandlerModule  DECLINED "/var/www/html/declined.rb"
+RubyHandlerClass   DECLINED Declined::Handler
+RubyHandlerMethod  DECLINED check_access
+
+&lt;Location "/assets"&gt;
+  RubyAccessHandler DECLINED  
+&lt;/Location
+</pre><p>
+</p>
+
+<p>
+some pseudocode that might be used as access_test.rb:
+</p>
+
+<pre class="programlisting">
+module AccessTest
+  class Handler
+    def check_access(request)
+      if authorized?
+        request.set_user(@username)
+      else
+        r.setStatus(401)
+        r.headers_out['WWW-Authenticate'] = "Basic"
+      end
+    end
+  end
+end
+</pre>
+
+<p>
+In some cases, you might want to exclude some paths from authentication, like
+assets.  Since you can't remove a RubyAccessHandler, we can set a 
+new one that does nothing but return.  It's lightweight, and doesn't add 
+the extra overhead of authentication.
+</p>
+
+<pre class="programlisting">
+module Declined
+  class Handler
+    def check_access(request)
+    end
+  end
+end
+</pre>  
+</div>
+
+<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17"></a>1.5. Summary</h3></div></div></div>
 
 <p>There are two classes of module handlers: script handlers and framework
 handlers. There are two subclasses of script handlers: RHTML and CGI. Script
@@ -580,6 +668,6 @@ different files, directories, locations, extensions and contexts.</p>
 
 
 
-<div class="footnotes"><br><hr style="width:100; align:left;"><div id="ftn.idp457" class="footnote"><p><a href="#idp457" class="para"><sup class="para">[1] </sup></a>For
+<div class="footnotes"><br><hr style="width:100; align:left;"><div id="ftn.idp458" class="footnote"><p><a href="#idp458" class="para"><sup class="para">[1] </sup></a>For
 more information on <code class="varname">AddHandler</code> verses
 <code class="varname">SetHandler</code>, see the Apache <a class="ulink" href="http://httpd.apache.org/docs/2.4/mod/mod_mime.html#addhandler" target="_top">documentation</a>.</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.intro.install.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.config.contexts.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Building and Installing </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 2. Variables and Contexts</td></tr></table></div></body></html>
