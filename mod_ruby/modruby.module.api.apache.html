@@ -1,73 +1,19 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. The Apache API</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="prev" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="next" href="mod_ruby.reference.global.index.html" title="Appendix A. Module API Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. The Apache API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Programming</th><td width="20%" align="right"> <a accesskey="n" href="mod_ruby.reference.global.index.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api.apache"></a>2. The Apache API</h2></div></div></div>
-
-
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp24"></a>2.1. The Request Class</h3></div></div></div>
-
-<p>The <code class="classname">Apache::Request</code> class is the principal class
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. The Apache API</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="prev" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="next" href="modruby.reference.global.index.html" title="Appendix A. Module API Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. The Apache API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Programming</th><td width="20%" align="right"> <a accesskey="n" href="modruby.reference.global.index.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api.apache"></a>2. The Apache API</h2></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm776"></a>2.1. The Request Class</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class is the principal class
 you will use to do most of the low-level work, as it contains the most common
 information (queries, POST parameters, cookies, etc.) which in turn comes
-primarily from the HTTP headers and/or the CGI environment.</p>
-
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="http_headers"></a>2.1.1. HTTP Headers</h4></div></div></div>
-
-<p>As you now understand how <code class="classname">APR::Table</code>s work, let’s
+primarily from the HTTP headers and/or the CGI environment.</p><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="http_headers"></a>2.1.1. HTTP Headers</h4></div></div></div><p>As you now understand how <code class="classname">APR::Table</code>s work, let’s
 take an opportunity to explore how they and everything else fits together. We
 will look specifically specifically at how HTTP headers are managed. If you
 understand this, everything else is easy. This demonstrates not only the
 subtleties of using APR tables, but also the core linkage between the APR
 classes and the <code class="classname">Apache::Request</code> classes. HTTP headers (in
 and out) are a large component of handling a request, second only to content,
-which we will look at later.</p>
-
-<p>To start out, let’s look at part of the Ruby implementation of the
+which we will look at later.</p><p>To start out, let’s look at part of the Ruby implementation of the
 <code class="classname">Apache::Request</code> class:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-<span xmlns="" class="keyword">module</span> <span xmlns="" class="type">Apache</span>
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="keyword">class</span> <span xmlns="" class="type">Request</span>
-
-  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">setCookie</span>( name, value,
-                 days=0, minutes=0, path=<span xmlns="" class="constant">nil</span> )
-      
-    path = <span xmlns="" class="string">'/'</span> <span xmlns="" class="keyword">if</span> path == <span xmlns="" class="constant">nil</span>
-
-    cookieString = <span xmlns="" class="string">"%s=%s;path=%s;domain=.%s"</span> 
-    cookieString = cookieString % [name, value, path, domainName()]
-    
-    <span xmlns="" class="keyword">if</span> days != 0 <span xmlns="" class="keyword">or</span> minutes != 0
-      <span xmlns="" class="keyword">if</span> days==-1 <span xmlns="" class="keyword">and</span> minutes==-1
-        cookieString += <span xmlns="" class="string">";Expires=Sun, 17-Jan-2038 19:14:07 -0600"</span>
-      <span xmlns="" class="keyword">else</span>
-        cookieString += <span xmlns="" class="string">";Expires=%s"</span> % expirationDate(days, minutes)
-      <span xmlns="" class="keyword">end</span>
-    <span xmlns="" class="keyword">end</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Append this cookie to the array
-</span>    <span xmlns="" class="keyword">self</span>.headers_out.add(<span xmlns="" class="string">'Set-Cookie'</span>, cookieString)
-  <span xmlns="" class="keyword">end</span>
-
-  <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Redirect the client to url.
-</span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">redirect</span>(url)
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Set the Apache req.status
-</span>    <span xmlns="" class="keyword">self</span>.set_status(302)
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Also set it in the headers, just in case
-</span>    <span xmlns="" class="keyword">self</span>.headers_out[<span xmlns="" class="string">'Status'</span>]   = <span xmlns="" class="string">"302"</span>
-    <span xmlns="" class="keyword">self</span>.headers_out[<span xmlns="" class="string">'Location'</span>] = url
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">This will terminate subsequent request processing
-</span>    <span xmlns="" class="builtin">raise</span> <span xmlns="" class="type">ModRuby</span>::<span xmlns="" class="type">Redirect</span>.new(url)
-  <span xmlns="" class="keyword">end</span>
-
-<span xmlns="" class="keyword">end</span>
-</pre>
-
-</p>
-
-<p>Look at <code class="methodname">setCookie()</code>. Cookies are stored in the
+</p><p>Look at <code class="methodname">setCookie()</code>. Cookies are stored in the
 <code class="varname">@headers_out</code> member, which is where all HTTP headers are
 stored. This is an <code class="classname">APR::Table</code> object. All cookie values
 are stored in a list associated with the key "Set-Cookie". Similarly, the
@@ -75,20 +21,14 @@ are stored in a list associated with the key "Set-Cookie". Similarly, the
 <code class="methodname">dontCache()</code> methods all operate on the
 <code class="varname">@headers_out</code> table as well. Note that these are outgoing
 headers — response headers, headers sent back to the client.
-</p>
-
-<p>So at some point these headers have to be shipped out — sent back to
+</p><p>So at some point these headers have to be shipped out — sent back to
 the client. And they have to be sent before any of the content. This happens in
 one of two ways:
 
-</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-  <p><abbr class="abbrev">Explicitly:</abbr> Using the
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><abbr class="abbrev">Explicitly:</abbr> Using the
   <code class="methodname">Request::flush()</code> method will explicitly send them on
-  their way.</p>
-</li><li class="listitem">
-  <p><abbr class="abbrev">Implicitly:</abbr> Sending any kind of content will internally
-  trigger Apache to first send the headers out.</p>
-</li></ul></div><p>
+  their way.</p></li><li class="listitem"><p><abbr class="abbrev">Implicitly:</abbr> Sending any kind of content will internally
+  trigger Apache to first send the headers out.</p></li></ul></div><p>
 
 Look at the implementation of <code class="methodname">flush()</code>. It calls
 <code class="methodname">self.rflush()</code>. This is where we cross into the C
@@ -96,17 +36,14 @@ implementaion of <code class="classname">Apache::Request</code>. This is basical
 wrapper over the <code class="function">ap_rflush()</code> function in Apache C API. When
 this is called, the headers are automatically flushed and sent to the client.
 
-</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Error Headers</h3>
-<p>Note also that the <code class="classname">Apache::Request</code> class has both a
+</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Error Headers</h3><p>Note also that the <code class="classname">Apache::Request</code> class has both a
 <code class="methodname">headers_out()</code> and
 <code class="methodname">err_headers_out()</code>. Each returns a reference to the
 <code class="classname">APR::Table</code> in the Apache request struct. They are two
 distinctly different tables, and it is important that you understand the
 difference. When an error or internal redirect takes place, the
 <code class="varname">@headers_out</code> are cleared out and only the values in
-<code class="varname">@err_headers_out</code> are retained.</p>
-
-<p>It mainly centers around the HTTP status code sent back to the
+<code class="varname">@err_headers_out</code> are retained.</p><p>It mainly centers around the HTTP status code sent back to the
 client. Error fields are sent back if the module aborts or returns an error
 status code. So if the status code is success (200), then the contents of
 <code class="varname">@headers_out</code> are sent back as the HTTP headers. However,
@@ -119,29 +56,18 @@ status code. The only exception to this is when you redirect by setting
 use <code class="varname">@headers_out</code>. That is why the
 <code class="methodname">Apache::Request::copyErrorHeaders()</code> method exists. It
 is a convenience function that copies all entries in
-<code class="varname">@headers_out</code> to <code class="varname">@err_headers_out</code>.</p>
-
-<p>So just remember, if you manually set the HTTP status code, you need to
+<code class="varname">@headers_out</code> to <code class="varname">@err_headers_out</code>.</p><p>So just remember, if you manually set the HTTP status code, you need to
 make sure that you copy any relevant headers you want to send back to the error
 headers and not to the regular headers (as they will not be sent in this case),
 the only exception being if you set the <code class="literal">location</code>
-header.</p>
-</div><p>
+header.</p></div><p>
 
-</p>
-
-<p>And that’s the story — HTTP headers. If you understand this,
+</p><p>And that’s the story — HTTP headers. If you understand this,
 everything else is cake, as you can now see the pathway from the high-level
 <code class="classname">Apache::Request</code> object all the way into the
 <code class="classname">APR::Table</code>s of the Apache C API. Think of the
 <code class="classname">Apache::Request</code> class as one big API that contains the
-low-level API to do pretty much everything.</p>
-
-</div>
-
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="modruby.module.api.apache.cgi"></a>2.1.2. CGI Environment</h4></div></div></div>
-
-<p>Apache request objects have what is called an "environmental table." This
+low-level API to do pretty much everything.</p></div><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="modruby.module.api.apache.cgi"></a>2.1.2. CGI Environment</h4></div></div></div><p>Apache request objects have what is called an "environmental table." This
 is an internal table which holds the environmental variables set for the web
 server process. This happens to be the canonical way that web servers pass HTTP
 parameters to CGI processes. As such, the <code class="classname">Apache::Request</code>
@@ -156,18 +82,9 @@ containing this information is the <code class="varname">Apache::Request::cgi</c
 member which in turn is a <code class="classname">APR::Table</code>. The following code
 illustrates this:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;%
-<span xmlns="" class="variable-name">@request</span>.cgi.each <span xmlns="" class="keyword">do</span> |key, value|
-  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"%20s: %s"</span> % [key, value]
-<span xmlns="" class="keyword">end</span>
-<span xmlns="" class="string">%&gt;
-</span>
-</pre>
+</p><pre class="sourcecode"></pre><p>
 
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cgi.rhtml" target="_top">http/cgi.rhtml</a>. It
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cgi.rhtml" target="_top">http/cgi.rhtml</a>. It
 yields the following:
 
 </p><pre class="programlisting">
@@ -175,7 +92,7 @@ yields the following:
    GATEWAY_INTERFACE: CGI/1.1
      SERVER_PROTOCOL: HTTP/1.1
       REQUEST_METHOD: GET
-        QUERY_STRING: 
+        QUERY_STRING:
          REQUEST_URI: /http/cgi.rhtml
          SCRIPT_NAME: /http/cgi.rhtml
            HTTP_HOST: www.modruby.org
@@ -190,7 +107,7 @@ HTTP_ACCEPT_ENCODING: gzip,deflate
          HTTP_COOKIE: test=1; sid=439sdkkfdjks; galations=6:1-10
   HTTP_CACHE_CONTROL: max-age=0
                 PATH: /usr/local/bin:/usr/bin:/bin
-    SERVER_SIGNATURE: 
+    SERVER_SIGNATURE:
 Apache/2.2.8 (Ubuntu) Server at www.modruby.org Port 80
 
      SERVER_SOFTWARE: Apache/2.2.8 (Ubuntu)
@@ -206,67 +123,30 @@ Apache/2.2.8 (Ubuntu) Server at www.modruby.org Port 80
 
 There can be more or less variables depending on the OS and the nature of the
 request (whether there are cookies are not, etc.).
-</p>
-
-</div>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp25"></a>2.2. Queries and Parameters</h3></div></div></div>
-
-<p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
+</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm847"></a>2.2. Queries and Parameters</h3></div></div></div><p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
 <code class="varname">@request.params</code>, both of which are APR tables in the
 <code class="classname">Apache::Request</code> object. Again, you can iterate over APR
 tables just like a Ruby hash:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;form name=<span xmlns="" class="string">"input"</span> action=<span xmlns="" class="string">"post.rhtml?queryarg=junior+mints"</span> method=<span xmlns="" class="string">"post"</span>&gt;
-&lt;input type=<span xmlns="" class="string">"text"</span> name=<span xmlns="" class="string">"text"</span> value=<span xmlns="" class="string">"jujifruit"</span>&gt;
-&lt;input type=<span xmlns="" class="string">"submit"</span> value=<span xmlns="" class="string">"Submit"</span>&gt;
-&lt;<span xmlns="" class="string">/form&gt;
+</p><pre class="sourcecode"></pre><p>
 
-&lt;pre&gt;
-&lt;%
-puts "Queries: "
-queries = @request.queries()
-
-queries.each do |key, value|
-  puts "  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">" 
-end
-
-puts "Params: "
-params = @request.params
-
-params.each do |key, value|
-  puts "  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">" 
-end
-%&gt;
-</span>
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/post.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/post.rhtml" target="_top">
 http/post.rhtml</a>. Click the <code class="literal">Submit</code> button. It yields
 the following:
 
 </p><pre class="programlisting">
-Queries: 
+Queries:
   queryarg=junior mints
-Params: 
+Params:
   text=jujifruit
 </pre><p>
 
-</p>
-
-<p>Parameters that come from POST methods have content type
+</p><p>Parameters that come from POST methods have content type
 <code class="literal">application/x-www-form-urlencoded</code>. For all other content
 types, the value of <code class="varname">@request.params</code> will be
 <code class="literal">nil</code>. This means you will have to access the raw content via
 <code class="methodname">@request.content()</code> and process it yourself, be it XML,
-JSON, etc.</p>
-
-<p>Additionally, the <code class="classname">Apache::Request</code> class has three
+JSON, etc.</p><p>Additionally, the <code class="classname">Apache::Request</code> class has three
 shotgun methods called <code class="methodname">value()</code>,
 <code class="methodname">values()</code>, and
 <code class="methodname">hasValue?()</code>. Their purpose is to provide a single
@@ -276,19 +156,11 @@ variables (in that order). <code class="methodname">value()</code> and
 always returns the result in scalar form and the latter in array
 form. <code class="methodname">hasValue?()</code> returns a boolean of whether or not
 there is any such value for a given name in any of the respective sources.
-</p>
-
-<p>Again, keep in mind that all of this information — queries, cookies
+</p><p>Again, keep in mind that all of this information — queries, cookies
 and other various stuff (all but POST parameters) — is available straight
 from the CGI interface (<code class="varname">@request.cgi</code>). But it can be easier to
 use the high-level <code class="classname">Apache::Request</code> methods to get
-it.</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp26"></a>2.3. Cookies</h3></div></div></div>
-
-<p>The <code class="classname">Apache::Request</code> class provides some convenience
+it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm874"></a>2.3. Cookies</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class provides some convenience
 methods for cookie handling via the <code class="methodname">cookie()</code>,
 <code class="methodname">setCookie()</code> and <code class="methodname">clearCookie()</code>
 methods. <code class="methodname">cookie()</code> takes as a single argument the name
@@ -297,17 +169,7 @@ exists. <code class="methodname">clearCookie()</code> takes the name of a cookie
 clears it. <code class="methodname">setCookie()</code> creates a cookie. It takes the
 following arguments:
 
-</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-    <p><em class="parameter"><code>name</code></em>: The name of the cookie</p>
-  </li><li class="listitem">
-    <p><em class="parameter"><code>value</code></em>: The value of the cookie</p>
-  </li><li class="listitem">
-    <p><em class="parameter"><code>days</code></em>: The days until the cookie expires</p>
-  </li><li class="listitem">
-    <p><em class="parameter"><code>minutes</code></em>: The minutes until the cookie expires (added to days)</p>
-  </li><li class="listitem">
-    <p><em class="parameter"><code>path</code></em>: The path of the cookie</p>
-  </li></ul></div><p>
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>name</code></em>: The name of the cookie</p></li><li class="listitem"><p><em class="parameter"><code>value</code></em>: The value of the cookie</p></li><li class="listitem"><p><em class="parameter"><code>days</code></em>: The days until the cookie expires</p></li><li class="listitem"><p><em class="parameter"><code>minutes</code></em>: The minutes until the cookie expires (added to days)</p></li><li class="listitem"><p><em class="parameter"><code>path</code></em>: The path of the cookie</p></li></ul></div><p>
 
 If <em class="parameter"><code>days</code></em> and <em class="parameter"><code>minutes</code></em> are both -1,
 then <code class="methodname">setCookie()</code> will set the cookie expiration date to
@@ -317,33 +179,16 @@ automatically handles setting the domain name for you based on the current
 virtual host the request is running under. By default, the
 <em class="parameter"><code>path</code></em> parameter is set to the document root
 (<code class="literal">/</code>).
-</p>
+</p><p>Consider the following example:
 
-<p>Consider the following example:
+</p><pre class="sourcecode"></pre><p>
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;%
-<span xmlns="" class="variable-name">@request</span> = <span xmlns="" class="variable-name">@env</span>[<span xmlns="" class="string">'request'</span>]
-<span xmlns="" class="variable-name">@request</span>.setCookie(<span xmlns="" class="string">'larry'</span>, <span xmlns="" class="string">'1'</span>)
-<span xmlns="" class="variable-name">@request</span>.setCookie(<span xmlns="" class="string">'mo'</span>,    <span xmlns="" class="variable-name">@request</span>.cookie(<span xmlns="" class="string">'moe'</span>).to_i + 1)
-<span xmlns="" class="variable-name">@request</span>.setCookie(<span xmlns="" class="string">'curly'</span>, <span xmlns="" class="variable-name">@request</span>.cookie(<span xmlns="" class="string">'curly'</span>).to_i + 1)
-
-<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"Cookies: "</span>
-<span xmlns="" class="variable-name">@request</span>.cookies.each <span xmlns="" class="keyword">do</span> |key, value|
-  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span> 
-<span xmlns="" class="keyword">end</span>
-<span xmlns="" class="string">%&gt;
-</span>
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cookies.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cookies.rhtml" target="_top">
 http/cookies.rhtml</a>. Click the <code class="literal">Submit</code> button and then
 refresh your browser once. It yields the following:
 
 </p><pre class="programlisting">
-Cookies: 
+Cookies:
   mo=1
   curly=1
   larry=1
@@ -353,9 +198,7 @@ Each time you refresh the page, <code class="literal">curly</code> will increase
 monotonically, as the code feeds off the previous value, incrementing the
 cookie’s value.
 
-</p>
-
-<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Remember that cookies are transmitted in HTTP headers. Therefore,
+</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Remember that cookies are transmitted in HTTP headers. Therefore,
 once the headers have been sent to the client,
 <code class="methodname">setCookie()</code> will not work. Thus the first call to
 <code class="methodname">@request.flush()</code> will effectively disable
@@ -363,32 +206,16 @@ once the headers have been sent to the client,
 the safest thing to do is to always try to set your cookie(s) and headers before
 any content. Apache will buffer content (forestalling sending out headers), but
 the amount of buffering it will do before flushing is not something you can know
-for sure or bank on.</p></div>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp27"></a>2.4. Redirection</h3></div></div></div>
-
-<p>Redirection can be done in two ways: external or internal. An external
+for sure or bank on.</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm918"></a>2.4. Redirection</h3></div></div></div><p>Redirection can be done in two ways: external or internal. An external
 redirect is done by sending the client an HTTP 302 response and providing the
 URL through the response headers. For example, if you want to send a redirect to
 Google, you can do this in your view as follows:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;%
-<span xmlns="" class="variable-name">@request</span>.headers[<span xmlns="" class="string">'status'</span>]   = <span xmlns="" class="string">"302"</span>
-<span xmlns="" class="variable-name">@request</span>.headers[<span xmlns="" class="string">'location'</span>] = <span xmlns="" class="string">"http://www.google.com"</span>
-<span xmlns="" class="string">%&gt;
-</span>
-</pre>
+</p><pre class="sourcecode"></pre><p>
 
-</p>
-
-<p>The <code class="classname">Apache::Request</code> class will do this for you
+</p><p>The <code class="classname">Apache::Request</code> class will do this for you
 however by simply calling
-<code class="methodname">@request.redirect(url)</code>.</p>
-
-<p>Internal redirects are done using the
+<code class="methodname">@request.redirect(url)</code>.</p><p>Internal redirects are done using the
 <code class="methodname">Apache::Request::internal_redirect()</code>. This causes
 Apache to change the request internally and rerun the request handler, bypassing
 the trip back to the client. Apache just backs up a step and runs a new
@@ -396,92 +223,30 @@ request. Remember that when this is done, the contents of the current
 <code class="varname">@headers_out</code> table will be flushed before processing the new,
 redirected request. If you need to transfer the contents, you can copy them to
 <code class="varname">@err_headers_out</code> and the subsequent request can get to them
-via <code class="methodname">@request.prev.err_headers_out()</code>.</p>
+via <code class="methodname">@request.prev.err_headers_out()</code>.</p><p>The following is an example of both forms of redirection;
 
-<p>The following is an example of both forms of redirection;
+</p><pre class="sourcecode"></pre><p>
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;%<span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@request</span>.queries[<span xmlns="" class="string">'type'</span>] == <span xmlns="" class="string">'external'</span>%&gt;
-&lt;meta http-equiv=<span xmlns="" class="string">"refresh"</span> content=<span xmlns="" class="string">"5;url=http://www.ubuntu.com"</span>&gt;
-<span xmlns="" class="type">This</span> is an external redirect. <span xmlns="" class="type">You</span> will be sent to ubuntu.com <span xmlns="" class="keyword">in</span> 5 seconds.
-&lt;%<span xmlns="" class="keyword">end</span>%&gt;
-
-&lt;%
-<span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@request</span>.queries[<span xmlns="" class="string">'type'</span>] == <span xmlns="" class="string">'internal'</span>
-  <span xmlns="" class="variable-name">@request</span>.internal_redirect(<span xmlns="" class="string">'/redirected.rhtml'</span>)
-<span xmlns="" class="keyword">end</span>
-<span xmlns="" class="string">%&gt;
-
-&lt;pre&gt;</span>
-<span xmlns="" class="type">Click</span> &lt;a href=<span xmlns="" class="string">"redirect.rhtml?type=internal"</span>&gt;here&lt;<span xmlns="" class="string">/a&gt; for internal redirect.
-Click &lt;a href="redirect.rhtml?type=external"&gt;here&lt;/</span>a&gt; <span xmlns="" class="keyword">for</span> external redirect.
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/redirect.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/redirect.rhtml" target="_top">
 http/redirect.rhtml</a>. The internal redirect goes to
 <code class="filename">redirected.rhtml</code>, and the external redirect to
-<code class="literal">www.devuan.org</code>.</p>
-
-<p>Which method is preferable depends on what you are trying to do. If you
+<code class="literal">www.devuan.org</code>.</p><p>Which method is preferable depends on what you are trying to do. If you
 have a request that will take a while and you want to put up a progress bar,
 external redirects may be the way to go. If you are having to take evasive
 action or just altogether change to a different request handler (or controller),
 and internal redirect may be better.
-</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="modruby.module.api.apache.req.termination"></a>2.5. Request Termination</h3></div></div></div>
-
-<p>There are times when you may want to cease all processing of a request but
+</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="modruby.module.api.apache.req.termination"></a>2.5. Request Termination</h3></div></div></div><p>There are times when you may want to cease all processing of a request but
 you can’t easily stop the flow of control without adding a bunch of additional
 messy code. Consider the following example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">ensureAuthorized</span>()    
+</p><pre class="sourcecode"></pre><p>
 
-    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="constant">nil</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Else we are not authoized. Redirect to the FB authorization page.
-</span>
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">This is a redirect hack needed for for iframes
-</span>    <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"&lt;script&gt;top.location.href='</span><span xmlns="" class="variable-name">#{redirect_uri}</span><span xmlns="" class="string">';&lt;/script&gt;"</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Indicates that we are not authorized and we need to stop further
-</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">processing of this request.
-</span>    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">false</span>
-
-  <span xmlns="" class="keyword">end</span>
-
-  <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Pull data from Facebook via graph API.
-</span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">graph</span>(path)
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Make sure out FB accessToken is valid
-</span>    <span xmlns="" class="keyword">if</span> ensureAuthorized() == <span xmlns="" class="constant">false</span>
-
-      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Oops. Return false and hope that the caller knows what to do to properly
-</span>      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">handle this error case ... and the caller aboe it, and above it ... all
-</span>      <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">the way up the stack.
-</span>      <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">false</span>
-    <span xmlns="" class="keyword">end</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Code we would run if ensureAuthorized() succeeds
-</span>      .
-      .
-      .
-  <span xmlns="" class="keyword">end</span>
-</pre>
-
-</p>
-
-<p>Here we have a method that needs to check whether we have the requisite
+</p><p>Here we have a method that needs to check whether we have the requisite
 access token from Facebook in order to proceed. It calls
 <code class="methodname">ensureAuthorized()</code> to make this check. Well, if that
 method sees that we are not authorized, the way to go about it is to send a
 chunk of Javascript back to cause the browser to redirect, and then
-<b>stop</b> doing everything. The problem here, is that when
+<strong xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:d="http://docbook.org/ns/docbook">stop</strong> doing everything. The problem here, is that when
 <code class="methodname">ensureAuthorized()</code> returns, that code will continue
 running, and we now have to shift into handling an edge case. So we write a
 conditional to check the result, and then just pass up the false value to the
@@ -490,9 +255,7 @@ pass it up to his caller, if there is one, and now we have to hope that every
 caller in the stack is prepared to deal with this edge case. We now have to
 write code all over the place to check for an error condition that should really
 just be contained here. But now all sorts of other code has to be aware ... all
-the way up every possible path in the stack. What a pain.</p>
-
-<p>Wouldn’t it be nice if we could just say "STOP processing right here!" in
+the way up every possible path in the stack. What a pain.</p><p>Wouldn’t it be nice if we could just say "STOP processing right here!" in
 <code class="methodname">ensureAuthorized()</code>? If the user is not authorized, we
 do our redirect and have the server just send what its got back to the client?
 Well, this is exactly what the <code class="methodname">Request::terminate()</code> is
@@ -502,56 +265,16 @@ to the ModRuby handler, which then catches it and does nothing but finalize the
 request. Whenever you call it, it just halts the code right there. Using it, we
 can rewrite our previous example as follows:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">ensureAuthorized</span>()    
+</p><pre class="sourcecode"></pre><p>
 
-    <span xmlns="" class="keyword">return</span> <span xmlns="" class="constant">true</span> <span xmlns="" class="keyword">if</span> <span xmlns="" class="variable-name">@accessToken</span> != <span xmlns="" class="constant">nil</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Else we are not authoized. Redirect to the FB authorization page.
-</span>
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">This is a redirect hack needed for for iframes
-</span>    <span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"&lt;script&gt;top.location.href='</span><span xmlns="" class="variable-name">#{redirect_uri}</span><span xmlns="" class="string">';&lt;/script&gt;"</span>
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Terminate the request. Code stops here -- does not return to graph() --
-</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">everything just shuts down right here and the request is sent back to the
-</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">client.
-</span>    <span xmlns="" class="variable-name">@request</span>.terminate()
-  <span xmlns="" class="keyword">end</span>
-
-  <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Pull data from Facebook via graph API.
-</span>  <span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">graph</span>(path)
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Make sure out FB accessToken is valid.
-</span>    ensureAuthorized()
-
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">No longer have to worry about return value. If ensureAuthorized() is
-</span>    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">false, request does not get this far ... it just stops.
-</span>
-    <span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Code we would run if ensureAuthorized() succeeds
-</span>      .
-      .
-      .
-  <span xmlns="" class="keyword">end</span>
-</pre>
-
-</p>
-
-<p>Much simpler. Now our edge case is handled here and nobody else has to
-know about it or code for it.</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp28"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div>
-
-<p>Within the context of RHTML and Ruby script pages, the content generated
+</p><p>Much simpler. Now our edge case is handled here and nobody else has to
+know about it or code for it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm951"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div><p>Within the context of RHTML and Ruby script pages, the content generated
 is collected in an output buffer managed by the handler handling the request. By
 default, anything from <code class="function">puts</code>, <code class="function">print</code> or
 whatever else that prints to standard out in Ruby is collected in that
 buffer. After a RHTML page or controller completes, the handler flushes the
 contents of the buffer through Apache, which in turn sends it on to the
-client.</p>
-
-<p>Despite buffering, you still have access to the low-level output via the
+client.</p><p>Despite buffering, you still have access to the low-level output via the
 <code class="classname">Apache::Request</code> object. It can therefore subvert
 buffering if you wish and send content directly through the wire. The question
 is then why would you want buffering at all? The answer is in handling
@@ -561,35 +284,18 @@ do. Rather, you would want to be able to clear the generated content and perhaps
 send back a completely different page — an error page with a stack trace
 perhaps. Buffering allows you to completely change the outcome if and when you
 encounter and error.
-</p>
-
-<p>Before the page is processed, the handler redirects Ruby standard out to a
+</p><p>Before the page is processed, the handler redirects Ruby standard out to a
 <code class="classname">StringIO</code> instance. This is buffer is accessible via the
 <code class="varname">@request.out</code> member.  Thus, at any point if you want to clear out
 the output buffer, you just use the <code class="methodname">StringIO::reopen()</code>
 method. Consider the following example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-<span xmlns="" class="type">Theoretically</span>, this should show up <span xmlns="" class="keyword">in</span> the content.
-&lt;%
-<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">'This should as well'</span>
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">But is won't because of this:
-</span><span xmlns="" class="variable-name">@request</span>.out.reopen(<span xmlns="" class="string">''</span>, <span xmlns="" class="string">'a'</span>)
-<span xmlns="" class="string">%&gt;
-
-Only this should render on a page.
-</span>
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/clearbuffer.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/clearbuffer.rhtml" target="_top">
 http/clearbuffer.rhtml</a>. Only the content after the call to
 <code class="methodname">StringIO::reopen()</code> is rendered.
-</p>
-
-<p>When you want to bypass the default output buffer and write directly to
+</p><p>When you want to bypass the default output buffer and write directly to
 Apache, you use the <code class="classname">Apache::Request</code> object as well. There
 are several methods you can use depending on what you want to do. The equivalent
 of <code class="function">puts</code> is <code class="methodname">Request::puts</code>. The
@@ -601,32 +307,18 @@ function <code class="function">ap_puts()</code>). You can send binary data usin
 bytes.  When you write with any of these, you completely bypass the output
 buffer and go directly to Apache. Consider the following example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-<span xmlns="" class="type">Theoretically</span>, this line should come first, but it was buffered.
+</p><pre class="sourcecode"></pre><p>
 
-&lt;%
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">'This was sent through Apache I/O'</span>
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">'&lt;hr&gt;'</span>
-<span xmlns="" class="string">%&gt;
-</span>
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/bypassbuffer.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/bypassbuffer.rhtml" target="_top">
 http/bypassbuffer.rhtml</a>. The Apache I/O content comes first, followed by
 the page content.
-</p>
-
-<p>By default, even output in Apache is buffered up to a point. Normally, you
+</p><p>By default, even output in Apache is buffered up to a point. Normally, you
 most likely don’t care as long as all of the output gets back to the client
 (which it will eventually). There are times however when you want to ensure that
 the content does get to the client at specific times. Sometimes you might have a
 long-running request and you want to send javascript chunks which update the
 screen, and perhaps ultimately send a META REFRESH to redirect the client.
-</p>
-
-<p>This is where chunked encoding comes in handing. To switch Apache into
+</p><p>This is where chunked encoding comes in handing. To switch Apache into
 chunked encoding mode, all you have to do is call
 <code class="methodname">@request.flush()</code>, which calls the low-level
 <code class="function">ap_rflush()</code> function in the C API. The first call will send
@@ -634,9 +326,7 @@ out the headers and any buffered content in Apache. From this point on, you will
 still have buffered writes (in Apache) but you can force them out with
 subsequent calls to <code class="methodname">@request.flush()</code>. To reiterate, the
 buffer being referred to here is the buffering within Apache, not the ModRuby page
-buffer (<code class="varname">@request.out</code>).</p>
-
-<p>There may be times when you want to send not just content through the
+buffer (<code class="varname">@request.out</code>).</p><p>There may be times when you want to send not just content through the
 wire, but perhaps entire files. <code class="classname">Apache::Request</code> has a
 method called <code class="methodname">send_file()</code> which takes as a single
 argument — the (relative or absolute) path of a file. It in turn calls the
@@ -647,32 +337,14 @@ called arbitrary many times in a given request, sending the content of multiple
 files out in the order that the method is called. To see this in action,
 consider the following example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-&lt;%
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"&lt;pre&gt;"</span>
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"\n/etc/password:\n"</span>
-<span xmlns="" class="variable-name">@request</span>.send_file(<span xmlns="" class="string">'/etc/passwd'</span>)
-
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"\n/etc/shadow:\n"</span>
-<span xmlns="" class="variable-name">@request</span>.send_file(<span xmlns="" class="string">'/etc/shadow'</span>)
-
-<span xmlns="" class="variable-name">@request</span>.puts <span xmlns="" class="string">"\n/etc/group:\n"</span>
-<span xmlns="" class="variable-name">@request</span>.send_file(<span xmlns="" class="string">'/etc/group'</span>)
-<span xmlns="" class="string">%&gt;
-</span>
-</pre>
-
-</p>
-
-<p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/sendfile.rhtml" target="_top">
+</p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/sendfile.rhtml" target="_top">
 http/sendfile.rhtml</a>. The <code class="filename">/etc/passwd</code> and
 <code class="filename">/etc/group</code> files make it, but
 <code class="filename">/etc/shadow</code> does not, because Apache is not running under a
 priviledged account (at least it better not be! — if you do see the
-contents, you may need to get a SysAdmin).</p>
-
-<p>So to recap, the normal standard output in the framework is collected in a
+contents, you may need to get a SysAdmin).</p><p>So to recap, the normal standard output in the framework is collected in a
 page buffer which is flushed after the request completes. This buffer is
 accessible to you via the <code class="varname">@request.out</code> member. It is a standard
 Ruby <code class="classname">StringIO</code> instance, so you can manipulate it however
@@ -680,27 +352,12 @@ you want. Besides this, you can also use the native Apache I/O functions and
 send content directly over the wire. These functions completely bypass the
 request buffer. While they may be buffered to an extent in Apache, you can force
 them out over the network using the the <code class="methodname">@request.flush()</code>
-method.</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp29"></a>2.7. Logging</h3></div></div></div>
-
-<p>ModRuby provides access to native Apache logging via the
+method.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm999"></a>2.7. Logging</h3></div></div></div><p>ModRuby provides access to native Apache logging via the
 <code class="methodname">Apache::Request::log()</code>, which takes two arguments. The
 first is the log level, which can be on of the constants listed in <a class="xref" href="modruby.module.api.apache.html#ap_log_levels" title="Table 3.1. Log Levels">Table 3.1, “Log Levels”</a>. The second is a string containing the message text.
 
-  </p><div class="table"><a name="ap_log_levels"></a><p class="title"><b>Table 3.1. Log Levels</b></p><div class="table-contents">
-    
-    <table summary="Log Levels" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Constant</strong></span></th><th><span class="bold"><strong>Description</strong></span></th><th><span class="bold"><strong>Example</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><code class="literal">APLOG_EMERG</code></td><td>Emergencies - system is unusable.</td><td>"Child cannot open lock file. Exiting"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_ALERT</code></td><td>Action must be taken immediately.</td><td>"getpwuid: couldn’t determine user name from uid"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_CRIT</code></td><td>Critical Conditions.</td><td>"socket: Failed to get a socket, exiting child"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_ERR</code></td><td>Error conditions.</td><td>"Premature end of script headers"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_WARNING</code></td><td>Warning conditions.</td><td>"child process 1234 did not exit, sending another SIGHUP"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_NOTICE</code></td><td>Normal but significant condition.</td><td>"httpd: caught SIGBUS, attempting to dump core in ..."</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_INFO</code></td><td>Informational.</td><td>"Server seems busy, (you may need to increase StartServers, or Min/MaxSpareServers)..."</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_DEBUG</code></td><td>Debug-level messages</td><td>"Opening config file ..."</td></tr></tbody></table>
-  </div></div><p><br class="table-break">
+  </p><div class="table"><a name="ap_log_levels"></a><p class="title"><b>Table 3.1. Log Levels</b></p><div class="table-contents"><table class="table" summary="Log Levels" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Constant</strong></span></th><th><span class="bold"><strong>Description</strong></span></th><th><span class="bold"><strong>Example</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><code class="literal">APLOG_EMERG</code></td><td>Emergencies - system is unusable.</td><td>"Child cannot open lock file. Exiting"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_ALERT</code></td><td>Action must be taken immediately.</td><td>"getpwuid: couldn’t determine user name from uid"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_CRIT</code></td><td>Critical Conditions.</td><td>"socket: Failed to get a socket, exiting child"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_ERR</code></td><td>Error conditions.</td><td>"Premature end of script headers"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_WARNING</code></td><td>Warning conditions.</td><td>"child process 1234 did not exit, sending another SIGHUP"</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_NOTICE</code></td><td>Normal but significant condition.</td><td>"httpd: caught SIGBUS, attempting to dump core in ..."</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_INFO</code></td><td>Informational.</td><td>"Server seems busy, (you may need to increase StartServers, or Min/MaxSpareServers)..."</td></tr><tr><td align="left" valign="top"><code class="literal">APLOG_DEBUG</code></td><td>Debug-level messages</td><td>"Opening config file ..."</td></tr></tbody></table></div></div><p><br class="table-break">
 
-</p>
-
-<p>The error levels correspond to the <code class="literal">LogLevel</code> directive
+</p><p>The error levels correspond to the <code class="literal">LogLevel</code> directive
 in the Apache configuration file. See the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#loglevel" target="_top">Apache documentation</a> for more
-information.</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.module.api.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mod_ruby.reference.global.index.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Programming </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix A. Module API Reference</td></tr></table></div></body></html>
+information.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.module.api.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.reference.global.index.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Programming </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix A. Module API Reference</td></tr></table></div></body></html>

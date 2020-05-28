@@ -1,62 +1,33 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5. The Apache Process Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.connection.html" title="4. The Apache Connection Class"><link rel="next" href="modruby.apr.table.html" title="6. The APR Table Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">5. The Apache Process Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.connection.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apr.table.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.process"></a>5. The Apache Process Class</h2></div></div></div>
-
-
-
-<p>The Apache <code class="classname">Process</code> class contains information
-related to the network connection associated with the current request.</p>
-
-<p>You can obtain the <code class="classname">Process</code> instance associated with
-the current request using the <a class="link" href="modruby.apache.server.html#process_def" title="3.1. process()"><code class="methodname">Server::process()</code></a> method
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5. The Apache Process Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.connection.html" title="4. The Apache Connection Class"><link rel="next" href="modruby.apr.table.html" title="6. The APR Table Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">5. The Apache Process Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.connection.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apr.table.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.process"></a>5. The Apache Process Class</h2></div></div></div><p>The Apache <code class="classname">Process</code> class contains information
+related to the network connection associated with the current request.</p><p>You can obtain the <code class="classname">Process</code> instance associated with
+the current request using the <a class="link" href="modruby.apache.server.html#process_def" title="process()"><code class="methodname">Server::process()</code></a> method
 (or directly via <code class="methodname">Request::server()::process()</code>.
-</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp35"></a>5.1. Method Documentation</h3></div></div></div>
-
-<p><a class="xref" href="modruby.apache.process.html#process_methods" title="Table B.4. Apache Connection Methods">Table B.4, “Apache Connection Methods”</a> contains the exhaustive list of
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2937"></a>5.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apache.process.html#process_methods" title="Table B.4. Apache Connection Methods">Table B.4, “Apache Connection Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
-  </p><div class="table"><a name="process_methods"></a><p class="title"><b>Table B.4. Apache Connection Methods</b></p><div class="table-contents">
-    
-    <table summary="Apache Connection Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+  </p><div class="table"><a name="process_methods"></a><p class="title"><b>Table B.4. Apache Connection Methods</b></p><div class="table-contents"><table class="table" summary="Apache Connection Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.process.html#argc_def" title="5.1. argc()">
+              <a class="link" href="modruby.apache.process.html#argc_def" title="argc()">
                 <code class="function">argc()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.process.html#argv_def" title="5.1. argc()">
+              <a class="link" href="modruby.apache.process.html#argv_def" title="argc()">
                 <code class="function">argv()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.process.html#short_name_def" title="5.1. short_name()">
+              <a class="link" href="modruby.apache.process.html#short_name_def" title="short_name()">
                 <code class="function">short_name()</code>
               </a>
             </code>
-          </td><td>0</td></tr></tbody></table>
-  </div></div><p><br class="table-break">
+          </td><td>0</td></tr></tbody></table></div></div><p><br class="table-break">
 
-</p>
-
-<h5><a name="argc_def"></a>argc()</h5>
-
-<p><code class="function">argc()</code> returns the number of arguments passed to the
+</p><h5><a name="argc_def"></a>argc()</h5><p><code class="function">argc()</code> returns the number of arguments passed to the
 process, each of which which is stored in the <code class="literal">argv</code>
-structure.</p>
-
-<h5><a name="argv_def"></a>argc()</h5>
-
-<p><code class="function">argc()</code> returns a Ruby <code class="classname">Array</code>
-containing the number of arguments passed to the process.</p>
-
-<h5><a name="short_name_def"></a>short_name()</h5>
-
-<p><code class="function">short_name()</code> returns a string containing the program
+structure.</p><h5><a name="argv_def"></a>argc()</h5><p><code class="function">argc()</code> returns a Ruby <code class="classname">Array</code>
+containing the number of arguments passed to the process.</p><h5><a name="short_name_def"></a>short_name()</h5><p><code class="function">short_name()</code> returns a string containing the program
 name used to execute the program.
-</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.connection.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apr.table.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. The Apache Connection Class </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 6. The APR Table Class</td></tr></table></div></body></html>
+</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.connection.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apr.table.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. The Apache Connection Class </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 6. The APR Table Class</td></tr></table></div></body></html>

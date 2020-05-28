@@ -1,0 +1,31 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3. RHTML</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.reference.global.index.html" title="Appendix A. Module API Reference"><link rel="prev" href="modruby.rsp.global.html" title="2. Global"><link rel="next" href="modruby.reference.apache.html" title="Appendix B. Apache Module Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">3. RHTML</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.rsp.global.html">Prev</a> </td><th width="60%" align="center">Appendix A. Module API Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.reference.apache.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.rhtml"></a>3. RHTML</h2></div></div></div><p>The ModRuby RHTML module is an eRuby compatible C extension compiled into
+<code class="literal">mod_ruby</code> and loaded into the
+<code class="classname">ModRuby::RHTML</code> namespace. It converts RHTML text
+conforming to eRuby into Ruby source code that is capable of being evaluated by
+<code class="methodname">Kernel::eval</code>. The documentation of each method follows.
+
+  </p><div class="table"><a name="rhtml_functions"></a><p class="title"><b>Table A.4. RHTML Functions</b></p><div class="table-contents"><table class="table" summary="RHTML Functions" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.rhtml.html#rhtml_compile" title="compile()">
+                <code class="function">compile()</code>
+              </a>
+            </code>
+          </td><td>2</td></tr><tr><td align="left" valign="top">method</td><td>
+            <code class="methodname">
+              <a class="link" href="modruby.rhtml.html#rhtml_eval" title="eval()">
+                <code class="function">eval()</code>
+              </a>
+            </code>
+          </td><td>2</td></tr></tbody></table></div></div><p><br class="table-break">
+
+</p><h5><a name="rhtml_compile"></a>compile()</h5><p><code class="function">compile()</code> processes an RHTML file and returns a
+string of text comprised of Ruby code intended to be executed by
+<code class="methodname">Kernel::eval()</code>.</p><h4><a name="idm1249"></a>Arguments</h4><p>
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>file</code></em>: the path of an RHTML file to process.</p></li><li class="listitem"><p><em class="parameter"><code>binding</code></em>: an optional binding. If no value
+is provided the global namespace is used.</p></li></ul></div><p>
+</p><h5><a name="rhtml_eval"></a>eval()</h5><p><code class="function">eval()</code> processes a string of RHTML text and returns a
+string of text comprised of Ruby code that can be executed by
+<code class="methodname">Kernel::eval()</code>.</p><h4><a name="idm1262"></a>Arguments</h4><p>
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>text</code></em>: a string or RHTML text to process.</p></li><li class="listitem"><p><em class="parameter"><code>binding</code></em>: an optional binding. If no value
+is provided the global namespace is used.</p></li></ul></div><p>
+</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.rsp.global.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.reference.global.index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.reference.apache.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Global </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix B. Apache Module Reference</td></tr></table></div></body></html>

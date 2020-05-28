@@ -1,120 +1,72 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4. The Apache Connection Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.server.html" title="3. The Apache Server Class"><link rel="next" href="modruby.apache.process.html" title="5. The Apache Process Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">4. The Apache Connection Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.server.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apache.process.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.connection"></a>4. The Apache Connection Class</h2></div></div></div>
-
-
-
-<p>The Apache <code class="classname">Connection</code> class contains information
-related to the network connection associated with the current request.</p>
-
-<p>You can obtain the <code class="classname">Connection</code> instance associated
-with the current request using the <a class="link" href="modruby.apache.req.html#connection_def" title="2.1. connection()"><code class="methodname">Request::connection()</code></a> method.
-</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp34"></a>4.1. Method Documentation</h3></div></div></div>
-
-<p><a class="xref" href="modruby.apache.connection.html#connection_methods" title="Table B.3. Apache Connection Methods">Table B.3, “Apache Connection Methods”</a> contains the exhaustive list of
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4. The Apache Connection Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.server.html" title="3. The Apache Server Class"><link rel="next" href="modruby.apache.process.html" title="5. The Apache Process Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">4. The Apache Connection Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.server.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apache.process.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.connection"></a>4. The Apache Connection Class</h2></div></div></div><p>The Apache <code class="classname">Connection</code> class contains information
+related to the network connection associated with the current request.</p><p>You can obtain the <code class="classname">Connection</code> instance associated
+with the current request using the <a class="link" href="modruby.apache.req.html#connection_def" title="connection()"><code class="methodname">Request::connection()</code></a> method.
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2825"></a>4.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apache.connection.html#connection_methods" title="Table B.3. Apache Connection Methods">Table B.3, “Apache Connection Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
-  </p><div class="table"><a name="connection_methods"></a><p class="title"><b>Table B.3. Apache Connection Methods</b></p><div class="table-contents">
-    
-    <table summary="Apache Connection Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+  </p><div class="table"><a name="connection_methods"></a><p class="title"><b>Table B.3. Apache Connection Methods</b></p><div class="table-contents"><table class="table" summary="Apache Connection Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#aborted_def" title="4.1. aborted()">
+              <a class="link" href="modruby.apache.connection.html#aborted_def" title="aborted()">
                 <code class="function">aborted()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#id_def" title="4.1. id()">
+              <a class="link" href="modruby.apache.connection.html#id_def" title="id()">
                 <code class="function">id()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#keepalive_def" title="4.1. keepalive()">
+              <a class="link" href="modruby.apache.connection.html#keepalive_def" title="keepalive()">
                 <code class="function">keepalive()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#local_host_def" title="4.1. local_host()">
+              <a class="link" href="modruby.apache.connection.html#local_host_def" title="local_host()">
                 <code class="function">local_host()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#local_ip_def" title="4.1. local_ip()">
+              <a class="link" href="modruby.apache.connection.html#local_ip_def" title="local_ip()">
                 <code class="function">local_ip()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#remote_host_def" title="4.1. remote_host()">
+              <a class="link" href="modruby.apache.connection.html#remote_host_def" title="remote_host()">
                 <code class="function">remote_host()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#remote_ip_def" title="4.1. remote_ip()">
+              <a class="link" href="modruby.apache.connection.html#remote_ip_def" title="remote_ip()">
                 <code class="function">remote_ip()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.connection.html#remote_logname_def" title="4.1. remote_logname()">
+              <a class="link" href="modruby.apache.connection.html#remote_logname_def" title="remote_logname()">
                 <code class="function">remote_logname()</code>
               </a>
             </code>
-          </td><td>0</td></tr></tbody></table>
-  </div></div><p><br class="table-break">
+          </td><td>0</td></tr></tbody></table></div></div><p><br class="table-break">
 
-</p>
-
-<h5><a name="aborted_def"></a>aborted()</h5>
-
-<p><code class="function">aborted()</code> returns 1 if the connection is open, 0 if
-it is closed.</p>
-
-<h5><a name="id_def"></a>id()</h5>
-
-<p><code class="function">id()</code> returns the unique (integer) ID of the current
-connection. It is assigned internally by Apache.</p>
-
-
-<h5><a name="keepalive_def"></a>keepalive()</h5>
-<p><code class="function">keepalive()</code> returns 1 of the keepalive is
-enabled.</p>
-
-<h5><a name="local_host_def"></a>local_host()</h5>
-
-<p><code class="function">local_host()</code> is used for
+</p><h5><a name="aborted_def"></a>aborted()</h5><p><code class="function">aborted()</code> returns 1 if the connection is open, 0 if
+it is closed.</p><h5><a name="id_def"></a>id()</h5><p><code class="function">id()</code> returns the unique (integer) ID of the current
+connection. It is assigned internally by Apache.</p><h5><a name="keepalive_def"></a>keepalive()</h5><p><code class="function">keepalive()</code> returns 1 of the keepalive is
+enabled.</p><h5><a name="local_host_def"></a>local_host()</h5><p><code class="function">local_host()</code> is used for
 <code class="function">ap_get_server_name()</code> when <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#usecanonicalname" target="_top">UseCanonicalName</a>
 is set to DNS (ignores setting of HostnameLookups)
-</p>
-
-<h5><a name="local_ip_def"></a>local_ip()</h5>
-<p><code class="function">local_ip()</code> returns a string containing the server's
-IP address.</p>
-
-<h5><a name="remote_host_def"></a>remote_host()</h5>
-
-<p><code class="function">remote_host()</code> returns the client's DNS name, if
+</p><h5><a name="local_ip_def"></a>local_ip()</h5><p><code class="function">local_ip()</code> returns a string containing the server's
+IP address.</p><h5><a name="remote_host_def"></a>remote_host()</h5><p><code class="function">remote_host()</code> returns the client's DNS name, if
 known, or <code class="literal">nil</code> if DNS hasn't been checked. It returns "" if no
 address was found. N.B. only access this though
 <code class="function">get_remote_host()</code>.
-</p>
-
-<h5><a name="remote_ip_def"></a>remote_ip()</h5>
-
-<p><code class="function">remote_ip()</code> returns a string containing the remote IP
+</p><h5><a name="remote_ip_def"></a>remote_ip()</h5><p><code class="function">remote_ip()</code> returns a string containing the remote IP
 address.
-</p>
-
-<h5><a name="remote_logname_def"></a>remote_logname()</h5>
-
-<p><code class="function">remote_logname()</code> is only ever set if doing rfc1413
+</p><h5><a name="remote_logname_def"></a>remote_logname()</h5><p><code class="function">remote_logname()</code> is only ever set if doing rfc1413
 lookups. It's better to access this through
-<code class="methodname">Request::get_remote_logname()</code>.</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.server.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apache.process.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. The Apache Server Class </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 5. The Apache Process Class</td></tr></table></div></body></html>
+<code class="methodname">Request::get_remote_logname()</code>.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.server.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apache.process.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. The Apache Server Class </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 5. The Apache Process Class</td></tr></table></div></body></html>

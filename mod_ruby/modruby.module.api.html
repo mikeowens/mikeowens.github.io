@@ -1,13 +1,7 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 3. Programming</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.html" title="ModRuby"><link rel="prev" href="modruby.module.config.conclusion.html" title="4. Conclusion"><link rel="next" href="modruby.module.api.apache.html" title="2. The Apache API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">Chapter 3. Programming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.config.conclusion.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.api.apache.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="modruby.module.api"></a>Chapter 3. Programming</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="modruby.module.api.html#modruby.module.api">1. The Apache Portable Runtime</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.api.html#idp22">1.1. APR Tables</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.html#idp23">1.2. APR Arrays</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.api.apache.html">2. The Apache API</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp24">2.1. The Request Class</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp25">2.2. Queries and Parameters</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp26">2.3. Cookies</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp27">2.4. Redirection</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#modruby.module.api.apache.req.termination">2.5. Request Termination</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp28">2.6. Output: Buffering and Content Generation</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idp29">2.7. Logging</a></span></dt></dl></dd></dl></div>
-
-
-
-<p>You now understand how to configure Apache to route requests to your
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 3. Programming</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.html" title="ModRuby"><link rel="prev" href="modruby.module.config.conclusion.html" title="4. Conclusion"><link rel="next" href="modruby.module.api.apache.html" title="2. The Apache API"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">Chapter 3. Programming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.config.conclusion.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.api.apache.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="modruby.module.api"></a>Chapter 3. Programming</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="modruby.module.api.html#modruby.module.api">1. The Apache Portable Runtime</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.api.html#idm683">1.1. APR Tables</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.html#idm765">1.2. APR Arrays</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.api.apache.html">2. The Apache API</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm776">2.1. The Request Class</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm847">2.2. Queries and Parameters</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm874">2.3. Cookies</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm918">2.4. Redirection</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#modruby.module.api.apache.req.termination">2.5. Request Termination</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm951">2.6. Output: Buffering and Content Generation</a></span></dt><dt><span class="sect2"><a href="modruby.module.api.apache.html#idm999">2.7. Logging</a></span></dt></dl></dd></dl></div><p>You now understand how to configure Apache to route requests to your
 handlers. Now that you have that squared away, your need to actually code
 something in your handler(s), which leads us to the API. And so this chapter is
-about just that.</p>
-
-<p>If you are familiar with the Apache C API, a lot of this material will be
+about just that.</p><p>If you are familiar with the Apache C API, a lot of this material will be
 very familiar. If you are not, well ... that's the point of this chapter. While
 it is easy to document an API, it can be difficult to figure out how to use an
 API to best implement complex (and even common) tasks. There are many common
@@ -18,15 +12,11 @@ like redirection, managing URL encoding, parsing query parameters, reading HTTP
 headers or POST parameters or CGI variables, setting the HTTP status codes or
 content type, setting cookies ... the list goes on. The best way to illustrate
 the API is by looking at concrete examples that accomplish such common
-tasks.</p>
-
-<p>To that end, this section is a cookbook of sorts. It takes a bottom-up
+tasks.</p><p>To that end, this section is a cookbook of sorts. It takes a bottom-up
 approach, starting with the design and construction of the core Apache classes
 as the basic ingredients, explaining how they work and fit together. It then
 reverses, taking a top-down approach using those ingredients to illustrate
-different recipes common to many web applications.</p>
-
-<p>Through many practical examples, you will hopefully get a solid grasp of
+different recipes common to many web applications.</p><p>Through many practical examples, you will hopefully get a solid grasp of
 how everything fits together, and how best to use the API. Part of the design
 goals in the framework was to create a useful level of abstraction, making
 things as simple as possible, but at the same time to never hide (or discourage
@@ -39,83 +29,42 @@ and the rest of the framework to manage things like:
 <code class="classname">Connection</code>, and <code class="classname">Server</code>
 objects</p></li></ul></div><p>
 
-</p>
-
-<div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api"></a>1. The Apache Portable Runtime</h2></div></div></div>
-
-
-
-<p>Before we get started into the Apache API, we need to cover two important
+</p><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api"></a>1. The Apache Portable Runtime</h2></div></div></div><p>Before we get started into the Apache API, we need to cover two important
 data structures that are used heavily within it, which are part of the Apache
 Portable Runtime (APR). These are tables (<code class="classname">APR::Table</code>) and
 arrays (<code class="classname">APR::Array</code>). These are the low-level data
 structures that the Apache C API frequently uses to organize groups of
-data.</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22"></a>1.1. APR Tables</h3></div></div></div>
-
-<p>The most important of these by far the the
+data.</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm683"></a>1.1. APR Tables</h3></div></div></div><p>The most important of these by far the the
 <code class="classname">APR::Table</code> class. This class is a little bit weird at
 first, but when you get the hang of it, you’ll start to see why it’s so
 useful. <code class="classname">APR::Table</code> basically works like both an array and
 a hash, depending on how you use it. There are methods that make it work as an
 array, and methods that make it work as a hash.
-</p>
-
-<p>No matter how it is used, internally is stores all of its data as
+</p><p>No matter how it is used, internally is stores all of its data as
 key/value pairs. What differentiates <code class="classname">APR::Table</code> from a
 normal Hash is how it handles <span class="emphasis"><em>collisions</em></span>. A collision is
 when you add a value for a key that is already present in the Hash. For example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-table[<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'Domain=.jujifruit.com'</span>)
-table[<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'Path=/'</span>)
-</pre>
+</p><pre class="sourcecode"></pre><p>
 
-</p>
-
-<p>In this example, a normal Hash will only have one key/value pair. The key
+</p><p>In this example, a normal Hash will only have one key/value pair. The key
 is <code class="literal">Set-Cookie</code>, and the value is <code class="literal">Path=/</code>,
 which is the last assignment made. The previous value was overwritten. Hashes
 therefore manage collisions by overwriting the old value with the new one. We
 can say that in Hashes, keys are unique. You cannot have multiple key/value
 pairs that share the same key.
-</p>
-
-<p>This is not the case with <code class="classname">APR::Table</code>. It’s keys are
+</p><p>This is not the case with <code class="classname">APR::Table</code>. It’s keys are
 not unique. You <span class="emphasis"><em>can</em></span> have multiple key/value pairs with the
 same key. And the weird thing is, you can still access the data as if it were a
 Hash. The only problem is that when you access the data for a given key, you
 will only get the <span class="emphasis"><em>first</em></span> match. If you want all of the
 associated values, then you have to iterate over the table like an array. Are
-you confused yet? Time for an example.</p>
-
-<p>Let’s look at collision handling, iteration, and hash access all at once
+you confused yet? Time for an example.</p><p>Let’s look at collision handling, iteration, and hash access all at once
 (assume this is in a file called <code class="filename">test.rhtml</code>):
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-table = <span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Table</span>.new(<span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Pool</span>.new())
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Dumps the contents of a Table
-</span><span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">dump</span>(t)
-  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">'Dumping Table:'</span>
-  t.each <span xmlns="" class="keyword">do</span> |key, value|
-    <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span>
-  <span xmlns="" class="keyword">end</span>
-<span xmlns="" class="keyword">end</span>
-
-table.add(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'lp=13ds4; Domain=.jujifruit.com; Path=/'</span>)
-table.add(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'edge=453fd; Domain=.jujifruit.com; Path=/'</span>)
-
-dump(table)
-
-puts
-<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"table['Set-Cookie']='</span><span xmlns="" class="variable-name">#{table['Set-Cookie']}</span><span xmlns="" class="string">'"</span>
-</pre>
-
-</p>
-
-<p>We add values with the same key, just like before. When we iterate over
+</p><p>We add values with the same key, just like before. When we iterate over
 the table, we get:
 
 </p><pre class="screen">
@@ -131,38 +80,16 @@ with unique values. When we iterate over the table like we would a normal hash,
 all of the key/value pairs come out. Yet if we access a single value, we only
 get the first match. Now you are starting the get the essence of the
 <code class="classname">APR:Table</code>: it can act like both an array and a hash at
-the same time.</p>
-
-<p>But there’s more! <code class="classname">APR::Table</code> can handle collisions
+the same time.</p><p>But there’s more! <code class="classname">APR::Table</code> can handle collisions
 an alternate way. Notice we used the <code class="methodname">add()</code> method. That
 method handles collisions by simply tacking on more key/value pairs. But there
 is also the <code class="methodname">merge()</code> method. It handles collisions by
 keeping the key unique, but <span class="emphasis"><em>appending</em></span> the new data to the
 current value. Consider the following example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-table = <span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Table</span>.new(<span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Pool</span>.new())
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Dumps the contents of a Table
-</span><span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">dump</span>(t)
-  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">'Dumping Table:'</span>
-  t.each <span xmlns="" class="keyword">do</span> |key, value|
-    <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span>
-  <span xmlns="" class="keyword">end</span>
-<span xmlns="" class="keyword">end</span>
-
-table.merge(<span xmlns="" class="string">'Accept-Charset'</span>, <span xmlns="" class="string">'ISO-8859-1'</span>)
-table.merge(<span xmlns="" class="string">'Accept-Charset'</span>, <span xmlns="" class="string">'utf-8'</span>)
-
-dump(table)
-
-puts
-<span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"table['Accept-Charset']='</span><span xmlns="" class="variable-name">#{table['Accept-Charset']}</span><span xmlns="" class="string">'"</span>
-</pre>
-
-</p>
-
-<p>Here is what we get:
+</p><p>Here is what we get:
 
 </p><pre class="programlisting">
 Dumping Table:
@@ -181,14 +108,11 @@ a third method: <code class="methodname">set()</code>. So what you really have t
 adjust to is just the set/get methods of <code class="classname">APR::Table</code>. Here
 are the three methods again in review:
 
-</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-    <p><code class="methodname">add</code>(<em class="parameter"><code>key</code></em>,
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="methodname">add</code>(<em class="parameter"><code>key</code></em>,
     <em class="parameter"><code>value</code></em>): This method adds a new key/value pair to the
     table. In the case of a collision, <code class="methodname">add()</code> will just
     tack on the new key/value pair, causing the table to take on array-like
-    characteristics.</p>
-  </li><li class="listitem">
-    <p><code class="methodname">merge</code>(<em class="parameter"><code>key</code></em>,
+    characteristics.</p></li><li class="listitem"><p><code class="methodname">merge</code>(<em class="parameter"><code>key</code></em>,
     <em class="parameter"><code>value</code></em>): This works similarly to add for a new
     key/value pair: it will simply add it to the table. In the case of a
     collision, however, <code class="methodname">merge()</code> will append
@@ -198,46 +122,20 @@ are the three methods again in review:
     added from <code class="methodname">add()</code>, a subsequent call to
     <code class="methodname">merge()</code> will operate only on the first match it
     finds for <em class="parameter"><code>key</code></em>. So keep in mind what happens when you
-    mix these two.</p>
-  </li><li class="listitem">
-    <p><code class="methodname">set</code>(<em class="parameter"><code>key</code></em>,
+    mix these two.</p></li><li class="listitem"><p><code class="methodname">set</code>(<em class="parameter"><code>key</code></em>,
     <em class="parameter"><code>value</code></em>): This works like add for new key/value
     pairs. In the event of a collision, it will <span class="emphasis"><em>replace</em></span> the
     old value (scalar or array) with the current value. That is, even if there
     are multiple key/value pairs for the given value of
     <em class="parameter"><code>key</code></em>, <code class="methodname">set()</code> <span class="emphasis"><em>will
-    first wipe them all out</em></span>.</p>
-  </li></ul></div><p>
+    first wipe them all out</em></span>.</p></li></ul></div><p>
 
 So to be absolutely clear how these methods work indepently and together, let’s
 look at one final example:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-table = <span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Table</span>.new(<span xmlns="" class="type">APR</span>::<span xmlns="" class="type">Pool</span>.new())
+</p><pre class="sourcecode"></pre><p>
 
-<span xmlns="" class="comment-delimiter"># </span><span xmlns="" class="comment">Dumps the contents of a Table
-</span><span xmlns="" class="keyword">def</span> <span xmlns="" class="function-name">dump</span>(t)
-  <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">'Dumping Table:'</span>
-  t.each <span xmlns="" class="keyword">do</span> |key, value|
-    <span xmlns="" class="builtin">puts</span> <span xmlns="" class="string">"  </span><span xmlns="" class="variable-name">#{key}</span><span xmlns="" class="string">=</span><span xmlns="" class="variable-name">#{value}</span><span xmlns="" class="string">"</span>
-  <span xmlns="" class="keyword">end</span>
-<span xmlns="" class="keyword">end</span>
-
-table.add(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'lp=13ds4; Domain=.launchpad.net; Path=/'</span>)
-table.add(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'edge=453fd; Domain=.launchpad.net; Path=/'</span>)
-dump(table)
-
-table.merge(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'ISO-8859-1'</span>)
-table.merge(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'utf8'</span>)
-dump(table)
-
-table.set(<span xmlns="" class="string">'Set-Cookie'</span>, <span xmlns="" class="string">'wiped out'</span>)
-dump(table)
-</pre>
-
-</p>
-
-<p>Here is what we get:
+</p><p>Here is what we get:
 
 </p><pre class="programlisting">
 Dumping Table:
@@ -253,9 +151,7 @@ Dumping Table:
 Additionally, <code class="classname">APR::Table</code> supports the
 <code class="literal">[]=</code> operator as well, which is just another way of calling
 <code class="methodname">set()</code> (as you would expect).
-</p>
-
-<p>Now, you may still have the question “Why? — What’s the point?”
+</p><p>Now, you may still have the question “Why? — What’s the point?”
 Well, the previous examples give some hint to that. Notice that they all
 involved HTTP headers. Some HTTP headers — like
 <code class="literal">Set-Cookie</code> — can have duplicate keys. Thus in this
@@ -268,31 +164,15 @@ recognized this and said “To keep our code clean, we need something that can
 easily handle both situations elegantly.” And thus the APR table (known as the
 <span class="structname">apr_table_t</span> struct in the APR C API) was born. When you
 do much work with HTTP headers, it doesn’t take long for you to appreciate
-<code class="classname">APR:Table</code>’s flexibility.</p>
-
-<p>You’ll probably be glad to know that the remaining methods of
+<code class="classname">APR:Table</code>’s flexibility.</p><p>You’ll probably be glad to know that the remaining methods of
 <code class="classname">APR::Table</code> are straightforward. They all follow the
 <a class="ulink" href="http://apr.apache.org/docs/apr/1.3/group__apr__tables.html" target="_top">APR
 table C API</a>. The complete documentation for
 <code class="classname">APR::Table</code> is in <a class="xref" href="modruby.apr.table.html" title="6. The APR Table Class">Section 6, “The APR Table Class”</a>.
-</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp23"></a>1.2. APR Arrays</h3></div></div></div>
-
-<p>Finally, a word on the <code class="classname">APR::Array</code> class. For all
+</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm765"></a>1.2. APR Arrays</h3></div></div></div><p>Finally, a word on the <code class="classname">APR::Array</code> class. For all
 intents and purposes, it’s a read-only Ruby array. It has two methods:
 <code class="classname">each()</code> and <code class="classname">size()</code> (ideally, it
 also needs at least a <code class="methodname">[]</code> operator). Currently, the only
 method in the API that returns an <code class="methodname">APR::Array</code> is
 <code class="methodname">Request::content_languages()</code>.
-</p>
-
-</div>
-
-</div>
-
-
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.config.conclusion.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.api.apache.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. Conclusion </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 2. The Apache API</td></tr></table></div></body></html>
+</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.config.conclusion.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.api.apache.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. Conclusion </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 2. The Apache API</td></tr></table></div></body></html>

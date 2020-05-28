@@ -1,0 +1,79 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 1. Introduction</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><meta name="keywords" content="Background, Design"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.html" title="ModRuby"><link rel="prev" href="modruby.forward.html" title="Foreword"><link rel="next" href="modruby.module.intro.install.html" title="2. Building and Installing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">Chapter 1. Introduction</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.forward.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.intro.install.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="modruby.module.intro"></a>Chapter 1. Introduction</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="modruby.module.intro.html#modruby.intro.about">1. What is ModRuby?</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.intro.html#idm38">1.1. Audience</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.html#idm44">1.2. Prerequisites</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.html#idm69">1.3. Additional Information</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.html#idm85">1.4. Conventions</a></span></dt></dl></dd><dt><span class="sect1"><a href="modruby.module.intro.install.html">2. Building and Installing</a></span></dt><dd><dl><dt><span class="sect2"><a href="modruby.module.intro.install.html#idm139">2.1. Debian and Ubuntu</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.install.html#idm151">2.2. FreeBSD</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.install.html#idm170">2.3. Mac OS X</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.install.html#modruby.module.intro.install.compiling">2.4. Compiling</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.install.html#idm195">2.5. Development Install</a></span></dt><dt><span class="sect2"><a href="modruby.module.intro.install.html#idm229">2.6. Configuring Apache</a></span></dt></dl></dd></dl></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.intro.about"></a>1. What is ModRuby?</h2></div></div></div><p>ModRuby is an Apache module that embeds a Ruby virtual machine, enabling
+you to use Ruby natively within Apache. It does what you would expect from a
+traditional language module like <code class="literal">mod_perl</code> or
+<code class="literal">mod_python</code>, but also a little bit more. That is, it gives you
+more than just a “faster-than-CGI” environment and native access to Apache’s C
+API from within Ruby. It also provides you with three intuitive ways of using
+Ruby within Apache, based on your needs/preferences. These are in the form of
+different Apache handlers. One handler is designed to run straight-up Ruby (like
+in a Fast CGI environment). Another one processes embedded Ruby (RHTML)
+files. The third (and most useful) is a user-defined handler that lets you
+specify how to handle requests — pointing to the Ruby class/method of your
+choosing to handle incoming requests. Using this handler, you can implement or
+integrate external web frameworks.</p><p>Basically, ModRuby’s main purpose is to enable you to easily use Ruby
+within Apache in almost any way you could want, giving you full access to both
+Ruby and Apache via the Apache C API, module framework, and configuration
+system.</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm38"></a>1.1. Audience</h3></div></div></div><p>This documentation covers all aspects of ModRuby and is targeted to web
+developers who have a working knowledge of <a class="ulink" href="http://www.ruby-lang.org" target="_top">Ruby</a>, <a class="ulink" href="http://www.apache.org" target="_top">Apache</a> and know their way around a
+Linux/UNIX environment. It addresses administration (compiling/building,
+installing, configuring), development (both general web development and
+extending/customizing ModRuby) as well as design (goals, features and
+limitations).</p><p>The general approach is illustration by examples that progressively build
+on each other. All examples are actual working example from a test site that
+accompanies the documentation. This allows you to both read the code and watch
+it work. Using this approach, the documentation starts with the most basic,
+rudimentary concepts and leads into advanced topics.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm44"></a>1.2. Prerequisites</h3></div></div></div><p>As mentioned already, to get the most out of this documentation, you
+should have basic experience with Ruby, Apache, and a UNIX-like operating system
+such as FreeBSD or Linux.</p><p>This documentation does not cover how to install, configure, or use Apache
+<span class="emphasis"><em>unless you are using <a class="ulink" href="http://www.freebsd.org" target="_top">FreeBSD</a> or <a class="ulink" href="http://www.debian.org" target="_top">Debian</a>-based distribution (<a class="ulink" href="http://www.devuan.org" target="_top">Devuan</a> or <a class="ulink" href="http://www.ubuntu.com" target="_top">Ubuntu</a></em></span>). While ModRuby compiles
+and runs on other Linux distributions, NetBSD, OpenBSD and other UNIX-like
+systems, they are not covered specifically in this documentation. Regardless,
+installation and configuration is still quite easy across the board: you can set
+up a working system running the ModRuby example site with only a few
+commands.</p><p>Building from source requires a basic knowledge of the following:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><abbr class="abbrev">Compiling and installing software.</abbr> You will need to
+    know how to compile packages from source using the standard UNIX build tools
+    (<span class="command"><strong>tar</strong></span>, <span class="command"><strong>make</strong></span>, etc.). All of the support
+    libraries for ModRuby must be downloaded, compiled, and installed.</p></li><li class="listitem"><p><abbr class="abbrev">Installing Apache.</abbr> You will either have to have an
+    existing Apache system running, or you will need to know how to get a basic
+    Apache system up and running.</p></li><li class="listitem"><p><abbr class="abbrev">Module Installation.</abbr> You will need to know where to
+    install Apache modules on your system, specifically the location (directory)
+    in which they are located.</p></li><li class="listitem"><p><abbr class="abbrev">Ruby.</abbr> You will have to have a working version of Ruby
+    1.9.x+ on your system along with the Ruby header files.</p></li></ul></div><p>
+
+</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm69"></a>1.3. Additional Information</h3></div></div></div><p>The following are some some good resources for learning Ruby, and Apache:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="ulink" href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177/" target="_top">The
+    Ruby Programming Language</a>. This is a very good book that is not only
+    a good introduction to Ruby, but covers advanced topics and good programming
+    practices.</p></li><li class="listitem"><p><a class="ulink" href="http://httpd.apache.org/docs/2.2/" target="_top">The Apache Server
+    Documentation</a>. The Apache user documentation is both comprehensive
+    and well written.</p></li><li class="listitem"><p><a class="ulink" href="http://www.amazon.com/Apache-Modules-Book-Application-Development/dp/0132409674" target="_top">The
+    Apache Modules Book</a>. This is an advanced book for people who want to
+    develop Apache modules. While the Apache documentation for end users is well
+    written, documentation for developers is slim to none. This book is an
+    indespensible guide for anyone who want to develop with Apache.</p></li><li class="listitem"><p><a class="ulink" href="https://httpd.apache.org/docs/2.4/developer/modguide.html" target="_top">The Apache
+    Module Development Documentation</a>. Straight from the source.</p></li></ul></div><p>
+
+</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm85"></a>1.4. Conventions</h3></div></div></div><p>The following typographical conventions are used in the online
+documentation:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>System commands and programs such as <span class="command"><strong>grep</strong></span>,
+    <span class="command"><strong>awk</strong></span> and <span class="command"><strong>dmesg</strong></span> are shown in this
+    manner.</p></li><li class="listitem"><p>Literal expressions such as <code class="literal">select * from user;</code> are
+    shown in this manner.</p></li><li class="listitem"><p>Files and paths such as <code class="filename">/etc/shadow</code> and
+    <code class="filename">/var/log/apache</code> are shown in this manner.</p></li><li class="listitem"><p>Variable names in code such as <code class="varname">$pwd</code> and
+    <code class="varname">$SHELL</code> are shown in this manner.</p></li><li class="listitem"><p>Constants such as <code class="constant">PATH_MAX</code> are shown in this
+    manner.</p></li><li class="listitem"><p>Functions such as <code class="function">strlen</code> are shown in this
+    manner.</p></li><li class="listitem"><p>Function parameters such as <em class="parameter"><code>len</code></em>
+    are shown in this manner.</p></li><li class="listitem"><p>Classes such as <code class="classname">StringIO</code> are shown in this
+    manner.
+    </p></li><li class="listitem"><p>Class methods such as <code class="methodname">StringIO::read()</code> are
+    shown in this manner.</p></li><li class="listitem"><p>XML markup such as <span class="markup">XInclude</span> is shown in
+    this manner.</p></li><li class="listitem"><p>Links such as <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a> are shown in this manner.
+    </p></li></ul></div><p>
+
+</p><p> The DocBook markup system is described in the printed book
+<span class="emphasis"><em>DocBook - The Definitive Guide</em></span> [<span class="citation"><a class="xref" href="biblio.html#bib.TDG99" title="DocBook">TDG1999</a></span>]. There is an
+up-to-date local HTML copy at CERN [<span class="citation"><a class="xref" href="biblio.html#bib.TDGupd" title="DocBook 4.2">TDG2002</a></span>]</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.forward.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.intro.install.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Foreword </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 2. Building and Installing</td></tr></table></div></body></html>

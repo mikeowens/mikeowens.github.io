@@ -1,358 +1,219 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3. The Apache Server Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.req.html" title="2. The Apache Request Class"><link rel="next" href="modruby.apache.connection.html" title="4. The Apache Connection Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">3. The Apache Server Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.req.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apache.connection.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.server"></a>3. The Apache Server Class</h2></div></div></div>
-
-
-
-<p>The Apache <code class="classname">Server</code> class contains information related to the server, or
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3. The Apache Server Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.req.html" title="2. The Apache Request Class"><link rel="next" href="modruby.apache.connection.html" title="4. The Apache Connection Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">3. The Apache Server Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.req.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apache.connection.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apache.server"></a>3. The Apache Server Class</h2></div></div></div><p>The Apache <code class="classname">Server</code> class contains information related to the server, or
 virtual host which is handling the current request. It also associated the
 <code class="classname">Process</code> object related to the request as well, which is
-obtained using the <a class="link" href="modruby.apache.server.html#process_def" title="3.1. process()"><code class="methodname">Server::process()</code></a> method.
-</p>
-
-<p>You can obtain the <code class="classname">Server</code> instance associated with
-the current request using the <a class="link" href="modruby.apache.req.html#server_def" title="2.1. server()"><code class="methodname">Request::server()</code></a> method.
-</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp33"></a>3.1. Method Documentation</h3></div></div></div>
-
-<p><a class="xref" href="modruby.apache.server.html#server_methods" title="Table B.2. Apache Server Methods">Table B.2, “Apache Server Methods”</a> contains the exhaustive list of
+obtained using the <a class="link" href="modruby.apache.server.html#process_def" title="process()"><code class="methodname">Server::process()</code></a> method.
+</p><p>You can obtain the <code class="classname">Server</code> instance associated with
+the current request using the <a class="link" href="modruby.apache.req.html#server_def" title="server()"><code class="methodname">Request::server()</code></a> method.
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2540"></a>3.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apache.server.html#server_methods" title="Table B.2. Apache Server Methods">Table B.2, “Apache Server Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
-  </p><div class="table"><a name="server_methods"></a><p class="title"><b>Table B.2. Apache Server Methods</b></p><div class="table-contents">
-    
-    <table summary="Apache Server Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+  </p><div class="table"><a name="server_methods"></a><p class="title"><b>Table B.2. Apache Server Methods</b></p><div class="table-contents"><table class="table" summary="Apache Server Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#addrs_def" title="3.1. addrs()">
+              <a class="link" href="modruby.apache.server.html#addrs_def" title="addrs()">
                 <code class="function">addrs()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#defn_line_number_def" title="3.1. defn_line_number()">
+              <a class="link" href="modruby.apache.server.html#defn_line_number_def" title="defn_line_number()">
                 <code class="function">defn_line_number()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#defn_name_def" title="3.1. defn_name()">
+              <a class="link" href="modruby.apache.server.html#defn_name_def" title="defn_name()">
                 <code class="function">defn_name()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#error_fname_def" title="3.1. error_fname()">
+              <a class="link" href="modruby.apache.server.html#error_fname_def" title="error_fname()">
                 <code class="function">error_fname()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#error_log_def" title="3.1. error_log()">
+              <a class="link" href="modruby.apache.server.html#error_log_def" title="error_log()">
                 <code class="function">error_log()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#is_virtual_def" title="3.1. is_virtual()">
+              <a class="link" href="modruby.apache.server.html#is_virtual_def" title="is_virtual()">
                 <code class="function">is_virtual()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#keep_alive_def" title="3.1. keep_alive()">
+              <a class="link" href="modruby.apache.server.html#keep_alive_def" title="keep_alive()">
                 <code class="function">keep_alive()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#keep_alive_max_def" title="3.1. keep_alive_max()">
+              <a class="link" href="modruby.apache.server.html#keep_alive_max_def" title="keep_alive_max()">
                 <code class="function">keep_alive_max()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#keep_alive_timeout_def" title="3.1. keep_alive_timeout()">
+              <a class="link" href="modruby.apache.server.html#keep_alive_timeout_def" title="keep_alive_timeout()">
                 <code class="function">keep_alive_timeout()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#limit_req_fields_def" title="3.1. limit_req_fields()">
+              <a class="link" href="modruby.apache.server.html#limit_req_fields_def" title="limit_req_fields()">
                 <code class="function">limit_req_fields()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#limit_req_fieldsize_def" title="3.1. limit_req_fieldsize()">
+              <a class="link" href="modruby.apache.server.html#limit_req_fieldsize_def" title="limit_req_fieldsize()">
                 <code class="function">limit_req_fieldsize()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#limit_req_line_def" title="3.1. limit_req_line()">
+              <a class="link" href="modruby.apache.server.html#limit_req_line_def" title="limit_req_line()">
                 <code class="function">limit_req_line()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#loglevel_def" title="3.1. loglevel()">
+              <a class="link" href="modruby.apache.server.html#loglevel_def" title="loglevel()">
                 <code class="function">loglevel()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#lookup_defaults_def" title="3.1. lookup_defaults()">
+              <a class="link" href="modruby.apache.server.html#lookup_defaults_def" title="lookup_defaults()">
                 <code class="function">lookup_defaults()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#names_def" title="3.1. names()">
+              <a class="link" href="modruby.apache.server.html#names_def" title="names()">
                 <code class="function">names()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.req.html#next_def" title="2.1. next()">
+              <a class="link" href="modruby.apache.req.html#next_def" title="next()">
                 <code class="function">next()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#path_def" title="3.1. path()">
+              <a class="link" href="modruby.apache.server.html#path_def" title="path()">
                 <code class="function">path()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#pathlen_def" title="3.1. pathlen()">
+              <a class="link" href="modruby.apache.server.html#pathlen_def" title="pathlen()">
                 <code class="function">pathlen()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#port_def" title="3.1. port()">
+              <a class="link" href="modruby.apache.server.html#port_def" title="port()">
                 <code class="function">port()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#process_def" title="3.1. process()">
+              <a class="link" href="modruby.apache.server.html#process_def" title="process()">
                 <code class="function">process()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#server_admin_def" title="3.1. server_admin()">
+              <a class="link" href="modruby.apache.server.html#server_admin_def" title="server_admin()">
                 <code class="function">server_admin()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#server_hostname_def" title="3.1. server_hostname()">
+              <a class="link" href="modruby.apache.server.html#server_hostname_def" title="server_hostname()">
                 <code class="function">server_hostname()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#timeout_def" title="3.1. timeout()">
+              <a class="link" href="modruby.apache.server.html#timeout_def" title="timeout()">
                 <code class="function">timeout()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apache.server.html#wild_names_def" title="3.1. wild_names()">
+              <a class="link" href="modruby.apache.server.html#wild_names_def" title="wild_names()">
                 <code class="function">wild_names()</code>
               </a>
             </code>
-          </td><td>0</td></tr></tbody></table>
-  </div></div><p><br class="table-break">
+          </td><td>0</td></tr></tbody></table></div></div><p><br class="table-break">
 
-</p>
-
-<h5><a name="addrs_def"></a>addrs()</h5>
-
-<p>The official documentation for this method comes directly from the Doxygen
+</p><h5><a name="addrs_def"></a>addrs()</h5><p>The official documentation for this method comes directly from the Doxygen
 documentation from the Apache source, defined in line 1192 of
 <code class="filename">httpd.h</code>:
 
 </p><div class="blockquote"><p>
 I haven't got a clue.
-</p>
-</div><p>
+</p></div><p>
 
 I have pneumonia and am in a trance right now and don't feel like digging for
 details. Enjoy.
-</p>
-
-
-<h5><a name="defn_line_number_def"></a>defn_line_number()</h5>
-
-<p><code class="function">defn_line_number()</code> returns the line of the config
-file that the server was defined on.</p>
-
-
-<h5><a name="defn_name_def"></a>defn_name()</h5>
-
-<p><code class="function">defn_name()</code> returns the name of the server —
+</p><h5><a name="defn_line_number_def"></a>defn_line_number()</h5><p><code class="function">defn_line_number()</code> returns the line of the config
+file that the server was defined on.</p><h5><a name="defn_name_def"></a>defn_name()</h5><p><code class="function">defn_name()</code> returns the name of the server —
 the fully qualified domain name. This varies with the particular virtual host
 that is responding to the request.
-</p>
-
-
-<h5><a name="error_fname_def"></a>error_fname()</h5>
-
-<p><code class="function">error_fname()</code> returns the name of the error log.</p>
-
-
-<h5><a name="error_log_def"></a>error_log()</h5>
-
-<p><code class="function">error_log()</code> returns a file descriptor that references
-the error log.</p>
-
-
-<h5><a name="is_virtual_def"></a>is_virtual()</h5>
-
-<p><code class="function">is_virtual()</code> returns 1 is this is a virtual host
+</p><h5><a name="error_fname_def"></a>error_fname()</h5><p><code class="function">error_fname()</code> returns the name of the error log.</p><h5><a name="error_log_def"></a>error_log()</h5><p><code class="function">error_log()</code> returns a file descriptor that references
+the error log.</p><h5><a name="is_virtual_def"></a>is_virtual()</h5><p><code class="function">is_virtual()</code> returns 1 is this is a virtual host
 handling the request, 0 otherwise (the default/main server host — you know
 — the one that says "If you're seeing this page instead of the one you
 expected ... you must be a n00b". Or something like that. Sorry, still listening
 to Wilco ... You try writing this boring documentation on a Sunday afternoon).
-</p>
-
-
-<h5><a name="keep_alive_def"></a>keep_alive()</h5>
-
-<p><code class="function">keep_alive()</code> returns 1 if keepalive is enabled
+</p><h5><a name="keep_alive_def"></a>keep_alive()</h5><p><code class="function">keep_alive()</code> returns 1 if keepalive is enabled
 (client requires a persistent connection), 0 otherwise.
-</p>
-
-
-<h5><a name="keep_alive_max_def"></a>keep_alive_max()</h5>
-
-<p><code class="function">keep_alive_max()</code> returns the maximum number of
+</p><h5><a name="keep_alive_max_def"></a>keep_alive_max()</h5><p><code class="function">keep_alive_max()</code> returns the maximum number of
 requests for a keepalive connection. See <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#maxkeepaliverequests" target="_top">the
 Apache Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="keep_alive_timeout_def"></a>keep_alive_timeout()</h5>
-
-<p><code class="function">keep_alive_timeout()</code> returns the APR interval
+</p><h5><a name="keep_alive_timeout_def"></a>keep_alive_timeout()</h5><p><code class="function">keep_alive_timeout()</code> returns the APR interval
 (seconds) that server will wait for another request. See <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#keepalivetimeout" target="_top">the Apache
 Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="limit_req_fields_def"></a>limit_req_fields()</h5>
-
-<p><code class="function">limit_req_fields()</code> returns the limit on number of
+</p><h5><a name="limit_req_fields_def"></a>limit_req_fields()</h5><p><code class="function">limit_req_fields()</code> returns the limit on number of
 request header fields. See <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#limitrequestfields" target="_top">the
 Apache Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="limit_req_fieldsize_def"></a>limit_req_fieldsize()</h5>
-
-<p><code class="function">limit_req_fieldsize()</code> returns the limit on size of
+</p><h5><a name="limit_req_fieldsize_def"></a>limit_req_fieldsize()</h5><p><code class="function">limit_req_fieldsize()</code> returns the limit on size of
 any request header field. See <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#limitrequestfieldsize" target="_top">the
 Apache Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="limit_req_line_def"></a>limit_req_line()</h5>
-
-<p><code class="function">limit_req_line()</code> returns the limit on size of the
+</p><h5><a name="limit_req_line_def"></a>limit_req_line()</h5><p><code class="function">limit_req_line()</code> returns the limit on size of the
 HTTP request line. See <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#limitrequestline" target="_top">the Apache
 Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="loglevel_def"></a>loglevel()</h5>
-
-<p><code class="function">loglevel()</code> returns the log level for this server. See
+</p><h5><a name="loglevel_def"></a>loglevel()</h5><p><code class="function">loglevel()</code> returns the log level for this server. See
 <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#loglevel" target="_top">the Apache
 Core documentation</a> for more information.
-</p>
-
-
-<h5><a name="lookup_defaults_def"></a>lookup_defaults()</h5>
-
-<p><code class="function">lookup_defaults()</code> is unimplemented. This is a C-level
+</p><h5><a name="lookup_defaults_def"></a>lookup_defaults()</h5><p><code class="function">lookup_defaults()</code> is unimplemented. This is a C-level
 module configuration function which is basically useless from Ruby.
-</p>
-
-<p>This function returns <code class="literal">nil</code>
-</p>
-
-
-<h5><a name="names_def"></a>names()</h5>
-
-<p><code class="function">names()</code> returns an APR array of server aliases for
+</p><p>This function returns <code class="literal">nil</code>
+</p><h5><a name="names_def"></a>names()</h5><p><code class="function">names()</code> returns an APR array of server aliases for
 this host. For more information, see the Apache documentation on <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#serveralias" target="_top">ServerAlias</a>.
-</p>
-
-
-<h5><a name="next_def"></a>next()</h5>
-
-<p><code class="function">next()</code> returns the next Server object in the
+</p><h5><a name="next_def"></a>next()</h5><p><code class="function">next()</code> returns the next Server object in the
 list.
-</p>
-
-
-<h5><a name="path_def"></a>path()</h5>
-
-<p><code class="function">path()</code> returns the path name of the server path. For
+</p><h5><a name="path_def"></a>path()</h5><p><code class="function">path()</code> returns the path name of the server path. For
 more information, see the Apache documentation on <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#serverpath" target="_top">ServerPath</a>.
-</p>
-
-
-<h5><a name="pathlen_def"></a>pathlen()</h5>
-
-<p><code class="function">pathlen()</code> returns the length in bytes of the
+</p><h5><a name="pathlen_def"></a>pathlen()</h5><p><code class="function">pathlen()</code> returns the length in bytes of the
 <code class="literal">ServerPath</code>.
-</p>
-
-
-<h5><a name="port_def"></a>port()</h5>
-
-<p><code class="function">port()</code> returns the port number on the server that the
+</p><h5><a name="port_def"></a>port()</h5><p><code class="function">port()</code> returns the port number on the server that the
 request came in on.
-</p>
-
-
-<h5><a name="process_def"></a>process()</h5>
-
-<p><code class="function">port()</code> returns the <code class="classname">Process</code>
+</p><h5><a name="process_def"></a>process()</h5><p><code class="function">port()</code> returns the <code class="classname">Process</code>
 object associated with this server. See <a class="xref" href="modruby.apache.process.html" title="5. The Apache Process Class">Section 5, “The Apache Process Class”</a> for
 more information.
-</p>
-
-
-<h5><a name="server_admin_def"></a>server_admin()</h5>
-
-<p><code class="function">server_admin()</code> returns the name of the server admin.
+</p><h5><a name="server_admin_def"></a>server_admin()</h5><p><code class="function">server_admin()</code> returns the name of the server admin.
 For more information, see the Apache documentation on <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#serveradmin" target="_top">ServerAdmin</a>.
-</p>
-
-
-<h5><a name="server_hostname_def"></a>server_hostname()</h5>
-
-<p><code class="function">server_hostname()</code> returns the server name handling
+</p><h5><a name="server_hostname_def"></a>server_hostname()</h5><p><code class="function">server_hostname()</code> returns the server name handling
 the request. For more information, see the Apache documentation on <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#servername" target="_top">ServerName</a>.
-</p>
-
-
-<h5><a name="timeout_def"></a>timeout()</h5>
-
-<p><code class="function">timeout()</code> returns the timeout interval (seconds).</p>
-
-
-<h5><a name="wild_names_def"></a>wild_names()</h5>
-
-<p><code class="function">wild_names()</code> returns and APR array containing the
+</p><h5><a name="timeout_def"></a>timeout()</h5><p><code class="function">timeout()</code> returns the timeout interval (seconds).</p><h5><a name="wild_names_def"></a>wild_names()</h5><p><code class="function">wild_names()</code> returns and APR array containing the
 wildcarded names for <code class="literal">ServerAlias</code> servers. For more
 information, see the Apache documentation on <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#serveralias" target="_top">ServerAlias</a>.
-</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.req.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apache.connection.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. The Apache Request Class </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 4. The Apache Connection Class</td></tr></table></div></body></html>
+</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.req.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apache.connection.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. The Apache Request Class </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 4. The Apache Connection Class</td></tr></table></div></body></html>

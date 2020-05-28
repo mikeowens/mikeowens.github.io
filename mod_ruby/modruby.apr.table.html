@@ -1,366 +1,204 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6. The APR Table Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.process.html" title="5. The Apache Process Class"><link rel="next" href="modruby.apr.array.html" title="7. The APR Array Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">6. The APR Table Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.process.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apr.array.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apr.table"></a>6. The APR Table Class</h2></div></div></div>
-
-
-
-<p>The APR table, like the APR itself, permeates Apache, and you see it used
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>6. The APR Table Class</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.reference.apache.html" title="Appendix B. Apache Module Reference"><link rel="prev" href="modruby.apache.process.html" title="5. The Apache Process Class"><link rel="next" href="modruby.apr.array.html" title="7. The APR Array Class"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">6. The APR Table Class</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.apache.process.html">Prev</a> </td><th width="60%" align="center">Appendix B. Apache Module Reference</th><td width="20%" align="right"> <a accesskey="n" href="modruby.apr.array.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.apr.table"></a>6. The APR Table Class</h2></div></div></div><p>The APR table, like the APR itself, permeates Apache, and you see it used
 frequently in Apache API. Apache represents its headers as APR tables, for
 example. The APR table is somewhat of a unique data structure in that it is
 capable of working as both hashtable and array.
-</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp36"></a>6.1. Method Documentation</h3></div></div></div>
-
-<p><a class="xref" href="modruby.apr.table.html#apr_table_methods" title="Table B.5. APR Table Methods">Table B.5, “APR Table Methods”</a> contains the exhaustive list of
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2990"></a>6.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apr.table.html#apr_table_methods" title="Table B.5. APR Table Methods">Table B.5, “APR Table Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
-  </p><div class="table"><a name="apr_table_methods"></a><p class="title"><b>Table B.5. APR Table Methods</b></p><div class="table-contents">
-    
-    <table summary="APR Table Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
+  </p><div class="table"><a name="apr_table_methods"></a><p class="title"><b>Table B.5. APR Table Methods</b></p><div class="table-contents"><table class="table" summary="APR Table Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#apr_table_get_def" title="6.1. [ ]">
+              <a class="link" href="modruby.apr.table.html#apr_table_get_def" title="[ ]">
                 <code class="function">[]</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#apr_table_set_def" title="6.1. [ ]=">
+              <a class="link" href="modruby.apr.table.html#apr_table_set_def" title="[ ]=">
                 <code class="function">[]=</code>
               </a>
             </code>
           </td><td>2</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#add_def" title="6.1. add()">
+              <a class="link" href="modruby.apr.table.html#add_def" title="add()">
                 <code class="function">add()</code>
               </a>
             </code>
           </td><td>2</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#clear_def" title="6.1. clear()">
+              <a class="link" href="modruby.apr.table.html#clear_def" title="clear()">
                 <code class="function">clear()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#each_def" title="6.1. each()">
+              <a class="link" href="modruby.apr.table.html#each_def" title="each()">
                 <code class="function">each()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#get_def" title="6.1. get()">
+              <a class="link" href="modruby.apr.table.html#get_def" title="get()">
                 <code class="function">get()</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#has_key?_def" title="6.1. has_key?()">
+              <a class="link" href="modruby.apr.table.html#has_key?_def" title="has_key?()">
                 <code class="function">has_key?()</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#join_def" title="6.1. join()">
+              <a class="link" href="modruby.apr.table.html#join_def" title="join()">
                 <code class="function">initialize()</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#join_def" title="6.1. join()">
+              <a class="link" href="modruby.apr.table.html#join_def" title="join()">
                 <code class="function">join()</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#keys_def" title="6.1. keys()">
+              <a class="link" href="modruby.apr.table.html#keys_def" title="keys()">
                 <code class="function">keys()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#merge_def" title="6.1. merge()">
+              <a class="link" href="modruby.apr.table.html#merge_def" title="merge()">
                 <code class="function">merge()</code>
               </a>
             </code>
           </td><td>2</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#set_def" title="6.1. set()">
+              <a class="link" href="modruby.apr.table.html#set_def" title="set()">
                 <code class="function">set()</code>
               </a>
             </code>
           </td><td>2</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#size_def" title="6.1. size()">
+              <a class="link" href="modruby.apr.table.html#size_def" title="size()">
                 <code class="function">size()</code>
               </a>
             </code>
           </td><td>0</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#unset_def" title="6.1. unset()">
+              <a class="link" href="modruby.apr.table.html#unset_def" title="unset()">
                 <code class="function">unset()</code>
               </a>
             </code>
           </td><td>1</td></tr><tr><td align="left" valign="top">method</td><td>
             <code class="methodname">
-              <a class="link" href="modruby.apr.table.html#values_def" title="6.1. values()">
+              <a class="link" href="modruby.apr.table.html#values_def" title="values()">
                 <code class="function">values()</code>
               </a>
             </code>
-          </td><td>0</td></tr></tbody></table>
-  </div></div><p><br class="table-break">
+          </td><td>0</td></tr></tbody></table></div></div><p><br class="table-break">
 
-</p>
-
-
-
-<h5><a name="apr_table_get_def"></a>[ ]</h5>
-
-<p><code class="function">[]</code> is a lookup operator. It returns the value
+</p><h5><a name="apr_table_get_def"></a>[ ]</h5><p><code class="function">[]</code> is a lookup operator. It returns the value
 associated with a key which is passed in the as the argument. Internally, this
-function calls <code class="function">apr_table_get()</code>.</p>
-
-<h6><a name="idp3120"></a>Definition</h6>
-
-<p>
+function calls <code class="function">apr_table_get()</code>.</p><h6><a name="idm3117"></a>Definition</h6><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
-</p>
-
-
-
-<h5><a name="apr_table_set_def"></a>[ ]=</h5>
-
-<p><code class="function">[]=</code> is an assignment operator. It assigns a value for
+</p><h5><a name="apr_table_set_def"></a>[ ]=</h5><p><code class="function">[]=</code> is an assignment operator. It assigns a value for
 the given key argument. If another value exists for this key, it will be
 overwritten. Internally, this function calls
 <code class="function">apr_table_set()</code>.
-</p>
-
-<h6><a name="idp3130"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3127"></a>Definition</h6><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value</p></li></ul></div><p>
-</p>
-
-
-
-<h5><a name="add_def"></a>add()</h5>
-
-<p><code class="function">add()</code> is a non-destructive assigment operator. That
+</p><h5><a name="add_def"></a>add()</h5><p><code class="function">add()</code> is a non-destructive assigment operator. That
 is, if there is already a value associated with the given key,
 <code class="methodname">add()</code> will keep it in place and add the new value. In
 this case, there are multiple values associated with a single key.
-</p>
-
-<h6><a name="idp3140"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3137"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def add(key, value)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value</p></li><li class="listitem"><p><em class="parameter"><code>value</code></em>: the value corresponding to <em class="parameter"><code>key</code></em>
 </p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="clear_def"></a>clear()</h5>
-
-<p><code class="function">clear()</code> deletes all of the elements from a
+</p><h5><a name="clear_def"></a>clear()</h5><p><code class="function">clear()</code> deletes all of the elements from a
 table. Internally is calls <code class="function">apr_table_clear()</code>.
-</p>
-
-
-
-
-<h5><a name="each_def"></a>each()</h5>
-
-<p><code class="function">each()</code> is an iterator function which passes the
+</p><h5><a name="each_def"></a>each()</h5><p><code class="function">each()</code> is an iterator function which passes the
 key/value pair of each element into the block.
-</p>
-
-
-
-
-<h5><a name="get_def"></a>get()</h5>
-
-<p><code class="function">get()</code> retrieves the value corresponding to the key
+</p><h5><a name="get_def"></a>get()</h5><p><code class="function">get()</code> retrieves the value corresponding to the key
 provided as the argument. It is another form of the <code class="literal">[]</code>
 operator, and is included in order to be consistent with the APR table API.
-</p>
-
-<h6><a name="idp3162"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3159"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def get(key)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="has_key?_def"></a>has_key?()</h5>
-<p><code class="function">has_key?()</code> returns <code class="literal">true</code> if the
+</p><h5><a name="has_key?_def"></a>has_key?()</h5><p><code class="function">has_key?()</code> returns <code class="literal">true</code> if the
 table has at least one value associated with the given key.
-</p>
-
-<h6><a name="idp3173"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3170"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def has_key?(key)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="initialize_def"></a>initialize()</h5>
-
-<p><code class="function">initialize()</code> is the constructor. It takes an APR pool
+</p><h5><a name="initialize_def"></a>initialize()</h5><p><code class="function">initialize()</code> is the constructor. It takes an APR pool
 object from which to allocate its memory. This allows you to optionally control
 the memory management, potentially consoidating multiple tables out of the same
 pool.
-</p>
-
-<p>For processing requests, you will rarely if ever need to create APR
+</p><p>For processing requests, you will rarely if ever need to create APR
 tables, as all of the tables in the API will already be created for you. If and
 when you do need to create a table, you can use either a new
 <code class="classname">Pool</code> object, or better yet one of the existing pools
 associated with the <code class="classname">Request</code>,
 <code class="classname">Connection</code>, or <code class="classname">Server</code> objects.
 
-</p>
-
-<h6><a name="idp3188"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3185"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def initialize(pool)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>pool</code></em>: APR pool object to associate with
 table.</p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="join_def"></a>join()</h5>
-<p><code class="function">join()</code> returns a string containing equality pairs for
-each element in the table, delimited by the value provided as the argument.</p>
-
-<h6><a name="idp3198"></a>Definition</h6>
-
-<p>
+</p><h5><a name="join_def"></a>join()</h5><p><code class="function">join()</code> returns a string containing equality pairs for
+each element in the table, delimited by the value provided as the argument.</p><h6><a name="idm3195"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def join(sep)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>separator</code></em>: delimiter</p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="keys_def"></a>keys()</h5>
-
-<p><code class="function">keys()</code> returns a Ruby Array containing all keys in
+</p><h5><a name="keys_def"></a>keys()</h5><p><code class="function">keys()</code> returns a Ruby Array containing all keys in
 the table.
-</p>
-
-
-
-
-<h5><a name="merge_def"></a>merge()</h5>
-<p><code class="function">merge()</code> adds a key/value pair to the table. What
+</p><h5><a name="merge_def"></a>merge()</h5><p><code class="function">merge()</code> adds a key/value pair to the table. What
 makes merge different is how it handles collisions. If there is already a value
 present for the given key, <code class="methodname">merge()</code> will string
 concatenate the new value onto the present value, after adding a comma.
-</p>
-
-<p>For example, if the table contains the value <code class="literal">"bar"</code> for
+</p><p>For example, if the table contains the value <code class="literal">"bar"</code> for
 key <code class="literal">"foo"</code>, and you call <code class="literal">merge("foo",
 "baz")</code>, then the new value associated with <code class="literal">"foo"</code>
 will be <code class="literal">"bar, baz"</code>.
 
-</p>
-
-<h6><a name="idp3218"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3215"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def merge(key, value)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-  <em class="parameter"><code>key</code></em>: the key value</p>
-</li><li class="listitem"><p>
+  <em class="parameter"><code>key</code></em>: the key value</p></li><li class="listitem"><p>
   <em class="parameter"><code>value</code></em>: the value corresponding to
-  <em class="parameter"><code>key</code></em></p>
-</li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="set_def"></a>set()</h5>
-
-<p><code class="function">set()</code> assigns a key/value pair to the table. If there
+  <em class="parameter"><code>key</code></em></p></li></ul></div><p>
+</p><h5><a name="set_def"></a>set()</h5><p><code class="function">set()</code> assigns a key/value pair to the table. If there
 is a value in the table corresponding to key, then it will be
 overwritten. <code class="methodname">set()</code> is another form of the
 <code class="literal">[]=</code> operator, and is included in order to be consistent with
 the APR table API.
 
-</p>
-
-<h6><a name="idp3234"></a>Definition</h6>
-
-<p>
+</p><h6><a name="idm3231"></a>Definition</h6><p>
 </p><div class="itemizedlist"><pre class="synopsis">def set(key, value)</pre><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-  <em class="parameter"><code>key</code></em>: the key value</p>
-</li><li class="listitem"><p>
+  <em class="parameter"><code>key</code></em>: the key value</p></li><li class="listitem"><p>
   <em class="parameter"><code>value</code></em>: the value corresponding to
-  <em class="parameter"><code>key</code></em></p>
-</li></ul></div><p>
+  <em class="parameter"><code>key</code></em></p></li></ul></div><p>
 
-</p>
-
-
-
-
-<h5><a name="size_def"></a>size()</h5>
-
-<p><code class="function">size()</code> returns the number of elements in the table.
-</p>
-
-
-
-
-<h5><a name="unset_def"></a>unset()</h5>
-
-<p><code class="function">unset()</code> removes all values associated with the given
-key.</p>
-
-<h6><a name="idp3251"></a>Definition</h6>
-
-<p>
+</p><h5><a name="size_def"></a>size()</h5><p><code class="function">size()</code> returns the number of elements in the table.
+</p><h5><a name="unset_def"></a>unset()</h5><p><code class="function">unset()</code> removes all values associated with the given
+key.</p><h6><a name="idm3248"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def unset(key, value)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
-</p>
-
-
-
-
-<h5><a name="values_def"></a>values()</h5>
-
-<p><code class="function">values()</code> returns a Ruby Array containing all values in
+</p><h5><a name="values_def"></a>values()</h5><p><code class="function">values()</code> returns a Ruby Array containing all values in
 the table.
-</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.process.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apr.array.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. The Apache Process Class </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 7. The APR Array Class</td></tr></table></div></body></html>
+</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.apache.process.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.reference.apache.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.apr.array.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. The Apache Process Class </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 7. The APR Array Class</td></tr></table></div></body></html>

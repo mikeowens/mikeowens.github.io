@@ -1,26 +1,15 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. Variables and Contexts</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.77.1"><link rel="home" href="mod_ruby.html" title="ModRuby"><link rel="up" href="mod_ruby.module.config.html" title="Chapter 2. Configuration"><link rel="prev" href="mod_ruby.module.config.html" title="Chapter 2. Configuration"><link rel="next" href="modruby.module.config.merging.html" title="3. Directory and Variable Merging"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. Variables and Contexts</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mod_ruby.module.config.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.config.merging.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.config.contexts"></a>2. Variables and Contexts</h2></div></div></div>
-
-
-
-<p>Orthogonal to the module/class/method request routing mechanism are the
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. Variables and Contexts</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.module.config.html" title="Chapter 2. Configuration"><link rel="prev" href="modruby.module.config.html" title="Chapter 2. Configuration"><link rel="next" href="modruby.module.config.merging.html" title="3. Directory and Variable Merging"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. Variables and Contexts</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.config.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Configuration</th><td width="20%" align="right"> <a accesskey="n" href="modruby.module.config.merging.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.config.contexts"></a>2. Variables and Contexts</h2></div></div></div><p>Orthogonal to the module/class/method request routing mechanism are the
 concepts of configuration contexts and variables. ModRuby allows you to define
 your own custom configuration variables and Apache allows you to merge and
 override variables within various scopes (or contexts) within the configuration
-file. In this section we will explores these ideas and their
-implications.</p>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18"></a>2.1. Configuration Contexts</h3></div></div></div>
-
-<p>In Apache terms, there are basically two configuration contexts: server
+file. In this section we will explore these ideas and their implications.</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm505"></a>2.1. Configuration Contexts</h3></div></div></div><p>In Apache terms, there are basically two configuration contexts: server
 configuration and directory configuration. That is, you can specify
 configuration variables in server (global) scope as well as specifically within
 directory (local) scope. What this amounts to is that server scope is sort of a
 global default: if nothing else is specified, this is the information the
 ModRuby module will use to route requests (module/class/method). But if there
 are directory configurations specified, they will override and or complement the
-server scope.</p>
-
-<p>Consider the following example:
+server scope.</p><p>Consider the following example:
 
 </p><pre class="programlisting">
 &lt;IfModule ruby_module&gt;
@@ -61,32 +50,20 @@ to the <code class="literal">SHEEPDIP</code> handler as the <code class="literal
 has been set to use it in the server (global) scope. So for example a request
 for <code class="filename">/jujifruit.rb</code> will be handled by the
 <code class="literal">SHEEPDIP</code> handler (regardless of its name to the
-contrary).</p>
-
-<p>However, if a request for <code class="filename">/fruity/sheepdip.rb</code> comes
+contrary).</p><p>However, if a request for <code class="filename">/fruity/sheepdip.rb</code> comes
 in, the <code class="literal">JUJIFRUIT</code> handler will be used to handle the
 request. This is because the <code class="varname">Location</code> block — which is
 considered as directory scope — overrides global scope. So its
-<code class="varname">RubyHandler</code> directive overrides the global one.</p>
-
-<p>Basically all we are doing here is fixing phase 1 to point to the
+<code class="varname">RubyHandler</code> directive overrides the global one.</p><p>Basically all we are doing here is fixing phase 1 to point to the
 framework handler and then messing around with phase 2 — specifying what
 framework handlers are fired. So we know that no matter what, we’ve fixed the
 <code class="methodname">ruby-handler</code> to fire for any request for files that
 have a <code class="filename">.rb</code> extension. The point is that the rules for
 defining phase 2 can be layered into different scopes: a global default which
-can then be overridden by directory level settings.</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp20"></a>2.2. Configuration Variables</h3></div></div></div>
-
-<p>ModRuby provides a way for you to store you own configuration variables.
+can then be overridden by directory level settings.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm526"></a>2.2. Configuration Variables</h3></div></div></div><p>ModRuby provides a way for you to store you own configuration variables.
 You use the <code class="varname">RubyConfig</code> directive to do so. It takes two
 arguments: a key and a value. It then stores it in the server (global) settings
-table, which you can retreive within Ruby.</p>
-
-<p>For example say that you wanted to set a global configuration setting
+table, which you can retreive within Ruby.</p><p>For example say that you wanted to set a global configuration setting
 named <code class="varname">GEM_PATH</code> that which is accessible to all your
 scripts. You would simply do the following in your Apache configuration file:
 
@@ -123,11 +100,7 @@ For all requests within the <code class="filename">/fruity</code> location, the 
 <code class="varname">GEM_PATH</code> will be overriden with the value in the
 <code class="filename">/fruity</code> <code class="varname">Location</code> block. The same is true
 for the <code class="filename">/var/www/mysite/sheedip</code> directory. Thus directory
-contexts always complement and override server contexts.</p>
- 
-<div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp19"></a>2.2.1. Configuration Variables for Handlers</h4></div></div></div>
-
-<p>As touched upon earlier, there is also a way for you to set specific
+contexts always complement and override server contexts.</p><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idm539"></a>2.2.1. Configuration Variables for Handlers</h4></div></div></div><p>As touched upon earlier, there is also a way for you to set specific
 configuration variables for framework handlers. For example, say you wanted to
 set the <code class="varname">GEM_PATH</code> only for the <code class="literal">SHEEPDIP</code>
 handler. You would use the <code class="varname">RubyHandlerConfig</code> which works the
@@ -149,11 +122,7 @@ RubyHandlerConfig SHEEPDIP GEM_PATH /var/lib/gems/2.4.0/
 
 And just like before, the values in directory contexts — even for handler
 configurations — will be merged with the server contexts, overriding them
-wherever there are collisions.</p>
-
-</div>
-
-<p>Now the question is: how do you get to these values? Well, internally
+wherever there are collisions.</p></div><p>Now the question is: how do you get to these values? Well, internally
 there are two configuration sources: one for the server and one for the
 directory corresponding to the active request. Unfortunately, these are C
 structs in Apache, and you cannot easily get to them from Ruby. But as it turns
@@ -164,24 +133,12 @@ which you can get to at runtime. This table is the the "notes" table which is
 accessible via the <code class="methodname">Apache::Request::notes()</code> method. For
 every request, ModRuby automatically does the server and directory merging for
 you, giving you the final merged values for everything in the notes
-table.</p>
-
-<p>So, for example, to get the value for the <code class="varname">GEM_PATH</code> from
+table.</p><p>So, for example, to get the value for the <code class="varname">GEM_PATH</code> from
 within Ruby, you would just do the following:
 
-<pre xmlns="http://docbook.org/ns/docbook" class="programlisting">
-gem_path = <span xmlns="" class="variable-name">@request</span>.notes()[<span xmlns="" class="string">'GEM_PATH'</span>]
-</pre>
+</p><pre class="sourcecode"></pre><p>
 
-</p>
-
-<p>APR tables are given full treatment in <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a>.</p>
-
-</div>
-
-<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp21"></a>2.3. Environmental Variables</h3></div></div></div>
-
-<p>The last feature in configuration is setting environmental variables. You
+</p><p>APR tables are given full treatment in <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a>.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm553"></a>2.3. Environmental Variables</h3></div></div></div><p>The last feature in configuration is setting environmental variables. You
 can do this using the <code class="varname">RubyEnv</code> directory which works
 exactly like <code class="varname">RubyConfig</code>. So, for example if you wanted to set
 your Ruby <code class="varname">RUBYPATH</code> environmental variable, you could do the
@@ -200,8 +157,4 @@ environment. Unlike the other cases, there is no concept of merging here. The
 directive will fire whenever called and modify the environmental variables as
 requested. All environmental variables can be access from within Ruby via the
 <code class="methodname">Apache::Request::cgi()</code> method which returns and APR
-table of all CGI params (which consist of environmental variables).</p>
-
-</div>
-
-</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="mod_ruby.module.config.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mod_ruby.module.config.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.config.merging.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. Configuration </td><td width="20%" align="center"><a accesskey="h" href="mod_ruby.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Directory and Variable Merging</td></tr></table></div></body></html>
+table of all CGI params (which consist of environmental variables).</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer" class="navtable"><tr><td width="40%" align="left"><a accesskey="p" href="modruby.module.config.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="modruby.module.config.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="modruby.module.config.merging.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. Configuration </td><td width="20%" align="center"><a accesskey="h" href="modruby.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Directory and Variable Merging</td></tr></table></div></body></html>
