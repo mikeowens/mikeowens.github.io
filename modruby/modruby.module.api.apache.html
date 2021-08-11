@@ -11,7 +11,47 @@ and out) are a large component of handling a request, second only to content,
 which we will look at later.</p><p>To start out, let’s look at part of the Ruby implementation of the
 <code class="classname">Apache::Request</code> class:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="keyword">module</span> <span class="type">Apache</span>
+
+<span class="keyword">class</span> <span class="type">Request</span>
+
+  <span class="keyword">def</span> <span class="function-name">setCookie</span>( name, value,
+                 days=0, minutes=0, path=<span class="constant">nil</span> )
+      
+    path = <span class="string">'/'</span> <span class="keyword">if</span> path == <span class="constant">nil</span>
+
+    cookieString = <span class="string">"%s=%s;path=%s;domain=.%s"</span> 
+    cookieString = cookieString % [name, value, path, domainName()]
+    
+    <span class="keyword">if</span> days != 0 <span class="keyword">or</span> minutes != 0
+      <span class="keyword">if</span> days==-1 <span class="keyword">and</span> minutes==-1
+        cookieString += <span class="string">";Expires=Sun, 17-Jan-2038 19:14:07 -0600"</span>
+      <span class="keyword">else</span>
+        cookieString += <span class="string">";Expires=%s"</span> % expirationDate(days, minutes)
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Append this cookie to the array
+</span>    <span class="keyword">self</span>.headers_out.add(<span class="string">'Set-Cookie'</span>, cookieString)
+  <span class="keyword">end</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Redirect the client to url.
+</span>  <span class="keyword">def</span> <span class="function-name">redirect</span>(url)
+
+    <span class="comment-delimiter"># </span><span class="comment">Set the Apache req.status
+</span>    <span class="keyword">self</span>.set_status(302)
+
+    <span class="comment-delimiter"># </span><span class="comment">Also set it in the headers, just in case
+</span>    <span class="keyword">self</span>.headers_out[<span class="string">'Status'</span>]   = <span class="string">"302"</span>
+    <span class="keyword">self</span>.headers_out[<span class="string">'Location'</span>] = url
+
+    <span class="comment-delimiter"># </span><span class="comment">This will terminate subsequent request processing
+</span>    <span class="builtin">raise</span> <span class="type">ModRuby</span>::<span class="type">Redirect</span>.new(url)
+  <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><p>
 
 </p><p>Look at <code class="methodname">setCookie()</code>. Cookies are stored in the
 <code class="varname">@headers_out</code> member, which is where all HTTP headers are
@@ -82,7 +122,14 @@ containing this information is the <code class="varname">Apache::Request::cgi</c
 member which in turn is a <code class="classname">APR::Table</code>. The following code
 illustrates this:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;%
+<span class="variable-name">@request</span>.cgi.each <span class="keyword">do</span> |key, value|
+  <span class="builtin">puts</span> <span class="string">"%20s: %s"</span> % [key, value]
+<span class="keyword">end</span>
+<span class="string">%&gt;
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cgi.rhtml" target="_top">http/cgi.rhtml</a>. It
 yields the following:
@@ -128,7 +175,30 @@ request (whether there are cookies are not, etc.).
 <code class="classname">Apache::Request</code> object. Again, you can iterate over APR
 tables just like a Ruby hash:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;form name=<span class="string">"input"</span> action=<span class="string">"post.rhtml?queryarg=junior+mints"</span> method=<span class="string">"post"</span>&gt;
+&lt;input type=<span class="string">"text"</span> name=<span class="string">"text"</span> value=<span class="string">"jujifruit"</span>&gt;
+&lt;input type=<span class="string">"submit"</span> value=<span class="string">"Submit"</span>&gt;
+&lt;<span class="string">/form&gt;
+
+&lt;pre&gt;
+&lt;%
+puts "Queries: "
+queries = @request.queries()
+
+queries.each do |key, value|
+  puts "  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">" 
+end
+
+puts "Params: "
+params = @request.params
+
+params.each do |key, value|
+  puts "  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">" 
+end
+%&gt;
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/post.rhtml" target="_top">
 http/post.rhtml</a>. Click the <code class="literal">Submit</code> button. It yields
@@ -181,7 +251,20 @@ virtual host the request is running under. By default, the
 (<code class="literal">/</code>).
 </p><p>Consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;%
+<span class="variable-name">@request</span> = <span class="variable-name">@env</span>[<span class="string">'request'</span>]
+<span class="variable-name">@request</span>.setCookie(<span class="string">'larry'</span>, <span class="string">'1'</span>)
+<span class="variable-name">@request</span>.setCookie(<span class="string">'mo'</span>,    <span class="variable-name">@request</span>.cookie(<span class="string">'moe'</span>).to_i + 1)
+<span class="variable-name">@request</span>.setCookie(<span class="string">'curly'</span>, <span class="variable-name">@request</span>.cookie(<span class="string">'curly'</span>).to_i + 1)
+
+<span class="builtin">puts</span> <span class="string">"Cookies: "</span>
+<span class="variable-name">@request</span>.cookies.each <span class="keyword">do</span> |key, value|
+  <span class="builtin">puts</span> <span class="string">"  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">"</span> 
+<span class="keyword">end</span>
+<span class="string">%&gt;
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/cookies.rhtml" target="_top">
 http/cookies.rhtml</a>. Click the <code class="literal">Submit</code> button and then
@@ -211,7 +294,13 @@ redirect is done by sending the client an HTTP 302 response and providing the
 URL through the response headers. For example, if you want to send a redirect to
 Google, you can do this in your view as follows:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;%
+<span class="variable-name">@request</span>.headers[<span class="string">'status'</span>]   = <span class="string">"302"</span>
+<span class="variable-name">@request</span>.headers[<span class="string">'location'</span>] = <span class="string">"http://www.google.com"</span>
+<span class="string">%&gt;
+</span>
+</pre><p>
 
 </p><p>The <code class="classname">Apache::Request</code> class will do this for you
 however by simply calling
@@ -225,7 +314,22 @@ redirected request. If you need to transfer the contents, you can copy them to
 <code class="varname">@err_headers_out</code> and the subsequent request can get to them
 via <code class="methodname">@request.prev.err_headers_out()</code>.</p><p>The following is an example of both forms of redirection;
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;%<span class="keyword">if</span> <span class="variable-name">@request</span>.queries[<span class="string">'type'</span>] == <span class="string">'external'</span>%&gt;
+&lt;meta http-equiv=<span class="string">"refresh"</span> content=<span class="string">"5;url=http://www.ubuntu.com"</span>&gt;
+<span class="type">This</span> is an external redirect. <span class="type">You</span> will be sent to ubuntu.com <span class="keyword">in</span> 5 seconds.
+&lt;%<span class="keyword">end</span>%&gt;
+
+&lt;%
+<span class="keyword">if</span> <span class="variable-name">@request</span>.queries[<span class="string">'type'</span>] == <span class="string">'internal'</span>
+  <span class="variable-name">@request</span>.internal_redirect(<span class="string">'/redirected.rhtml'</span>)
+<span class="keyword">end</span>
+<span class="string">%&gt;
+
+&lt;pre&gt;</span>
+<span class="type">Click</span> &lt;a href=<span class="string">"redirect.rhtml?type=internal"</span>&gt;here&lt;<span class="string">/a&gt; for internal redirect.
+Click &lt;a href="redirect.rhtml?type=external"&gt;here&lt;/</span>a&gt; <span class="keyword">for</span> external redirect.
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/redirect.rhtml" target="_top">
 http/redirect.rhtml</a>. The internal redirect goes to
@@ -239,7 +343,40 @@ and internal redirect may be better.
 you can’t easily stop the flow of control without adding a bunch of additional
 messy code. Consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+  <span class="keyword">def</span> <span class="function-name">ensureAuthorized</span>()    
+
+    <span class="keyword">return</span> <span class="constant">true</span> <span class="keyword">if</span> <span class="variable-name">@accessToken</span> != <span class="constant">nil</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Else we are not authoized. Redirect to the FB authorization page.
+</span>
+    <span class="comment-delimiter"># </span><span class="comment">This is a redirect hack needed for for iframes
+</span>    <span class="variable-name">@request</span>.puts <span class="string">"&lt;script&gt;top.location.href='</span><span class="variable-name">#{redirect_uri}</span><span class="string">';&lt;/script&gt;"</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Indicates that we are not authorized and we need to stop further
+</span>    <span class="comment-delimiter"># </span><span class="comment">processing of this request.
+</span>    <span class="keyword">return</span> <span class="constant">false</span>
+
+  <span class="keyword">end</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Pull data from Facebook via graph API.
+</span>  <span class="keyword">def</span> <span class="function-name">graph</span>(path)
+
+    <span class="comment-delimiter"># </span><span class="comment">Make sure out FB accessToken is valid
+</span>    <span class="keyword">if</span> ensureAuthorized() == <span class="constant">false</span>
+
+      <span class="comment-delimiter"># </span><span class="comment">Oops. Return false and hope that the caller knows what to do to properly
+</span>      <span class="comment-delimiter"># </span><span class="comment">handle this error case ... and the caller aboe it, and above it ... all
+</span>      <span class="comment-delimiter"># </span><span class="comment">the way up the stack.
+</span>      <span class="keyword">return</span> <span class="constant">false</span>
+    <span class="keyword">end</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Code we would run if ensureAuthorized() succeeds
+</span>      .
+      .
+      .
+  <span class="keyword">end</span>
+</pre><p>
 
 </p><p>Here we have a method that needs to check whether we have the requisite
 access token from Facebook in order to proceed. It calls
@@ -265,7 +402,37 @@ to the ModRuby handler, which then catches it and does nothing but finalize the
 request. Whenever you call it, it just halts the code right there. Using it, we
 can rewrite our previous example as follows:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+  <span class="keyword">def</span> <span class="function-name">ensureAuthorized</span>()    
+
+    <span class="keyword">return</span> <span class="constant">true</span> <span class="keyword">if</span> <span class="variable-name">@accessToken</span> != <span class="constant">nil</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Else we are not authoized. Redirect to the FB authorization page.
+</span>
+    <span class="comment-delimiter"># </span><span class="comment">This is a redirect hack needed for for iframes
+</span>    <span class="variable-name">@request</span>.puts <span class="string">"&lt;script&gt;top.location.href='</span><span class="variable-name">#{redirect_uri}</span><span class="string">';&lt;/script&gt;"</span>
+
+    <span class="comment-delimiter"># </span><span class="comment">Terminate the request. Code stops here -- does not return to graph() --
+</span>    <span class="comment-delimiter"># </span><span class="comment">everything just shuts down right here and the request is sent back to the
+</span>    <span class="comment-delimiter"># </span><span class="comment">client.
+</span>    <span class="variable-name">@request</span>.terminate()
+  <span class="keyword">end</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Pull data from Facebook via graph API.
+</span>  <span class="keyword">def</span> <span class="function-name">graph</span>(path)
+
+    <span class="comment-delimiter"># </span><span class="comment">Make sure out FB accessToken is valid.
+</span>    ensureAuthorized()
+
+    <span class="comment-delimiter"># </span><span class="comment">No longer have to worry about return value. If ensureAuthorized() is
+</span>    <span class="comment-delimiter"># </span><span class="comment">false, request does not get this far ... it just stops.
+</span>
+    <span class="comment-delimiter"># </span><span class="comment">Code we would run if ensureAuthorized() succeeds
+</span>      .
+      .
+      .
+  <span class="keyword">end</span>
+</pre><p>
 
 </p><p>Much simpler. Now our edge case is handled here and nobody else has to
 know about it or code for it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm951"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div><p>Within the context of RHTML and Ruby script pages, the content generated
@@ -290,7 +457,18 @@ encounter and error.
 the output buffer, you just use the <code class="methodname">StringIO::reopen()</code>
 method. Consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="type">Theoretically</span>, this should show up <span class="keyword">in</span> the content.
+&lt;%
+<span class="builtin">puts</span> <span class="string">'This should as well'</span>
+
+<span class="comment-delimiter"># </span><span class="comment">But is won't because of this:
+</span><span class="variable-name">@request</span>.out.reopen(<span class="string">''</span>, <span class="string">'a'</span>)
+<span class="string">%&gt;
+
+Only this should render on a page.
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/clearbuffer.rhtml" target="_top">
 http/clearbuffer.rhtml</a>. Only the content after the call to
@@ -307,7 +485,15 @@ function <code class="function">ap_puts()</code>). You can send binary data usin
 bytes.  When you write with any of these, you completely bypass the output
 buffer and go directly to Apache. Consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="type">Theoretically</span>, this line should come first, but it was buffered.
+
+&lt;%
+<span class="variable-name">@request</span>.puts <span class="string">'This was sent through Apache I/O'</span>
+<span class="variable-name">@request</span>.puts <span class="string">'&lt;hr&gt;'</span>
+<span class="string">%&gt;
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/bypassbuffer.rhtml" target="_top">
 http/bypassbuffer.rhtml</a>. The Apache I/O content comes first, followed by
@@ -337,7 +523,21 @@ called arbitrary many times in a given request, sending the content of multiple
 files out in the order that the method is called. To see this in action,
 consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+&lt;%
+<span class="variable-name">@request</span>.puts <span class="string">"&lt;pre&gt;"</span>
+
+<span class="variable-name">@request</span>.puts <span class="string">"\n/etc/password:\n"</span>
+<span class="variable-name">@request</span>.send_file(<span class="string">'/etc/passwd'</span>)
+
+<span class="variable-name">@request</span>.puts <span class="string">"\n/etc/shadow:\n"</span>
+<span class="variable-name">@request</span>.send_file(<span class="string">'/etc/shadow'</span>)
+
+<span class="variable-name">@request</span>.puts <span class="string">"\n/etc/group:\n"</span>
+<span class="variable-name">@request</span>.send_file(<span class="string">'/etc/group'</span>)
+<span class="string">%&gt;
+</span>
+</pre><p>
 
 </p><p>This example is in <a class="ulink" href="http://modruby.example.org/doc/examples/sendfile.rhtml" target="_top">
 http/sendfile.rhtml</a>. The <code class="filename">/etc/passwd</code> and

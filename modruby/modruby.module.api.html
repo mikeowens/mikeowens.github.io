@@ -45,7 +45,10 @@ key/value pairs. What differentiates <code class="classname">APR::Table</code> f
 normal Hash is how it handles <span class="emphasis"><em>collisions</em></span>. A collision is
 when you add a value for a key that is already present in the Hash. For example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+table[<span class="string">'Set-Cookie'</span>, <span class="string">'Domain=.jujifruit.com'</span>)
+table[<span class="string">'Set-Cookie'</span>, <span class="string">'Path=/'</span>)
+</pre><p>
 
 </p><p>In this example, a normal Hash will only have one key/value pair. The key
 is <code class="literal">Set-Cookie</code>, and the value is <code class="literal">Path=/</code>,
@@ -62,7 +65,25 @@ associated values, then you have to iterate over the table like an array. Are
 you confused yet? Time for an example.</p><p>Let’s look at collision handling, iteration, and hash access all at once
 (assume this is in a file called <code class="filename">test.rhtml</code>):
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+table = <span class="type">APR</span>::<span class="type">Table</span>.new(<span class="type">APR</span>::<span class="type">Pool</span>.new())
+
+<span class="comment-delimiter"># </span><span class="comment">Dumps the contents of a Table
+</span><span class="keyword">def</span> <span class="function-name">dump</span>(t)
+  <span class="builtin">puts</span> <span class="string">'Dumping Table:'</span>
+  t.each <span class="keyword">do</span> |key, value|
+    <span class="builtin">puts</span> <span class="string">"  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">"</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+table.add(<span class="string">'Set-Cookie'</span>, <span class="string">'lp=13ds4; Domain=.jujifruit.com; Path=/'</span>)
+table.add(<span class="string">'Set-Cookie'</span>, <span class="string">'edge=453fd; Domain=.jujifruit.com; Path=/'</span>)
+
+dump(table)
+
+puts
+<span class="builtin">puts</span> <span class="string">"table['Set-Cookie']='</span><span class="variable-name">#{table['Set-Cookie']}</span><span class="string">'"</span>
+</pre><p>
 
 </p><p>We add values with the same key, just like before. When we iterate over
 the table, we get:
@@ -87,7 +108,25 @@ is also the <code class="methodname">merge()</code> method. It handles collision
 keeping the key unique, but <span class="emphasis"><em>appending</em></span> the new data to the
 current value. Consider the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+table = <span class="type">APR</span>::<span class="type">Table</span>.new(<span class="type">APR</span>::<span class="type">Pool</span>.new())
+
+<span class="comment-delimiter"># </span><span class="comment">Dumps the contents of a Table
+</span><span class="keyword">def</span> <span class="function-name">dump</span>(t)
+  <span class="builtin">puts</span> <span class="string">'Dumping Table:'</span>
+  t.each <span class="keyword">do</span> |key, value|
+    <span class="builtin">puts</span> <span class="string">"  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">"</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+table.merge(<span class="string">'Accept-Charset'</span>, <span class="string">'ISO-8859-1'</span>)
+table.merge(<span class="string">'Accept-Charset'</span>, <span class="string">'utf-8'</span>)
+
+dump(table)
+
+puts
+<span class="builtin">puts</span> <span class="string">"table['Accept-Charset']='</span><span class="variable-name">#{table['Accept-Charset']}</span><span class="string">'"</span>
+</pre><p>
 
 </p><p>Here is what we get:
 
@@ -133,7 +172,28 @@ are the three methods again in review:
 So to be absolutely clear how these methods work indepently and together, let’s
 look at one final example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+table = <span class="type">APR</span>::<span class="type">Table</span>.new(<span class="type">APR</span>::<span class="type">Pool</span>.new())
+
+<span class="comment-delimiter"># </span><span class="comment">Dumps the contents of a Table
+</span><span class="keyword">def</span> <span class="function-name">dump</span>(t)
+  <span class="builtin">puts</span> <span class="string">'Dumping Table:'</span>
+  t.each <span class="keyword">do</span> |key, value|
+    <span class="builtin">puts</span> <span class="string">"  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">"</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+table.add(<span class="string">'Set-Cookie'</span>, <span class="string">'lp=13ds4; Domain=.launchpad.net; Path=/'</span>)
+table.add(<span class="string">'Set-Cookie'</span>, <span class="string">'edge=453fd; Domain=.launchpad.net; Path=/'</span>)
+dump(table)
+
+table.merge(<span class="string">'Set-Cookie'</span>, <span class="string">'ISO-8859-1'</span>)
+table.merge(<span class="string">'Set-Cookie'</span>, <span class="string">'utf8'</span>)
+dump(table)
+
+table.set(<span class="string">'Set-Cookie'</span>, <span class="string">'wiped out'</span>)
+dump(table)
+</pre><p>
 
 </p><p>Here is what we get:
 

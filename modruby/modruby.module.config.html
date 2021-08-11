@@ -99,9 +99,30 @@ that ask for files with <code class="filename">.rhtml</code>, <code class="filen
 <code class="varname">RubyDefaultHandlerClass</code>. They specify the Ruby module and the
 class within that module that contains the handlers. ModRuby includes a default
 module that implements both handlers, called
-<code class="filename">modruby/handler</code>.  Its implementation is as follows:
+<code class="filename">modruby/handler</code>. Its implementation is as follows:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="keyword">module</span> <span class="type">ModRuby</span>
+
+<span class="comment-delimiter"># </span><span class="comment">This implements the generic request handlers, specifically the (Ruby) script
+</span><span class="comment-delimiter"># </span><span class="comment">and RHTML handlers.
+</span>
+<span class="keyword">class</span> <span class="type">Handler</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">RHTML script handler
+</span>  <span class="keyword">def</span> <span class="function-name">rhtml</span>(req)
+    <span class="type">Runner</span>.new(req).runRhtml()
+  <span class="keyword">end</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Ruby script handler
+</span>  <span class="keyword">def</span> <span class="function-name">script</span>(req)
+    <span class="type">Runner</span>.new(req).runScript()
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">end</span> <span class="comment-delimiter"># </span><span class="comment">module ModRuby
+</span>
+</pre><p>
 
 </p><p>There is one method for the RHTML handler and one method for the script
 handler. The <code class="classname">Runner</code> class is just a cleanroom environment
@@ -145,7 +166,31 @@ nothing to stop you from delegating the method you don’t want to implement to
 your own <code class="methodname">script()</code> handler, but wanted to use the
 default ModRuby RHTML handler. You could create your module/handler as follows:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="builtin">require</span> <span class="string">'modruby/handler'</span>
+
+<span class="keyword">module</span> <span class="type">MyModule</span>
+
+<span class="keyword">class</span> <span class="type">Handler</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Ruby script handler
+</span>  <span class="keyword">def</span> <span class="function-name">script</span>(req)
+
+    <span class="comment-delimiter"># </span><span class="comment">Your script handler implementation here
+</span>
+  <span class="keyword">end</span>
+
+  <span class="comment-delimiter"># </span><span class="comment">Use the default ModRuby RHTML script handler
+</span>  <span class="keyword">def</span> <span class="function-name">rhtml</span>(req)
+    handler = <span class="type">ModRuby</span>::<span class="type">Handler</span>.new()
+    <span class="keyword">return</span> handler.rhtml(req)
+  <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+<span class="keyword">end</span> <span class="comment-delimiter"># </span><span class="comment">module 
+</span>
+</pre><p>
 
 </p><p>Assuming you place it in a file called <code class="filename">mymodule.rb</code>
 with the Ruby path, you would then update your Apache configuration to point to

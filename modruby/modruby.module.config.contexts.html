@@ -136,7 +136,9 @@ you, giving you the final merged values for everything in the notes
 table.</p><p>So, for example, to get the value for the <code class="varname">GEM_PATH</code> from
 within Ruby, you would just do the following:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+gem_path = <span class="variable-name">@request</span>.notes()[<span class="string">'GEM_PATH'</span>]
+</pre><p>
 
 </p><p>APR tables are given full treatment in <a class="xref" href="modruby.module.api.html" title="Chapter 3. Programming">Chapter 3, <i>Programming</i></a>.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm553"></a>2.3. Environmental Variables</h3></div></div></div><p>The last feature in configuration is setting environmental variables. You
 can do this using the <code class="varname">RubyEnv</code> directory which works

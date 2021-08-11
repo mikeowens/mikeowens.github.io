@@ -659,7 +659,9 @@ The bit vector map, defined in <code class="filename">httpd.h</code>, is as foll
 operations. For example, to check whether the <code class="literal">PUT</code> command is
 allowed, you would do the following:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+req-&gt;allowed &amp; (1 &lt;&lt; <span class="type">M_PUT</span>)
+</pre><p>
 
 </p><p>
 
@@ -670,7 +672,9 @@ the allowed methods.</p><p>For example, to set the allowed options to just <code
 <code class="literal">PUT</code>, <code class="literal">OPTIONS</code> and <code class="literal">TRACE</code>,
 you would do the following:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+req-&gt;allowed = <span class="type">M_GET</span> | <span class="type">M_POST</span> | <span class="type">M_OPTIONS</span> | <span class="type">M_TRACE</span>
+</pre><p>
 
 </p><p>See <a class="xref" href="modruby.apache.req.html#allowed_def" title="allowed()">the section called “allowed()”</a> for more information.</p><h5><a name="args_def"></a>args()</h5><p><code class="function">args()</code> returns the query args extracted from URL. You
 can then parse them with the Ruby <code class="classname">CGI</code> class.
@@ -725,7 +729,15 @@ the entire request body.</p><p>The second is to provide a block with a single ar
 <code class="methodname">content()</code> will then funnel out the request body by
 yielding 1024 bytes chunks to the block, as in the following example:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+f = <span class="builtin">open</span>(<span class="string">'/tmp/file.dat'</span>,<span class="string">'wb'</span>)
+
+<span class="variable-name">@request</span>.content() <span class="keyword">do</span> |chunk|
+  f.write(chunk)
+<span class="keyword">end</span>
+
+f.close()
+</pre><p>
 
 </p><p>This is of course a trivial example. In the case of a file upload you
 would have to parse the multipart MIME format (RFC 2388) in place, locate the
@@ -959,7 +971,14 @@ arguments in the URL as an APR table. This is a convenience function provided in
 order to alleviate the need of using the Ruby CGI class. Additionally, it
 provides the standard interface of a true APR table. It is implemented in C.
 </p><p>
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+<span class="variable-name">@request</span>.puts <span class="string">"Queries: "</span>
+queries = <span class="variable-name">@request</span>.queries()
+
+queries.each <span class="keyword">do</span> |key, value|
+  <span class="variable-name">@request</span>.puts <span class="string">"  </span><span class="variable-name">#{key}</span><span class="string">=</span><span class="variable-name">#{value}</span><span class="string">"</span>
+<span class="keyword">end</span>
+</pre><p>
 </p><h5><a name="range_def"></a>range()</h5><p><code class="function">range()</code> returns the HTTP range header value.</p><h5><a name="rationalize_mtime_def"></a>rationalize_mtime()</h5><p><code class="function">rationalize_mtime()</code> returns the latest rational time
 from a request/mtime pair. <code class="literal">mtime</code> is returned unless it's in
 the future, in which case we return the current time.</p><h6><a name="idm2332"></a>Definition</h6><p>
@@ -977,7 +996,63 @@ requirements for the parser class to operate on the
 <code class="classname">Request</code> object as if it were a file. The following
 example illustrates its use:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting">
+  <span class="keyword">def</span> <span class="function-name">processForm</span>()
+
+    <span class="variable-name">@req</span>.log(<span class="type">APLOG_NOTICE</span>, <span class="string">'file upload'</span>)
+
+    <span class="variable-name">@req</span>.set_content_type(<span class="string">'text/html'</span>)
+
+    <span class="comment-delimiter"># </span><span class="comment">Get the multipart boundary
+</span>    boundary = <span class="variable-name">@req</span>.boundary()
+
+    <span class="comment-delimiter"># </span><span class="comment">Create the parser
+</span>    parser = <span class="type">RSP</span>::<span class="type">Rfc2388</span>::<span class="type">Parser</span>.new()
+
+    <span class="comment-delimiter"># </span><span class="comment">Parse the form. The first argument is a file-like object (supports read()
+</span>    <span class="comment-delimiter"># </span><span class="comment">and readline()). The second argument is the multi-part form boundary that
+</span>    <span class="comment-delimiter"># </span><span class="comment">divides the content parts.
+</span>    parser.parse(<span class="variable-name">@req</span>,  boundary) <span class="keyword">do</span> |part|
+
+      <span class="comment-delimiter"># </span><span class="comment">Look for a file argument. If exists, then we have a file upload.
+</span>      <span class="keyword">if</span> part.fileName != <span class="constant">nil</span>
+        
+        <span class="comment-delimiter"># </span><span class="comment">Open the file
+</span>
+        <span class="comment-delimiter"># </span><span class="comment">Normally, you wouldn't want to save the file using the posted filename
+</span>        <span class="comment-delimiter"># </span><span class="comment">as this can be error prone (with IE and all). Typically we would use
+</span>        <span class="comment-delimiter"># </span><span class="comment">the form name (part.name). But for testing it is okay we control the
+</span>        <span class="comment-delimiter"># </span><span class="comment">file we are parsing.
+</span>
+        upload_file = <span class="builtin">open</span>(<span class="string">"</span><span class="variable-name">#{part.fileName}</span><span class="string">"</span>, <span class="string">'w'</span>)
+        
+        <span class="comment-delimiter"># </span><span class="comment">Read all of the data out of the content part. This ultimately operates
+</span>        <span class="comment-delimiter"># </span><span class="comment">on the underlying file object (@req). By default, the content is read
+</span>        <span class="comment-delimiter"># </span><span class="comment">out in 4k blocks.x
+</span>        bytes = 0
+        part.read() <span class="keyword">do</span> |content|
+          bytes += content.size
+          upload_file.write(content);
+        <span class="keyword">end</span>
+        
+        <span class="comment-delimiter"># </span><span class="comment">Close
+</span>        upload_file.close()
+      <span class="keyword">else</span>
+        
+        <span class="comment-delimiter"># </span><span class="comment">Else this is just simply content part of some kind and we will just
+</span>        <span class="comment-delimiter"># </span><span class="comment">store the data in the part's internal buffer.
+</span>        part.read()
+      <span class="keyword">end</span>
+      
+      <span class="comment-delimiter"># </span><span class="comment">Print what we did
+</span>      <span class="keyword">if</span> part.fileName != <span class="constant">nil</span>
+        <span class="variable-name">@req</span>.puts <span class="string">"file %-20s: %s"</span> % [part.fileName, part.contentType]
+      <span class="keyword">else</span>
+        <span class="variable-name">@req</span>.puts <span class="string">"%-25s: %s"</span> % [part.name, part.data]
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>    
+  <span class="keyword">end</span>
+</pre><p>
 
 </p><p>Note that all calls to <code class="function">read()</code> and
 <code class="function">readline()</code> are abstracted away in the parser class. This is
@@ -1122,7 +1197,7 @@ the Apache <code class="function">ap_rwrite()</code>. This is useful for then yo
 send images or binary files directly from a controller method. Here is an
 example of sending a captcha using RMagic:
 
-</p><pre class="sourcecode"></pre><p>
+</p><pre class="programlisting"></pre><p>
 
 </p><h6><a name="idm2519"></a>Definition</h6><p>
 
