@@ -2,7 +2,7 @@
 frequently in Apache API. Apache represents its headers as APR tables, for
 example. The APR table is somewhat of a unique data structure in that it is
 capable of working as both hashtable and array.
-</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2989"></a>6.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apr.table.html#apr_table_methods" title="Table B.5. APR Table Methods">Table B.5, “APR Table Methods”</a> contains the exhaustive list of
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm2991"></a>6.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apr.table.html#apr_table_methods" title="Table B.5. APR Table Methods">Table B.5, “APR Table Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
   </p><div class="table"><a name="apr_table_methods"></a><p class="title"><b>Table B.5. APR Table Methods</b></p><div class="table-contents"><table class="table" summary="APR Table Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
@@ -99,21 +99,21 @@ methods, in alphabetical order. The documentation of each method follows.
 
 </p><h5><a name="apr_table_get_def"></a>[ ]</h5><p><code class="function">[]</code> is a lookup operator. It returns the value
 associated with a key which is passed in the as the argument. Internally, this
-function calls <code class="function">apr_table_get()</code>.</p><h6><a name="idm3116"></a>Definition</h6><p>
+function calls <code class="function">apr_table_get()</code>.</p><h6><a name="idm3118"></a>Definition</h6><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
 </p><h5><a name="apr_table_set_def"></a>[ ]=</h5><p><code class="function">[]=</code> is an assignment operator. It assigns a value for
 the given key argument. If another value exists for this key, it will be
 overwritten. Internally, this function calls
 <code class="function">apr_table_set()</code>.
-</p><h6><a name="idm3126"></a>Definition</h6><p>
+</p><h6><a name="idm3128"></a>Definition</h6><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value</p></li></ul></div><p>
 </p><h5><a name="add_def"></a>add()</h5><p><code class="function">add()</code> is a non-destructive assigment operator. That
 is, if there is already a value associated with the given key,
 <code class="methodname">add()</code> will keep it in place and add the new value. In
 this case, there are multiple values associated with a single key.
-</p><h6><a name="idm3136"></a>Definition</h6><p>
+</p><h6><a name="idm3138"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def add(key, value)</pre><p>
 
@@ -126,14 +126,14 @@ key/value pair of each element into the block.
 </p><h5><a name="get_def"></a>get()</h5><p><code class="function">get()</code> retrieves the value corresponding to the key
 provided as the argument. It is another form of the <code class="literal">[]</code>
 operator, and is included in order to be consistent with the APR table API.
-</p><h6><a name="idm3158"></a>Definition</h6><p>
+</p><h6><a name="idm3160"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def get(key)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>key</code></em>: the key value.</p></li></ul></div><p>
 </p><h5><a name="has_key?_def"></a>has_key?()</h5><p><code class="function">has_key?()</code> returns <code class="literal">true</code> if the
 table has at least one value associated with the given key.
-</p><h6><a name="idm3169"></a>Definition</h6><p>
+</p><h6><a name="idm3171"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def has_key?(key)</pre><p>
 
@@ -149,14 +149,14 @@ when you do need to create a table, you can use either a new
 associated with the <code class="classname">Request</code>,
 <code class="classname">Connection</code>, or <code class="classname">Server</code> objects.
 
-</p><h6><a name="idm3184"></a>Definition</h6><p>
+</p><h6><a name="idm3186"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def initialize(pool)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>pool</code></em>: APR pool object to associate with
 table.</p></li></ul></div><p>
 </p><h5><a name="join_def"></a>join()</h5><p><code class="function">join()</code> returns a string containing equality pairs for
-each element in the table, delimited by the value provided as the argument.</p><h6><a name="idm3194"></a>Definition</h6><p>
+each element in the table, delimited by the value provided as the argument.</p><h6><a name="idm3196"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def join(sep)</pre><p>
 
@@ -172,7 +172,7 @@ key <code class="literal">"foo"</code>, and you call <code class="literal">merge
 "baz")</code>, then the new value associated with <code class="literal">"foo"</code>
 will be <code class="literal">"bar, baz"</code>.
 
-</p><h6><a name="idm3214"></a>Definition</h6><p>
+</p><h6><a name="idm3216"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def merge(key, value)</pre><p>
 
@@ -186,7 +186,7 @@ overwritten. <code class="methodname">set()</code> is another form of the
 <code class="literal">[]=</code> operator, and is included in order to be consistent with
 the APR table API.
 
-</p><h6><a name="idm3230"></a>Definition</h6><p>
+</p><h6><a name="idm3232"></a>Definition</h6><p>
 </p><div class="itemizedlist"><pre class="synopsis">def set(key, value)</pre><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
   <em class="parameter"><code>key</code></em>: the key value</p></li><li class="listitem"><p>
   <em class="parameter"><code>value</code></em>: the value corresponding to
@@ -194,7 +194,7 @@ the APR table API.
 
 </p><h5><a name="size_def"></a>size()</h5><p><code class="function">size()</code> returns the number of elements in the table.
 </p><h5><a name="unset_def"></a>unset()</h5><p><code class="function">unset()</code> removes all values associated with the given
-key.</p><h6><a name="idm3247"></a>Definition</h6><p>
+key.</p><h6><a name="idm3249"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def unset(key, value)</pre><p>
 
