@@ -9,7 +9,7 @@ by the <code class="classname">apache::Request</code> class
 (<code class="filename">request.cpp</code>). This, in turn, is then encapsulated in Ruby
 by the <code class="classname">Apache::Ruby</code> class, defined in the Ruby extension
 <code class="filename">ruby_request.cpp</code>.
-</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm1289"></a>2.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apache.req.html#apache_req_methods" title="Table B.1. Apache Request Methods">Table B.1, “Apache Request Methods”</a> contains the exhaustive list of
+</p><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm1288"></a>2.1. Method Documentation</h3></div></div></div><p><a class="xref" href="modruby.apache.req.html#apache_req_methods" title="Table B.1. Apache Request Methods">Table B.1, “Apache Request Methods”</a> contains the exhaustive list of
 methods, in alphabetical order. The documentation of each method follows.
 
   </p><div class="table"><a name="apache_req_methods"></a><p class="title"><b>Table B.1. Apache Request Methods</b></p><div class="table-contents"><table class="table" summary="Apache Request Methods" width="100%" border="0"><colgroup><col align="left" class="c1"><col class="c2"><col></colgroup><thead><tr><th align="left" valign="top"><span class="bold"><strong>Type</strong></span></th><th><span class="bold"><strong>Name</strong></span></th><th><span class="bold"><strong>Args</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top">method</td><td>
@@ -813,7 +813,7 @@ MIME headers for the reponse.
 host.
 </p><h5><a name="internal_redirect_def"></a>internal_redirect()</h5><p><code class="function">internal_redirect()</code> initiates an internal redirect to
 another URI in this server
-</p><h6><a name="idm2139"></a>Definition</h6><p>
+</p><h6><a name="idm2138"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def internal_redirect(uri)</pre><p>
 
@@ -822,7 +822,7 @@ to.</p></li></ul></div><p>
 </p><h5><a name="internal_redirect_handler_def"></a>internal_redirect_handler()</h5><p><code class="function">internal_redirect_handler()</code> is designed for things
 like actions or CGI scripts, when using <code class="literal">AddHandler</code> and you
 want to preserve the content type across an internal redirect.
-</p><h6><a name="idm2150"></a>Definition</h6><p>
+</p><h6><a name="idm2149"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def internal_redirect_handler(uri)</pre><p>
 
@@ -830,7 +830,7 @@ want to preserve the content type across an internal redirect.
 request with.  </p></li></ul></div><p>
 </p><h5><a name="is_initial_req_def"></a>is_initial_req()</h5><p><code class="function">is_initial_req()</code> returns 1 is this is the main
 request or 0 if it is a subrequest.
-</p><h5><a name="log_def"></a>log()</h5><p><code class="function">log()</code> logs a message to the Apache logfile.</p><h6><a name="idm2163"></a>Definition</h6><p>
+</p><h5><a name="log_def"></a>log()</h5><p><code class="function">log()</code> logs a message to the Apache logfile.</p><h6><a name="idm2162"></a>Definition</h6><p>
 </p><pre class="synopsis">def log(level, message)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>level</code></em>: the log level, which can be one
@@ -873,7 +873,7 @@ the content-type specified. The following rules are followed:
 resource information. If it's a real file, build in some of the file
 characteristics. For more information on ETags, see the <a class="ulink" href="http://httpd.apache.org/docs/2.2/mod/core.html#fileetag" target="_top">Apache Core
 documentation</a>.
-</p><h6><a name="idm2202"></a>Definition</h6><p>
+</p><h6><a name="idm2201"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def make_etag(force_weak)</pre><p>
 
@@ -913,7 +913,7 @@ pass from one module to another.
 <code class="function">ap_puts()</code>. This is an alias for the
 <code class="methodname">rputs()</code> method.
 
-</p><h6><a name="idm2256"></a>Definition</h6><p>
+</p><h6><a name="idm2255"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def out(text)</pre><p>
 
@@ -944,7 +944,7 @@ an internal redirect.
 </p><h5><a name="print_def"></a>print()</h5><p><code class="function">print()</code> writes a string out via the Apache
 <code class="function">ap_puts()</code>. This is an alias for the
 <code class="methodname">rputs()</code> method.
-</p><h6><a name="idm2290"></a>Definition</h6><p>
+</p><h6><a name="idm2289"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def print(text)</pre><p>
 
@@ -961,7 +961,7 @@ post read request and translate_name. Possible values
 </p><h5><a name="puts_def"></a>puts()</h5><p><code class="function">puts()</code> writes a string out via the Apache
 <code class="function">ap_puts()</code>. This is an alias for the
 <code class="methodname">rputs()</code> method.
-</p><h6><a name="idm2315"></a>Definition</h6><p>
+</p><h6><a name="idm2314"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def puts(text)</pre><p>
 
@@ -981,7 +981,7 @@ queries.each <span class="keyword">do</span> |key, value|
 </pre><p>
 </p><h5><a name="range_def"></a>range()</h5><p><code class="function">range()</code> returns the HTTP range header value.</p><h5><a name="rationalize_mtime_def"></a>rationalize_mtime()</h5><p><code class="function">rationalize_mtime()</code> returns the latest rational time
 from a request/mtime pair. <code class="literal">mtime</code> is returned unless it's in
-the future, in which case we return the current time.</p><h6><a name="idm2334"></a>Definition</h6><p>
+the future, in which case we return the current time.</p><h6><a name="idm2333"></a>Definition</h6><p>
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>mtime</code></em>: The last modified
 time.</p></li></ul></div><p>
 </p><h5><a name="read_def"></a>read()</h5><p><code class="function">read()</code> returns a buffer containing content of the
@@ -1069,7 +1069,7 @@ your code only has to deal with processing the incoming data. The additional
 benefit is that this approach can handle arbitrarily large files without any
 increase in memory requirements, as it does not have to store the entire form in
 memory.
-</p><h6><a name="idm2355"></a>Definition</h6><p>
+</p><h6><a name="idm2354"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def read(bytes)</pre><p>
 
@@ -1091,7 +1091,7 @@ started.
 which flushes all of the data for the current request to the client. Returns the
 number of bytes sent.
 </p><h5><a name="rputs_def"></a>rputs()</h5><p><code class="function">rputs()</code> writes a string out via the Apache
-<code class="function">ap_puts()</code>. </p><h6><a name="idm2390"></a>Definition</h6><p>
+<code class="function">ap_puts()</code>. </p><h6><a name="idm2389"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def rputs(text)</pre><p>
 
@@ -1104,7 +1104,7 @@ example, on Linux and BSD Apache will use the <code class="literal">sendfile (2)
 system call to transfer the file contents, resulting in a "zero-copy" transfer
 — meaning that it has been optimized so that copying of the file data is
 avoided.
-</p><h6><a name="idm2402"></a>Definition</h6><p>
+</p><h6><a name="idm2401"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def sendfile(path)</pre><p>
 
@@ -1116,7 +1116,7 @@ the RHTML and RSP file being processed. Otherwise it is the default working
 directory set by Apache.</p></li></ul></div><p>
 </p><h5><a name="send_error_response_def"></a>send_error_response()</h5><p><code class="function">send_error_response()</code> Sends back an error code back
 to client.
-</p><h6><a name="idm2412"></a>Definition</h6><p>
+</p><h6><a name="idm2411"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def send_error_response(status)</pre><p>
 
@@ -1126,12 +1126,12 @@ this request. For more information, see <a class="xref" href="modruby.apache.ser
 </p><h5><a name="set_content_length_def"></a>set_content_length()</h5><p><code class="function">set_content_length()</code> called
 <code class="function">ap_set_content_length()</code>. This sets the content length for
 the request.
-</p><h6><a name="idm2427"></a>Definition</h6><p>
+</p><h6><a name="idm2426"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def set_content_length(length)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>length</code></em>: number of bytes in content.</p></li></ul></div><p>
-</p><h5><a name="set_content_type_def"></a>set_content_type()</h5><p><code class="function">set_content_type()</code> Sets the content type for this request.</p><h6><a name="idm2437"></a>Definition</h6><p>
+</p><h5><a name="set_content_type_def"></a>set_content_type()</h5><p><code class="function">set_content_type()</code> Sets the content type for this request.</p><h6><a name="idm2436"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def set_content_type(type)</pre><p>
 
@@ -1145,14 +1145,14 @@ data the module will accept from the client in bytes. The default is 20Mb. To
 make this unlimited, set this value to -1. If the POST form data excedes this
 amount, then <code class="methodname">params()</code> will set and error and return
 <code class="literal">nil</code>.
-</p><h6><a name="idm2456"></a>Definition</h6><p>
+</p><h6><a name="idm2455"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def set_max_content_length(byes)</pre><p>
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><em class="parameter"><code>bytes</code></em>: Maximum POST form data in bytes.</p></li></ul></div><p>
 </p><h5><a name="set_status_def"></a>set_status()</h5><p><code class="function">set_status()</code> sets the HTTP status code to return
 (e.g. <code class="literal">200</code>, <code class="literal">302</code>, <code class="literal">404</code>,
-etc.</p><h6><a name="idm2469"></a>Definition</h6><p>
+etc.</p><h6><a name="idm2468"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def set_content_status(status)</pre><p>
 
@@ -1161,7 +1161,7 @@ etc.</p><h6><a name="idm2469"></a>Definition</h6><p>
 Apache to read the request body. This is usually used for processing form data
 in <code class="literal">POST</code>. If this is the case, don't worry about this, use the
 <code class="methodname">params()</code> method, which does all of the work for you.
-</p><h6><a name="idm2481"></a>Definition</h6><p>
+</p><h6><a name="idm2480"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def setup_client_block(read_policy)</pre><p>
 
@@ -1197,7 +1197,7 @@ the Apache <code class="function">ap_rwrite()</code>. This is useful for then yo
 send images or binary files directly from a controller method. Here is an
 example of sending a captcha using RMagic:
 
-</p><h6><a name="idm2520"></a>Definition</h6><p>
+</p><h6><a name="idm2519"></a>Definition</h6><p>
 
 </p><pre class="synopsis">def write(data, size)</pre><p>
 

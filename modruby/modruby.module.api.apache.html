@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. The Apache API</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="prev" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="next" href="modruby.reference.global.index.html" title="Appendix A. Module API Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. The Apache API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Programming</th><td width="20%" align="right"> <a accesskey="n" href="modruby.reference.global.index.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api.apache"></a>2. The Apache API</h2></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm778"></a>2.1. The Request Class</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class is the principal class
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2. The Apache API</title><link rel="stylesheet" type="text/css" href="screen.css"><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"><link rel="home" href="modruby.html" title="ModRuby"><link rel="up" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="prev" href="modruby.module.api.html" title="Chapter 3. Programming"><link rel="next" href="modruby.reference.global.index.html" title="Appendix A. Module API Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header" class="navtable"><tr><th colspan="3" align="center">2. The Apache API</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modruby.module.api.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Programming</th><td width="20%" align="right"> <a accesskey="n" href="modruby.reference.global.index.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="modruby.module.api.apache"></a>2. The Apache API</h2></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm777"></a>2.1. The Request Class</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class is the principal class
 you will use to do most of the low-level work, as it contains the most common
 information (queries, POST parameters, cookies, etc.) which in turn comes
 primarily from the HTTP headers and/or the CGI environment.</p><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="http_headers"></a>2.1.1. HTTP Headers</h4></div></div></div><p>As you now understand how <code class="classname">APR::Table</code>s work, let’s
@@ -170,7 +170,7 @@ Apache/2.2.8 (Ubuntu) Server at www.modruby.org Port 80
 
 There can be more or less variables depending on the OS and the nature of the
 request (whether there are cookies are not, etc.).
-</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm849"></a>2.2. Queries and Parameters</h3></div></div></div><p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
+</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm848"></a>2.2. Queries and Parameters</h3></div></div></div><p>Queries and parameters are stored in <code class="varname">@request.queries</code> and
 <code class="varname">@request.params</code>, both of which are APR tables in the
 <code class="classname">Apache::Request</code> object. Again, you can iterate over APR
 tables just like a Ruby hash:
@@ -230,7 +230,7 @@ there is any such value for a given name in any of the respective sources.
 and other various stuff (all but POST parameters) — is available straight
 from the CGI interface (<code class="varname">@request.cgi</code>). But it can be easier to
 use the high-level <code class="classname">Apache::Request</code> methods to get
-it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm876"></a>2.3. Cookies</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class provides some convenience
+it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm875"></a>2.3. Cookies</h3></div></div></div><p>The <code class="classname">Apache::Request</code> class provides some convenience
 methods for cookie handling via the <code class="methodname">cookie()</code>,
 <code class="methodname">setCookie()</code> and <code class="methodname">clearCookie()</code>
 methods. <code class="methodname">cookie()</code> takes as a single argument the name
@@ -289,7 +289,7 @@ once the headers have been sent to the client,
 the safest thing to do is to always try to set your cookie(s) and headers before
 any content. Apache will buffer content (forestalling sending out headers), but
 the amount of buffering it will do before flushing is not something you can know
-for sure or bank on.</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm920"></a>2.4. Redirection</h3></div></div></div><p>Redirection can be done in two ways: external or internal. An external
+for sure or bank on.</p></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm919"></a>2.4. Redirection</h3></div></div></div><p>Redirection can be done in two ways: external or internal. An external
 redirect is done by sending the client an HTTP 302 response and providing the
 URL through the response headers. For example, if you want to send a redirect to
 Google, you can do this in your view as follows:
@@ -435,7 +435,7 @@ can rewrite our previous example as follows:
 </pre><p>
 
 </p><p>Much simpler. Now our edge case is handled here and nobody else has to
-know about it or code for it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm953"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div><p>Within the context of RHTML and Ruby script pages, the content generated
+know about it or code for it.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm952"></a>2.6. Output: Buffering and Content Generation</h3></div></div></div><p>Within the context of RHTML and Ruby script pages, the content generated
 is collected in an output buffer managed by the handler handling the request. By
 default, anything from <code class="function">puts</code>, <code class="function">print</code> or
 whatever else that prints to standard out in Ruby is collected in that
@@ -552,7 +552,7 @@ you want. Besides this, you can also use the native Apache I/O functions and
 send content directly over the wire. These functions completely bypass the
 request buffer. While they may be buffered to an extent in Apache, you can force
 them out over the network using the the <code class="methodname">@request.flush()</code>
-method.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm1001"></a>2.7. Logging</h3></div></div></div><p>ModRuby provides access to native Apache logging via the
+method.</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm1000"></a>2.7. Logging</h3></div></div></div><p>ModRuby provides access to native Apache logging via the
 <code class="methodname">Apache::Request::log()</code>, which takes two arguments. The
 first is the log level, which can be on of the constants listed in <a class="xref" href="modruby.module.api.apache.html#ap_log_levels" title="Table 3.1. Log Levels">Table 3.1, “Log Levels”</a>. The second is a string containing the message text.
 
