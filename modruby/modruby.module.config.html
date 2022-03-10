@@ -16,8 +16,8 @@ Apache configuration as canonical Apache handlers. When you load the
 <code class="filename">mod_ruby.so</code> module in Apache, these handlers become
 available for you to use.</p><p>To be useful, a module handler must be linked up to a Ruby method of some
 kind. We refer to these Ruby methods as just “Ruby handlers” — they are
-what handles the request. There are three parameters that must specified to link
-a module handler to a Ruby method:
+what handles the request. There are three parameters that must be specified to
+link a module handler to a Ruby method:
 
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">Module</code>: defines the Ruby module specified via the
   Ruby <code class="literal">require</code> directive</p></li><li class="listitem"><p><code class="varname">Class</code>: specifies the class name within the respective
