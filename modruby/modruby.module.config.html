@@ -46,9 +46,9 @@ must address in order to connect a web request to your Ruby handler:
 
 </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>You specify the specific condition(s) in which the module handler is to
   be invoked. This connects the Apache request with a specific ModRuby
-  handler.</p></li><li class="listitem"><p>You associate the respective module handler with a specific Ruby method
-  that is to service the request. This completes the route from Apache request
-  to Ruby code.</p></li></ol></div><p>
+  handler.</p></li><li class="listitem"><p>You associate the ModRuby handler with a specific Ruby method that is to
+  service the request. This completes the route from Apache request to Ruby
+  code.</p></li></ol></div><p>
 
 </p><p>That said, there are two classes of module handlers: <span class="emphasis"><em>script
 handlers</em></span> and <span class="emphasis"><em>framework handlers</em></span>. Script handlers
@@ -99,7 +99,7 @@ that ask for files with <code class="filename">.rhtml</code>, <code class="filen
 <code class="varname">RubyDefaultHandlerClass</code>. They specify the Ruby module and the
 class within that module that contains the handlers. ModRuby includes a default
 module that implements both handlers, called
-<code class="filename">modruby/handler</code>. Its implementation is as follows:
+<code class="filename">modruby/handler</code>.  Its implementation is as follows:
 
 </p><pre class="programlisting">
 <span class="keyword">module</span> <span class="type">ModRuby</span>
@@ -294,7 +294,7 @@ directive. Whereas the method name is fixed in script handlers, it’s
 parameterized in framework handlers.</p><p>Say our fictional sheepdip files use our fictional
 <code class="filename">sheepdip/handler</code> module, which contains our
 <code class="classname">Sheepdip::Handler</code> class which contains a
-<code class="methodname">handler()</code> method. One way to use it would be to set our
+<code class="methodname">handle()</code> method. One way to use it would be to set our
 configuration as follows:
 
 </p><pre class="programlisting">
@@ -336,7 +336,7 @@ and set up your own independent handler with the more general
   given framework handler.</p></li></ul></div><p>
 
 </p><p>These work similarly to the default handler directives, but they take as
-an argument the name of the framework handler to define. They are not defaults,
+an argument the name of the framework handler to define. They are not defaults;
 they are specifics. To use this approach, we would change our configuration to
 something like the following:
 
@@ -360,8 +360,8 @@ RubyHandlerMethod  SHEEPDIP handle
 &lt;/IfModule&gt;
 </pre><p>
 
-In "phase 0", <code class="literal">SHEEPDIP</code> argument is just a unique key used to
-declare and reference a given framework handler. When you declare a framework
+In "Phase 0", the <code class="literal">SHEEPDIP</code> argument is just a unique key used
+to declare and reference a given framework handler. When you declare a framework
 hander, the ModRuby module creates an entry in an internal hash table of
 framework handlers, using the name as the key. Thus you can define as many
 framework handlers as you like, the only constraint being that they must all
